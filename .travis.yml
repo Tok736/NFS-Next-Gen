@@ -1,0 +1,41 @@
+sudo: required
+dist: trusty
+
+language: cpp
+
+os:
+  - linux
+
+compiler:
+  - gcc
+
+addons:
+  apt:
+    packages:
+      - gcc-7
+      - g++-7
+      - cmake
+      - valgrind
+      - lcov
+      - cppcheck
+    sources:
+      - ubuntu-toolchain-r-test
+
+before_install:
+  - sudo apt-get install libboost-all-dev
+  - sudo apt-get -y install valgrind
+  - pip install --user cpp-coveralls
+
+script:
+  - export CXX=/usr/bin/g++-7
+  - export C=/usr/bin/gcc-7
+  - mkdir -p build
+  - cd build
+  - cmake ..
+  - make
+  - ctest --output-on-failure
+  - valgrind --tool=memcheck --leak-check=full --leak-resolution=med ./test/runTest
+  - cppcheck --enable=all --check-config --suppress=missingIncludeSystem -I ../include ../src
+
+after_success:
+  - echo "SUCCESS"
