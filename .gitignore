@@ -53,7 +53,8 @@ dkms.conf
 
 # CMake
 cmake-build-*/
-
+build/
+report/
 
 # File-based project format
 *.iws
