@@ -41,5 +41,5 @@ include_directories(${LIBRARIES_DIR}/googletest/googlemock/include)
 target_link_libraries(${PROJECT_NAME} gmock gmock_main)
 
 # ==== Linking with SFML ==== #
-find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
+find_package(SFML 2.1 COMPONENTS graphics audio REQUIRED)
 target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-audio)
