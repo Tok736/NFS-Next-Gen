@@ -41,5 +41,11 @@ include_directories(${LIBRARIES_DIR}/googletest/googlemock/include)
 target_link_libraries(${PROJECT_NAME} gmock gmock_main)
 
 # ==== Linking with SFML ==== #
-find_package(SFML COMPONENTS graphics audio REQUIRED)
-target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-audio)
+
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+find_package(SFML REQUIRED system window graphics network audio)
+
+if (SFML_FOUND)
+    include_directories(${SFML_INCLUDE_DIR})
+    target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})
+endif()
