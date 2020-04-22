@@ -2,6 +2,7 @@
 #define PHYSICS_SQLITEDATABASE_H
 
 #include "IDataBase.h"
+#include <sqlite3.h>
 
 class SQLiteDataBase{
 public:
