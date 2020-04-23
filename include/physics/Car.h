@@ -8,11 +8,13 @@ using std::pair;
 class Car : public IGameElement{
 public:
 	Car(): id(0), v(0), centerAngle(0){};
+	~Car() override;
 	int getX() override;
 	int getY() override;
 	int getId() override;
-	float getAngle();
+	float getAngle() override;
 	double getV();
+	string getDriver();
 	void setCarId(int _id);
 	void setX(int _x);
 	void setY(int _y);
