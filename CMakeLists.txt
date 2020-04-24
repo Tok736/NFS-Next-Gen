@@ -28,7 +28,6 @@ include_directories(${Boost_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
 
-
 # ==== Linking with SQLite DataBase ==== #
 # Look for the necessary header
 find_path(SQLite3_INCLUDE_DIR NAMES sqlite3.h)
@@ -63,7 +62,7 @@ if(SQLite3_FOUND)
                 INTERFACE_INCLUDE_DIRECTORIES "${SQLite3_INCLUDE_DIR}")
     endif()
 endif()
-find_package (SQLite3)
+
 if (SQLITE3_FOUND)
     include_directories(${SQLite3_INCLUDE_DIRS})
     target_link_libraries (${PROJECT_NAME} ${SQLite3_LIBRARIES})
