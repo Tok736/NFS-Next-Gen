@@ -19,26 +19,6 @@ include_directories(${INCLUDE_DIR})
 file(GLOB_RECURSE SOURCE_CPPS ${SOURCE_DIR}/*/*.cpp)
 add_executable(${PROJECT_NAME} ${SOURCE_CPPS} ${SOURCE_DIR}/main.cpp)
 
-# ==== Linking with cpp math library ==== #
-target_link_libraries(${PROJECT_NAME} m)
-
-# ==== Linking with Boost ==== #
-find_package(Boost REQUIRED COMPONENTS system filesystem date_time thread)
-include_directories(${Boost_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
-
-# ==== Linking with Google test ==== #
-enable_testing()
-
-add_subdirectory(${LIBRARIES_DIR}/googletest)
-add_subdirectory(test)
-
-include_directories(${LIBRARIES_DIR}/googletest/googletest/include)
-target_link_libraries(${PROJECT_NAME} gtest gtest_main)
-
-include_directories(${LIBRARIES_DIR}/googletest/googlemock/include)
-target_link_libraries(${PROJECT_NAME} gmock gmock_main)
-
 # ==== Linking with SQLite3 dataBase ==== #
 
 find_package(SQLite3 REQUIRED)
