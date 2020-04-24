@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.16)
 set(PROJECT_NAME NFS_Next_Gen)
 project(${PROJECT_NAME} CXX)
 
@@ -20,6 +20,10 @@ file(GLOB_RECURSE SOURCE_CPPS ${SOURCE_DIR}/*/*.cpp)
 add_executable(${PROJECT_NAME} ${SOURCE_CPPS} ${SOURCE_DIR}/main.cpp)
 
 # ==== Linking with SQLite3 dataBase ==== #
+
+
+
+
 
 find_package(SQLite3 REQUIRED)
 
