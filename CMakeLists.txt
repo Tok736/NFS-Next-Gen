@@ -38,3 +38,12 @@ target_link_libraries(${PROJECT_NAME} gtest gtest_main)
 
 include_directories(${LIBRARIES_DIR}/googletest/googlemock/include)
 target_link_libraries(${PROJECT_NAME} gmock gmock_main)
+
+# ==== Linking with SQLite DataBase ==== #
+find_package (SQLite3)
+if (SQLITE3_FOUND)
+    include_directories(${SQLite3_INCLUDE_DIRS})
+    target_link_libraries (${PROJECT_NAME} ${SQLite3_LIBRARIES})
+endif (SQLITE3_FOUND)
+
+
