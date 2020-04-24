@@ -30,7 +30,7 @@ target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
 
 # ==== Linking with SQLite DataBase ==== #
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 find_package (SQLite3)
 if (SQLITE3_FOUND)
     include_directories(${SQLite3_INCLUDE_DIRS})
