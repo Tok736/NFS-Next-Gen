@@ -28,6 +28,19 @@ include_directories(${Boost_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
 
+# ==== Linking with Google test ==== #
+enable_testing()
+
+add_subdirectory(${LIBRARIES_DIR}/googletest)
+add_subdirectory(test)
+
+include_directories(${LIBRARIES_DIR}/googletest/googletest/include)
+target_link_libraries(${PROJECT_NAME} gtest gtest_main)
+
+include_directories(${LIBRARIES_DIR}/googletest/googlemock/include)
+target_link_libraries(${PROJECT_NAME} gmock gmock_main)
+
+
 # ==== Linking with SQLite DataBase ==== #
 # Look for the necessary header
 find_path(SQLite3_INCLUDE_DIR NAMES sqlite3.h)
