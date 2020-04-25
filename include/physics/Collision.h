@@ -19,8 +19,9 @@ private:
 	MatrixManager Calculator;
 	void handleAllChunk();
 	int* selectObject();
-	vector<IGameElement> obstructionModels;
-	int action;
+	vector<Car> Cars;
+	vector<shared_ptr<IGameElement>> Chunk;
+	vector<int> Actions;
 };
 
 #endif //PHYSICS_COLLISION_H
