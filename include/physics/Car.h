@@ -4,11 +4,12 @@
 #include "IElements.h"
 
 using std::pair;
+using std::string;
 
 class Car : public IGameElement{
 public:
 	Car(): id(0), v(0), centerAngle(0){};
-	~Car() override;
+	~Car();
 	int getX() override;
 	int getY() override;
 	int getId() override;

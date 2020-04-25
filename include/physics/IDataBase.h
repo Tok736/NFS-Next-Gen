@@ -5,6 +5,7 @@ using std::string;
 
 class AbstractDataBase{
 public:
+	virtual ~AbstractDataBase();
 	virtual int getAutorizeUser(string passwd) = 0;// по паролю возвращается Id, либо ошибка
 	virtual string getGraphicTexture(int textureId) = 0; //возвращает путь из static для картинок
 	virtual int getUserLocalScore(int userId) = 0; //возвращает очки в локальной игре

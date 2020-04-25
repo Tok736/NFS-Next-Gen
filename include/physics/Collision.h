@@ -3,14 +3,20 @@
 
 #include "IElements.h"
 #include "MatrixManager.h"
+#include "Car.h"
 #include <vector>
+
+using std::vector;
+using std::shared_ptr;
 
 class Collision{
 public:
 	Collision();
-	void setAction(std::shared_ptr<IGameElement>> &elements, std::vector<Car> Cars, std::vector<int> actions);
+	void setFreq(int _freq);//часота кадров нужна для определения границ области расчетов
+	void setAction(vector<shared_ptr<IGameElement>> elements, vector<Car> Cars, vector<int> actions);
 private:
-	matrixManager Calculator;
+	int freq;
+	MatrixManager Calculator;
 	void handleAllChunk();
 	int* selectObject();
 	vector<IGameElement> obstructionModels;

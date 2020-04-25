@@ -3,6 +3,7 @@
 
 class IGameElement{
 public:
+	virtual ~IGameElement();
 	virtual int getId() = 0;
 	virtual int getX() = 0;
 	virtual int getY() = 0;

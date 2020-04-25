@@ -8,7 +8,6 @@ class SQLiteDataBase{
 public:
 	SQLiteDataBase();
 	~SQLiteDataBase();
-	
 	int getAutorizeUser(string passwd) override;
 	string getGraphicTexture(int textureId) override;
 	int getUserLocalScore(int userId) override;
