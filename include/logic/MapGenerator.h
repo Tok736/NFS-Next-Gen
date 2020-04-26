@@ -3,6 +3,9 @@
 
 #include "IElement.h"
 
+#include <vector>
+#include <memory>
+
 class MapGenerator {
     short difficulty;
     std::vector<std::shared_ptr<IGameElement>> mapVector;

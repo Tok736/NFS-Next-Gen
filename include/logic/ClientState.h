@@ -7,6 +7,9 @@
 #include "graphic.h"
 #include "IDataBase.h"
 
+#include <vector>
+#include <memory>
+
 class ClientState {
 public:
     std::vector<std::shared_ptr<IGameElement>> actualElements;

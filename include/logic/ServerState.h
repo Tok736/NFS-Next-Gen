@@ -8,6 +8,9 @@
 #include "Host.h"
 #include "graphic.h"
 
+#include <vector>
+#include <memory>
+
 class ClientState {
 public:
     std::vector<std::shared_ptr<IGameElement>> myMap;
