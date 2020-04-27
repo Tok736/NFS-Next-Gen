@@ -24,7 +24,6 @@ public:
     void gamePreparation;
     void serverLoop();
     void exit();
-
 };
 
 #endif //NFS_NEXT_GEN_SERVERSTATE_H

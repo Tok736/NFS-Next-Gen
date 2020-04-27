@@ -19,11 +19,9 @@ public:
     AbstractDataBase myDB;
     Client myClient;
 
-
     ClientState();
     void clientLoop();
     void exit();
-
 };
 
 #endif //NFS_NEXT_GEN_CLIENTSTATE_H
