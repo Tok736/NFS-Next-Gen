@@ -17,7 +17,7 @@ public:
     unsigned int getHeight();
     sf::String getWindowName();
     void setWindow(sf::RenderWindow*);
-    void render(sf::RenderWindow*, elements);
+    void render(sf::RenderWindow*, std::vector<int>);
     void dysplay();
     void close();
 
