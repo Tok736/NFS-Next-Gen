@@ -4,7 +4,8 @@
 
 
 #include "gtest/gtest.h"
-#include "../include/graphics/graphic.h"
+//#include "../include/graphics/graphic.h"
+#include "../include/graphics/testGameElement.h"
 
 TEST(googleTestExample, graphicTest) {
     std::cout << "Graphic test\n";
