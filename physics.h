@@ -2,8 +2,8 @@
 #define TESTALL_PHYSICS_H
 
 // px
-#define screenLength 1920
-#define screenWidth 1080
+#define screenLength 600
+#define screenWidth 500
 
 #define carWidth 150 //размеры текстур должны быть в начале игры закнуты в словарь вида map<id, pair<pathToFile, pair<int width, int length>>
 #define carLength 80
@@ -14,10 +14,11 @@
 // ms
 #define FpsTime 100
 // actions
-#define Left -1
-#define Right 1
-#define Up 2
-#define Down -2
+#define myLeft 4
+#define myRight 6
+#define myUp 8
+#define myDown 2
+#define endOfTheGame 0
 
 
 #include "vector"
@@ -98,6 +99,8 @@ private:
 	void handleAllChunk(){};
 	int* selectObject(){ return nullptr; }
 };
+
+
 
 
 #endif
