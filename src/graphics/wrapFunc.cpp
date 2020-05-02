@@ -41,6 +41,6 @@ Texture::Texture(unsigned int width,unsigned int height) {
 
 /////////////////////                    COLOR             //////////////////////////////////////////
 
-sf::Color Color::getColor() const {
-    return color_;
-}
+//sf::Color Color::getColor() const {
+//    return color_;
+//}

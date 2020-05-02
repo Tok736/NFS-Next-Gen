@@ -17,7 +17,7 @@ set(LIBRARIES_DIR ${PROJECT_SOURCE_DIR}/libs)
 # ==== Need for running main.cpp ==== #
 include_directories(${INCLUDE_DIR})
 file(GLOB_RECURSE SOURCE_CPPS ${SOURCE_DIR}/*/*.cpp)
-add_executable(${PROJECT_NAME} ${SOURCE_CPPS} ${SOURCE_DIR}/main.cpp include/graphics/testGameElement.h)
+add_executable(${PROJECT_NAME} ${SOURCE_CPPS} ${SOURCE_DIR}/main.cpp)
 
 # ==== Linking with cpp math library ==== #
 target_link_libraries(${PROJECT_NAME} m)

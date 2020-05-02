@@ -30,26 +30,37 @@ public:
     Window() = default;
     ~Window() = default;
 
-    static void createRenderWindow(Window *miniEngine, float width, float height, const std::string &title);
-//    sf::RenderWindow *getRenderWindow();
-    float getWidth();
-    float getHeight();
-    void setWidth(float width);
-    void setHeight(float height);
+    static void createRenderWindow(shared_ptr<Window> miniEngine, unsigned int width, unsigned int height, const std::string &title);
+
+    float getWidth() const;
+    float getHeight() const;
+    void setWidth(unsigned int width);
+    void setHeight(unsigned int height);
     bool isOpen();
-//    void setWindow(sf::RenderWindow*);
-    void render(std::vector<Car> cars, std::vector<Obstruction> roadElements);
+//    void render(const std::vector<Car> &cars, const std::vector<Obstruction>& roadAndObstcl, int actions);
+    void render(std::vector<Car> cars, const std::vector<Obstruction> roadAndObstcl, int actions);
     void display();
     void close();
     void handleEvents(std::vector<int> &actions);
+    void clear();
+    void draw(sf::Sprite &toDraw);
+    shared_ptr<sf::RenderWindow> getWindow();
+    bool pollEvent(sf::Event &event);
+
+
+    friend class GameElement;
 
 private:
-    sf::RenderWindow *renderWindow_;
-    float height_;
-    float width_;
+    shared_ptr<sf::RenderWindow> renderWindow_;
+    unsigned int height_;
+    unsigned int width_;
+//    Event event;
 
 };
 
+
+bool isMenu(std::shared_ptr<Window> &window);
+bool displayMenu();
 
 
 #endif //NFS_NEXT_GEN_UTILS_H

@@ -5,7 +5,11 @@
 
 int main()
 {
-    auto *window = new Window;
+
+    if (!displayMenu())
+        return 0;
+
+    shared_ptr<Window> window(new Window);
     Window::createRenderWindow(window, screenLength, screenWidth, "Game");
 
     vector<Obstruction> elements;
@@ -20,29 +24,37 @@ int main()
     cars.push_back(car);
     elements.push_back(Road1);
     elements.push_back(Road2);
-    for(int i = 1; i < 5; ++i) {
-        Obstruction obstr;
-        obstr.setX(i * 40);
-        obstr.setY(i * 40);
-        obstr.setId(i);
-        elements.push_back(obstr);
-    }
+//    for(int i = 1; i < 5; ++i) {
+//        Obstruction obstr;
+//        obstr.setX(i * 40);
+//        obstr.setY(i * 40);
+//        obstr.setId(i);
+//        elements.push_back(obstr);
+//    }
 
     Clock clock;
+    int action;
 
     while (window->isOpen())
     {
         float timeInGame = clock.getClockSec() + 10;
-        cout << timeInGame <<std::endl;
+//        cout << timeInGame <<std::endl;
 
         window->handleEvents(actions);
+
         if (!actions.empty() && actions[0] == endOfTheGame)
             window->close();
-        else
+        else {
+            if (!actions.empty())
+                action = actions[0];
+            else
+                action = -1;
             col.setAction(elements, cars, actions, timeInGame);
-        window->render(cars, elements);
+        }
+        window->render(cars, elements, action);
         window->display();
     }
-    
+
+
     return 0;
 }

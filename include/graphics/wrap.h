@@ -8,45 +8,45 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-class Texture;
-
-class Color{
-public:
-    Color() = default;
-    ~Color() = default;
-    sf::Color getColor() const;
-    void setColor(sf::Color color_);
-
-private:
-    sf::Color color_;
-};
-
-
-class Image{
-public:
-    Image();
-    ~Image();
-    void create(unsigned int, unsigned int, const Color);
-    bool loadFromFile(const std::string);
-    bool saveToFile(const std::string);
-    void setPixel(unsigned int, unsigned int, const Color);
-    Color getPixel(unsigned int, unsigned int);
-    sf::Image getImage();
-
-private:
-    sf::Image image_;
-};
+//class Texture;
+//
+//class Color{
+//public:
+//    Color() = default;
+//    ~Color() = default;
+//    sf::Color getColor() const;
+//    void setColor(sf::Color color_);
+//
+//private:
+//    sf::Color color_;
+//};
 
 
-class Font : public sf::Font{
-public:
-    Font();
-    ~Font();
-    bool loadFromFile(std::string);
+//class Image{
+//public:
+//    Image();
+//    ~Image();
+//    void create(unsigned int x, unsigned int y, const Color &);
+//    bool loadFromFile(const std::string &);
+//    bool saveToFile(const std::string &);
+//    void setPixel(unsigned int x, unsigned int y, const Color &);
+//    Color getPixel(unsigned int x, unsigned int y);
+//    sf::Image getImage();
+//
+//private:
+//    sf::Image image_;
+//};
 
-private:
-    sf::Font font_;
-};
+//
+//class Font : public sf::Font{
+//public:
+//    Font();
+//    ~Font();
+//    bool loadFromFile(std::string);
+//
+//private:
+//    sf::Font font_;
+//};
 
 class Texture{
 public:
@@ -78,6 +78,18 @@ private:
     sf::Sprite sprite_;
 };
 
+
+class Event{
+public:
+    Event();
+    ~Event();
+    sf:: Event getEvent();
+    friend class Window;
+
+    sf::Event::EventType  type;
+private:
+    sf::Event event_;
+};
 
 
 
