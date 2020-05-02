@@ -8,6 +8,8 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
+class Texture;
+
 class Color{
 public:
     Color() = default;
@@ -41,33 +43,42 @@ public:
     Font();
     ~Font();
     bool loadFromFile(std::string);
-};
-
-class Sprite{
-public:
-    Sprite();
-    ~Sprite();
-    void setColor(const Color);
-    sf::Sprite getSprite();
-    void setPosition(float, float);
-    void setRotation(float);
-    void setTextuteRect(const sf::IntRect);
-    void draw();
 
 private:
-    sf::Sprite sprite_;
+    sf::Font font_;
 };
 
 class Texture{
 public:
-    Texture();
-    ~Texture();
-    bool loadFromFile(std::string);
+    Texture() = default;
+    explicit Texture(unsigned int width,unsigned int height);
+    ~Texture() = default;
+    void loadFromFile(const std::string&);
+    sf::Texture getTexture();
     bool create(unsigned int, unsigned int);
 
 private:
     sf::Texture texture_;
 };
+
+
+
+class Sprite{
+public:
+    Sprite() = default;
+    explicit Sprite(const sf::Texture& texture);
+    ~Sprite() = default;
+//    void setColor(const Color);
+    sf::Sprite getSprite();
+    void setPosition(float x, float y);
+    void setRotation(float angle);
+//    void setTextuteRect(const sf::IntRect);
+
+private:
+    sf::Sprite sprite_;
+};
+
+
 
 
 #endif //NFS_NEXT_GEN_WRAP_H

@@ -1,46 +1,48 @@
 //#include <SFML/Graphics.hpp>
 #include "../include/graphics/graphic.h"
-#include "../include/graphics/testGameElement.h"
+
 
 
 int main()
 {
-    Window *window = new Window();
-//    height = window->setHeight(500);
-//    window->setWidth(500);
-    float width = 580;
-    float height = 600;
-    Window::createRenderWindow(window, width, height,"game");
+    auto *window = new Window;
+    Window::createRenderWindow(window, screenLength, screenWidth, "Game");
 
-    GameElement road(0, width, height, 0, 0);
-    GameElement car(1, 200, 100,width/2, height);
+    vector<Obstruction> elements;
+    vector<Car> cars;
+    vector<int> actions;
 
-    std::vector<GameElement> onDisplay;
-    onDisplay.push_back(road);
-    onDisplay.push_back(car);
+    Collision col;
+    Car car(0,0,0,0.5 * screenLength,screenWidth - carWidth); //машинка в центре экрана снизу
+    Obstruction Road1(0,0, 0);
+    Obstruction Road2(0,0, -roadWidth);
 
+    cars.push_back(car);
+    elements.push_back(Road1);
+    elements.push_back(Road2);
+    for(int i = 1; i < 5; ++i) {
+        Obstruction obstr;
+        obstr.setX(i * 40);
+        obstr.setY(i * 40);
+        obstr.setId(i);
+        elements.push_back(obstr);
+    }
+
+    Clock clock;
 
     while (window->isOpen())
     {
+        float timeInGame = clock.getClockSec() + 10;
+        cout << timeInGame <<std::endl;
 
-        std::string action = window->handleEvents();
-        if (action == "close")
+        window->handleEvents(actions);
+        if (!actions.empty() && actions[0] == endOfTheGame)
             window->close();
-        else if(action == "right") {
-            onDisplay[1].setX(5, width);
-        }
-        else if (action == "left")
-            onDisplay[1].setX(-5, width);
-        else if(action == "up") {
-            onDisplay[1].setY(-5, height);
-        }
-        else if (action == "down")
-            onDisplay[1].setY(5, height);
-
-        window->render(onDisplay);
+        else
+            col.setAction(elements, cars, actions, timeInGame);
+        window->render(cars, elements);
         window->display();
-
     }
-
+    
     return 0;
 }
