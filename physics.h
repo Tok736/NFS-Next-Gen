@@ -92,7 +92,7 @@ class Collision{
 public:
 	Collision():freq(0){};
 	void setFreq(int _freq){ freq = _freq; }//часота кадров нужна для определения границ области расчетов
-	void setAction(vector<Obstruction> &elements, vector<Car> &Cars, vector<int> &actions);
+	void setAction(vector<Obstruction> &elements, vector<Car> &Cars, vector<int> &actions, float timeInGame);
 private:
 	int freq;
 	MatrixManager Calculator;

@@ -1,13 +1,14 @@
 #include "physics.h"
 
-void Collision::setAction(vector<Obstruction> &elements, vector<Car> &Cars, vector<int> &actions) {
+void Collision::setAction(vector<Obstruction> &elements, vector<Car> &Cars, vector<int> &actions, float timeInGame) {
 	
-	int speed = Cars[0].getV();
+//	int speed = Cars[0].getV();
 	int x = Cars[0].getX();
+	int speed = (int)timeInGame/10;
 	int y = Cars[0].getY();
 	
 	if (speed <= 0)
-		Cars[0].setV(1);
+		Cars[0].setV(5);
 	else if (!actions.empty()) {
 		int step = speed + 1;
 		if (actions[0] == myUp && y - step > 0.5 * screenWidth && speed < 50) { //  машинка не может подняться выше середины экрана

@@ -29,20 +29,18 @@ int main() {
         elements.push_back(obstr);
     }
 
-    sf::Clock clock;
+    Clock clock;
 
     while (window->isOpen())
     {
-        float time = clock.getElapsedTime().asMicroseconds();
-
-        clock.restart();
-        time = time/800;
+        float timeInGame = clock.getClockSec() + 10;
+        cout << timeInGame <<std::endl;
 
         window->handleEvents(actions);
         if (!actions.empty() && actions[0] == endOfTheGame)
             window->close();
         else
-            col.setAction(elements, cars, actions);
+            col.setAction(elements, cars, actions, timeInGame);
         window->render(cars, elements);
         window->display();
     }
