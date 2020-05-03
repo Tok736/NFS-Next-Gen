@@ -7,19 +7,20 @@
 int main() {
 //	createIGameElements();
     auto *window = new Window;
-    Window::createRenderWindow(window, screenWidth,screenLength, "Game");
+    Window::createRenderWindow(window, screenLength, screenWidth, "Game");
 
     vector<Obstruction> elements;
     vector<Car> cars;
     vector<int> actions;
 
     Collision col;
-    Car car(0,0,0,0.5 * screenLength,screenWidth - 0.5 * carWidth); //машинка в центре экрана снизу
-    Obstruction Road(0,0.5 * screenLength, 0.5 * screenWidth); // центр текстуры "дорога" в центре экрана.
-
+    Car car(0,0,0,0.5 * screenLength,screenWidth - carWidth); //машинка в центре экрана снизу
+    Obstruction Road1(0,0, 0);
+	Obstruction Road2(0,0, -roadWidth);
+	
     cars.push_back(car);
-    elements.push_back(Road);
-
+    elements.push_back(Road1);
+	elements.push_back(Road2);
     for(int i = 1; i < 5; ++i) {
         Obstruction obstr;
         obstr.setX(i * 40);
