@@ -65,7 +65,6 @@ public:
 	AbstractDataBase *dataBase_;
 };
 
-
 void putUsersInDataBase(vector<string> &users, vector<string> &passwd, vector<int> &usersId) {
 	MockDataBase data;
 	
@@ -109,7 +108,6 @@ void checkDeleteUser(vector<int> &usersId) {
 	}
 	// пробуем удалить несуществующего пользователя
 }
-
 
 TEST(googleTestExample, DataBasetest) {
 	vector<string> nickNames; //список игроков  в формате player[0-19]
