@@ -2,26 +2,32 @@
 #ifndef NFS_NEXT_GEN_SERVERSTATE_H
 #define NFS_NEXT_GEN_SERVERSTATE_H
 
-#include "IElement.h"
-#include "Car.h"
-#include "Collision.h"
-#include "Host.h"
-#include "graphic.h"
+#include "physics/IElements.h"
+#include "network/network.h"
+#include "../../test/Network/networkMock.h"
+#include "logic/MapGenerator.h"
+#include "physics/physics.h"
+#include "../../test/Physics/physicsMock.h"
 
 #include <vector>
 #include <memory>
 
-class ClientState {
+class ServerState {
 public:
     std::vector<std::shared_ptr<IGameElement>> myMap;
-    Host myHost;
-    std::vector<Car> players;
-    std::vector<Event> input;
-    Collision myCollision;
+    Host* myHost;
+    std::vector<Car*> players;
+    std::vector<Event*> input;
+    Collision* myCollision;
 
-    ServerState();
+    //ServerState();
+    ServerState(int difficulty = 5);
+    ServerState(Host* hstPtr, int difficulty = 5);
+    ServerState(Collision* clsnPtr, int difficulty = 5);
+    ServerState(Host* hstPtr, Collision* clsnPtr, int difficulty = 5);
+    ~ServerState();
     std::vector<std::shared_ptr<IGameElement>> composeActualElements;
-    void gamePreparation;
+    void gamePreparation();
     void serverLoop();
     void exit();
 };
