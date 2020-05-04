@@ -27,11 +27,10 @@ void checkCalculations() {
 	cars.push_back(car1);
 	obstructions.push_back(roadUp);
 	obstructions.push_back(roadDown);
-	srand(time(nullptr));
+	srand(time(NULL));
 	for (int i = 0; i < ActionsCount; ++i) { // простейшая версия обрабатывает пока только одну команду, работает с одной машинкой и элементом - дорогой.
 		actions.push_back(rand() % 3);// В дальнейшем будет возможность обработки нажатия нескольких клавиш и работа с большим количеством препятствий и машинок
 		col.setAction(obstructions, cars, actions);
-		actions.pop_back();
 	}
 }
 
