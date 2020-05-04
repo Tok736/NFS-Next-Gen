@@ -30,8 +30,8 @@ ServerState::~ServerState() {
 
 void ServerState::gamePreparation() {
 //    myHost->getNames();
-    bool flag = true;
     std::string str;
+    bool flag = true;
     while (flag) {
         str = myHost->getName();  //получаем имена присоединяющихся пользователей
         players.push_back(new MockCar);  //и создаем для каждого Car

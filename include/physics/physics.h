@@ -16,4 +16,11 @@ public:
     virtual void calculate() = 0;
 };
 
+class AbstractDataBase {
+public:
+    virtual int getAutorizeUser(std::string nickname, std::string password) = 0;
+    virtual std::string getUserNickname(int id) = 0;
+    virtual int getExperience() = 0;
+};
+
 #endif //NFS_NEXT_GEN_PHYSICS_H

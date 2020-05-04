@@ -8,6 +8,9 @@
 #include "../../test/Graphics/graphicsMock.h"
 #include "network/network.h"
 #include "../../test/Network/networkMock.h"
+#include "physics/physics.h"
+#include "../../test/Physics/physicsMock.h"
+
 //#include "IDataBase.h"
 
 #include <vector>
@@ -19,16 +22,18 @@ public:
 //    GameData data;
     Window* myWindow;
     Event* myEvent;
-//    AbstractDataBase myDB;
+    AbstractDataBase* myDB;
     Client* myClient;
 
     ClientState();
     ClientState(Window* wndPtr);
     ClientState(Event* evntPtr);
     ClientState(Client* clntPtr);
-    ClientState(Window* wndPtr, Event* evntPtr, Client* clntPtr);
+    ClientState(AbstractDataBase* dbPtr);
+    ClientState(Window* wndPtr, Event* evntPtr, Client* clntPtr, AbstractDataBase* dbPtr);
     ~ClientState();
 //    ClientState(char* hostIp, char* playerName);
+    void clientPreparation();
     void clientLoop();
     void exit();
 };

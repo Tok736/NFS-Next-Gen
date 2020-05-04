@@ -13,7 +13,7 @@
 class MockClient : public Client {
 public:
     MOCK_METHOD0(send, void());
-    MOCK_METHOD0(sendName, void());
+    MOCK_METHOD1(sendName, void(std::string nickname));
     MOCK_METHOD0(get, std::vector<std::shared_ptr<IGameElement>>());
 };
 
