@@ -8,19 +8,18 @@
 #include <vector>
 
 using std::vector;
-using std::shared_ptr;
 
 class Collision{
 public:
-	Collision();
-	void setFreq(int _freq);//часота кадров нужна для определения границ области расчетов
-	void setAction(vector<Obstruction> &RoadElements, vector<Car> &Cars, vector<int> &actions);
+	Collision():freq(0){};
+	void setFreq(int _freq) { freq = _freq; }//часота кадров нужна для определения границ области расчетов
+	void setAction(vector<Obstruction> &elements, vector<Car> &Cars, vector<int> &actions);
 private:
 	int freq;
 	MatrixManager Calculator;
-	void handleAllChunk();
-	void centerMassCalc();
-	int* selectObject();
+	void handleAllChunk(){};
+	void centerMassCalculation(){};
+	int* selectObject(){ return nullptr; }
 };
 
 #endif //PHYSICS_COLLISION_H
