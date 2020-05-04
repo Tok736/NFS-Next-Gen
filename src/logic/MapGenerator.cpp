@@ -1,12 +1,8 @@
 #include "logic/MapGenerator.h"
 
-MapGenerator::MapGenerator(short difficulty) : difficulty(difficulty) {
+MapGenerator::MapGenerator(short difficulty) : difficulty(difficulty) {}
 
-}
-
-MapGenerator::~MapGenerator() {
-
-}
+MapGenerator::~MapGenerator() {}
 
 void MapGenerator::generate() {
     int koef = 1000;

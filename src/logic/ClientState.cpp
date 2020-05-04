@@ -37,9 +37,7 @@ ClientState::ClientState(Window* wndPtr, Event* evntPtr, Client* clntPtr, Abstra
 
 }
 
-ClientState::~ClientState() {
-
-}
+ClientState::~ClientState() {}
 
 //ClientState::ClientState(char* hostIp, char* playerName) {
 //    myClient.run(hostIp, playerName);
