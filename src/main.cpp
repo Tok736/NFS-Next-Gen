@@ -1,4 +1,3 @@
-#include "sum/sum.h"
 #include <iostream>
 
 int main() {
