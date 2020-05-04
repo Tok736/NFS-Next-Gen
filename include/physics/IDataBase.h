@@ -14,8 +14,8 @@ public:
 	virtual int getUserLocalScore(int userId) = 0; //возвращает очки в локальной игре
 	virtual int getUserNetworkScore(int userId) = 0; //воозвращает очки в сетевой игре
 	virtual string *getStandings(int topCount) = 0; // топ игроков в турнирной таблице (для сети)
-	virtual int setUserLocalScore(int userId) = 0; //Очки для SinglePlayer
-	virtual int setUserNetworkScore(int userId) = 0; // Очки для MultiPlayer
+	virtual int setUserLocalScore(int userId, int local) = 0; //Очки для SinglePlayer
+	virtual int setUserNetworkScore(int userId, int global) = 0; // Очки для MultiPlayer
 };
 
 #endif //PHYSICS_IDATABASE_H

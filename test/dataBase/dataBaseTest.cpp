@@ -8,6 +8,8 @@ using std::cout;
 
 #define usersCount 20 //количество потенциальных пользователей в БД
 #define userExist 0
+#define localRating 1
+#define globalRating 2
 
 class MockDataBase : public AbstractDataBase {
 public:
@@ -19,8 +21,8 @@ public:
 	MOCK_METHOD1(getUserNickname, string(int userId));
 	MOCK_METHOD1(deleteUser, int(int userId));
 	MOCK_METHOD2(setUser, int(const string& nickName, const string& passwd));
-	MOCK_METHOD1(setUserLocalScore, int(int userId));
-	MOCK_METHOD1(setUserNetworkScore, int(int userId));
+	MOCK_METHOD2(setUserLocalScore, int(int userId, int local));
+	MOCK_METHOD2(setUserNetworkScore, int(int userId, int global));
 };
 
 string itoa(int nb) {
@@ -51,19 +53,7 @@ void createUsersList(vector<string> &users, vector<string> &passwd) {
 	}
 }
 
-class dataBaseUser {
-public:
-	explicit dataBaseUser(AbstractDataBase* dataBase) : dataBase_(dataBase){};
-	
-	bool Authorize(const string &nickName, const string &passwd) {
-		dataBase_->getAutorizeUser(nickName, passwd);
-		return true;
-	}
-	AbstractDataBase *dataBase_;
-};
-
-void putUsersInDataBase(vector<string> &users, vector<string> &passwd, vector<int> &usersId) {
-	MockDataBase data;
+void putUsersInDataBase(MockDataBase &data, vector<string> &users, vector<string> &passwd, vector<int> &usersId) {
 	
 	EXPECT_CALL(data, setUser).Times(testing::AtLeast(usersCount));
 	for (int i = 0; i < usersCount; ++i) { //записываем новых пользователей в БД, а в вектор результатов записи id пользователя или id ошибки
@@ -71,8 +61,7 @@ void putUsersInDataBase(vector<string> &users, vector<string> &passwd, vector<in
 	}
 }
 
-void checkFindById(vector<string> &users, vector<int> &usersId) { // проверяем выдачу ника по id
-	MockDataBase data;
+void checkFindById(MockDataBase &data, vector<string> &users, vector<int> &usersId) { // проверяем выдачу ника по id
 	
 	EXPECT_CALL(data, getUserNickname).Times(testing::AtLeast(usersCount));
 	for (int i = 0; i < usersCount; ++i)
@@ -80,8 +69,7 @@ void checkFindById(vector<string> &users, vector<int> &usersId) { // прове�
 	// пробуем поиск по несуществующему id
 }
 
-void checkDublicateUser(vector<int> &usersId) {
-	MockDataBase data;
+void checkDublicateUser(MockDataBase &data, vector<int> &usersId) {
 	string currentUser;
 	
 	EXPECT_CALL(data, getUserNickname).Times(testing::AtLeast(usersCount));
@@ -92,8 +80,7 @@ void checkDublicateUser(vector<int> &usersId) {
 	}
 }
 
-void checkAuthorization(vector<string> &users, vector<string> &usersPasswds, vector<int> &usersId){ //проверяем возможность авторизации
-	MockDataBase data;
+void checkAuthorization(MockDataBase &data, vector<string> &users, vector<string> &usersPasswds, vector<int> &usersId){ //проверяем возможность авторизации
 	int currentUserId;
 	
 	EXPECT_CALL(data, getAutorizeUser).Times(testing::AtLeast(usersCount));
@@ -104,8 +91,7 @@ void checkAuthorization(vector<string> &users, vector<string> &usersPasswds, vec
 	// пробуем ввести невыерны данные
 }
 
-void checkDeleteUser(vector<int> &usersId) {
-	MockDataBase data;
+void checkDeleteUser(MockDataBase &data, vector<int> &usersId) {
 	
 	EXPECT_CALL(data, deleteUser).Times(testing::AtLeast(usersCount));
 	for (int i = 0; i < usersCount; ++i) { //удаляем всех пользователей из БД
@@ -114,17 +100,32 @@ void checkDeleteUser(vector<int> &usersId) {
 	// пробуем удалить несуществующего пользователя
 }
 
+void checkUsersUpdate(MockDataBase &data, vector<int> &usersId) {
+	string currentUser;
+	
+	EXPECT_CALL(data, setUserLocalScore).Times(testing::AtLeast(usersCount));
+	EXPECT_CALL(data, setUserNetworkScore).Times(testing::AtLeast(usersCount));
+	EXPECT_CALL(data, getUserLocalScore).Times(testing::AtLeast(usersCount));
+	EXPECT_CALL(data, getUserNetworkScore).Times(testing::AtLeast(usersCount));
+	for (int i = 0; i < usersCount; ++i) { // устанавливаем всем пользователям глобальный(globalRating) и локальный(localRating) рейтинги в виде очков
+		ASSERT_EQ(data.setUserLocalScore(usersId[i], localRating), userExist);
+		ASSERT_EQ(data.setUserNetworkScore(usersId[i], globalRating), userExist);
+		ASSERT_EQ(data.getUserLocalScore(usersId[i]), userExist);
+		ASSERT_EQ(data.getUserNetworkScore(usersId[i]), userExist);
+	}
+}
+
 TEST(googleTestExample, DataBasetest) {
+	MockDataBase data;
 	vector<string> nickNames; //список игроков  в формате player[0-19]
 	vector<string> usersPasswds; // пароли пользователей
 	vector<int> usersId; // список id, соответствующих игрокам, которые возвращает метод БД
-	MockDataBase data;
-	createUsersList(nickNames, usersPasswds);
-	putUsersInDataBase(nickNames, usersPasswds, usersId);
-	
-	checkDublicateUser(usersId);
-	checkAuthorization(nickNames, usersPasswds, usersId);
-	checkFindById(nickNames, usersId);
-	checkDeleteUser(usersId);
-	cout<<"Success";
+	createUsersList(nickNames, usersPasswds); //создаем пользователей для бд
+	putUsersInDataBase(data,nickNames, usersPasswds, usersId);
+	checkDublicateUser(data,usersId);
+	checkAuthorization(data,nickNames, usersPasswds, usersId);
+	checkFindById(data,nickNames, usersId);
+	checkDeleteUser(data,usersId);
+	checkUsersUpdate(data,usersId);
+	cout << "Success\n";
 }
