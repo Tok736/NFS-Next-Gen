@@ -7,7 +7,7 @@ using std::pair;
 
 class Obstruction: public IGameElement {
 public:
-	Obstruction() : id(0), x(0), y(0);
+	Obstruction() : id(0), x(0), y(0){};
 	int getId() override;
 	int getX() override;
 	int getY() override;

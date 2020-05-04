@@ -4,6 +4,7 @@
 #include "IElements.h"
 #include "MatrixManager.h"
 #include "Car.h"
+#include "Obstruction.h"
 #include <vector>
 
 using std::vector;
@@ -13,15 +14,13 @@ class Collision{
 public:
 	Collision();
 	void setFreq(int _freq);//часота кадров нужна для определения границ области расчетов
-	void setAction(vector<shared_ptr<IGameElement>> elements, vector<Car> Cars, vector<int> actions);
+	void setAction(vector<Obstruction> &RoadElements, vector<Car> &Cars, vector<int> &actions);
 private:
 	int freq;
 	MatrixManager Calculator;
 	void handleAllChunk();
+	void centerMassCalc();
 	int* selectObject();
-	vector<Car> Cars;
-	vector<shared_ptr<IGameElement>> Chunk;
-	vector<int> Actions;
 };
 
 #endif //PHYSICS_COLLISION_H
