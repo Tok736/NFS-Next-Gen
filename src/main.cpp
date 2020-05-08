@@ -51,7 +51,7 @@ int main()
                 action = -1;
             col.setAction(elements, cars, actions, timeInGame);
         }
-        window->render(cars, elements, action);
+        window->render(cars, elements, action, timeInGame);
         window->display();
     }
 

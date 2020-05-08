@@ -38,7 +38,7 @@ public:
     void setHeight(unsigned int height);
     bool isOpen();
 //    void render(const std::vector<Car> &cars, const std::vector<Obstruction>& roadAndObstcl, int actions);
-    void render(std::vector<Car> cars, const std::vector<Obstruction> roadAndObstcl, int actions);
+    void render(std::vector<Car> cars, const std::vector<Obstruction> roadAndObstcl, int actions,  float timeInGame);
     void display();
     void close();
     void handleEvents(std::vector<int> &actions);

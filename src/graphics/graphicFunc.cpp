@@ -2,6 +2,7 @@
 // Created by margot on 02.05.2020.
 //
 
+#include <sstream>
 #include "graphics/graphic.h"
 #include "phisics/physics.h"
 
@@ -63,15 +64,23 @@ void Window::handleEvents(std::vector<int> &actions) {
     }
 }
 
+template <typename T>
+std::string toString(T val)
+{
+    std::ostringstream oss;
+    oss<<val;
+    return oss.str();
+}
 
 //void Window::render(const std::vector<Car> &cars, const std::vector<Obstruction> &roadElements, int actions) {
-void Window::render( std::vector<Car> cars,  std::vector<Obstruction> roadElements, int actions) {
+void Window::render( std::vector<Car> cars,  std::vector<Obstruction> roadElements, int actions, float timeInGame) {
     renderWindow_->clear();
     sf::Texture roadTexture1, roadTexture2;
     roadTexture1.loadFromFile("src/textures/littleRoad.png");
     roadTexture2.loadFromFile("src/textures/littleRoad.png");
     sf::Sprite roadSprite1(roadTexture1);
     sf::Sprite roadSprite2(roadTexture2);
+
     if (roadElements.size() >= 2 ) {
         roadSprite1.setPosition((float) roadElements[0].getX(), (float) roadElements[0].getY());
         roadSprite2.setPosition((float) roadElements[1].getX(), (float) roadElements[1].getY());
@@ -97,6 +106,18 @@ void Window::render( std::vector<Car> cars,  std::vector<Obstruction> roadElemen
         carSprite.setPosition((float) car.getX(), (float) car.getY());
         renderWindow_->draw(carSprite);
     }
+
+    sf::RectangleShape scoreShape(sf::Vector2f(screenWidth/3 - 20, screenLength/10));
+    scoreShape.move(2*screenWidth/3 - 5, 10);
+    scoreShape.setFillColor(sf::Color(0,0,0,50));
+    renderWindow_->draw(scoreShape);
+    sf::Font font;
+    font.loadFromFile("src/fonts/fontForScore.ttf");
+    sf::Text score("", font, 20);
+    score.setFillColor(sf::Color(255,255,255));
+    score.setString("Score: " + toString(timeInGame));
+    score.setPosition(2*screenWidth/3, screenLength/20);
+    renderWindow_->draw(score);
 }
 
 void Window::display() {
