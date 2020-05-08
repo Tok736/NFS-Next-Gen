@@ -11,6 +11,9 @@
 #include "physics.h"
 
 
+
+
+
 class Clock{
 
 public:
@@ -30,27 +33,34 @@ public:
     Window() = default;
     ~Window() = default;
 
-    static void createRenderWindow(Window *miniEngine, float width, float height, const std::string &title);
+    static void createRenderWindow(shared_ptr<Window> miniEngine, float width, float height, const std::string &title);
 
     float getWidth();
     float getHeight();
     void setWidth(float width);
     void setHeight(float height);
     bool isOpen();
-    void render(std::vector<Car> cars, std::vector<Obstruction> roadAndObstcl);
+    void render(std::vector<Car> cars, const std::vector<Obstruction> roadAndObstcl, int actions,  float timeInGame);
     void display();
     void close();
     void handleEvents(std::vector<int> &actions);
+    void clear();
+    void draw(sf::Sprite &toDraw);
+    shared_ptr<sf::RenderWindow> getWindow();
+    bool pollEvent(sf::Event &event);
+
 
     friend class GameElement;
 
 private:
-    sf::RenderWindow *renderWindow_;
+    shared_ptr<sf::RenderWindow> renderWindow_;
     float height_;
     float width_;
 //    Event event;
 
 };
 
+bool isMenu(std::shared_ptr<Window> &window);
+bool displayMenu();
 
 #endif //TESTALL_GRAPHIC_H

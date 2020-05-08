@@ -4,10 +4,18 @@
 #include "graphic.h"
 
 
+
+
 int main() {
+
+    if (!displayMenu())
+        return 0;
 //	createIGameElements();
-    auto *window = new Window;
+
+    shared_ptr<Window> window(new Window);
     Window::createRenderWindow(window, screenLength, screenWidth, "Game");
+
+
 
     vector<Obstruction> elements;
     vector<Car> cars;
@@ -30,6 +38,7 @@ int main() {
     }
 
     Clock clock;
+    int action;
 
     while (window->isOpen())
     {
@@ -37,14 +46,19 @@ int main() {
         cout << timeInGame <<std::endl;
 
         window->handleEvents(actions);
+
         if (!actions.empty() && actions[0] == endOfTheGame)
             window->close();
-        else
+        else {
+            if (!actions.empty())
+                action = actions[0];
+            else
+                action = -1;
             col.setAction(elements, cars, actions, timeInGame);
-        window->render(cars, elements);
+        }
+        window->render(cars, elements, action, timeInGame);
         window->display();
     }
-
 
 	
 	return 0;
