@@ -190,9 +190,14 @@ bool isMenu(std::shared_ptr<Window> &window)
             {
                 window->setHeight(static_cast<unsigned int>(event.size.height));
                 window->setWidth(static_cast<unsigned int>(event.size.width));
-//                yProcentUpdate = screenWidth/
+                xProcentUpdate = window->getWidth()/screenWidth;
+                yProcentUpdate = window->getHeight()/screenHeight;
+                if (yProcentUpdate == 0)
+                    yProcentUpdate = 1;
+                if (xProcentUpdate == 0)
+                    xProcentUpdate = 1;
             }
-            else if (sf::IntRect(window->getWidth()/ 2 - 90, window->getHeight()/ 2 - 50, 200*yProcentUpdate, 90*xProcentUpdate).contains(
+            if (sf::IntRect(window->getWidth()/ 2 - 90*xProcentUpdate, window->getHeight()/ 2 - 50*yProcentUpdate, 200*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
                 menu1.setTexture(buttonStartPress);
                 menuNum = 1;
