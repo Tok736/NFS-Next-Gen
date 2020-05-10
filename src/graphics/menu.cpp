@@ -5,9 +5,8 @@
 #include "graphics/graphic.h"
 #include "phisics/physics.h"
 
-bool displayMenu()
+bool displayMenu(std::shared_ptr<Window> &window)
 {
-    shared_ptr<Window> window(new Window);
     Window::createRenderWindow(window, screenLength, screenWidth, "Menu");
     return isMenu(window);
 }
@@ -21,12 +20,13 @@ bool isMenu(std::shared_ptr<Window> &window)
     nameOfGame.loadFromFile("src/textures/nameOfGame.png");
     sf::Sprite menu1(buttonStart), menuBg(menuBackground), gameName(nameOfGame);
     int menuNum = 0;
+    int start = 0;
     menu1.setPosition(screenLength/2-90, screenWidth/2-50);
     menuBg.setPosition(0,0);
     gameName.setPosition(screenLength/4, screenWidth/8);
 
     sf::Event event;
-    while (window->isOpen())
+    while (!start)
     {
         menu1.setTexture(buttonStart);
         menuNum = 0;
@@ -44,8 +44,10 @@ bool isMenu(std::shared_ptr<Window> &window)
             }
 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                if (menuNum == 1)
-                    window->close();
+                if (menuNum == 1) {
+                    start = 1;
+                    window->clear();
+                }
             }
         }
         window->draw(menuBg);

@@ -47,6 +47,7 @@ public:
     shared_ptr<sf::RenderWindow> getWindow();
     bool pollEvent(sf::Event &event);
 
+    shared_ptr<sf::RenderWindow>  getRenderWindow();
 
     friend class GameElement;
 
@@ -60,7 +61,7 @@ private:
 
 
 bool isMenu(std::shared_ptr<Window> &window);
-bool displayMenu();
+bool displayMenu(std::shared_ptr<Window> &window);
 
 
 #endif //NFS_NEXT_GEN_UTILS_H

@@ -5,12 +5,13 @@
 
 int main()
 {
-
-    if (!displayMenu())
-        return 0;
-
     shared_ptr<Window> window(new Window);
-    Window::createRenderWindow(window, screenLength, screenWidth, "Game");
+
+    if (!displayMenu(window))
+        return 0;
+//
+//    Window::createRenderWindow(window, screenLength, screenWidth, "Game");
+//    window->getRenderWindow();
 
     vector<Obstruction> elements;
     vector<Car> cars;

@@ -145,3 +145,7 @@ bool Window::pollEvent(sf::Event& event) {
     return true;
 }
 
+shared_ptr<sf::RenderWindow> Window::getRenderWindow() {
+    return renderWindow_;
+}
+
