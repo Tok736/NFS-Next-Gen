@@ -2,14 +2,14 @@
 #define TESTALL_PHYSICS_H
 
 // px
-#define screenLength 585
-#define screenWidth 600
+#define screenHeight 600
+#define screenWidth 585
 
-#define carWidth 55 //размеры текстур должны быть в начале игры закнуты в словарь вида map<id, pair<pathToFile, pair<int width, int length>>
+#define carHeight 55 //размеры текстур должны быть в начале игры закнуты в словарь вида map<id, pair<pathToFile, pair<int width, int length>>
 #define carLength 30
 #define obstrWidth 60
 #define obstrLength 80
-#define roadWidth 800
+#define roadHeight 800
 #define RoadLength 600
 // ms
 #define FpsTime 100

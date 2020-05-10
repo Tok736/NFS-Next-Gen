@@ -107,8 +107,8 @@ void Window::render( std::vector<Car> cars,  std::vector<Obstruction> roadElemen
         renderWindow_->draw(carSprite);
     }
 
-    sf::RectangleShape scoreShape(sf::Vector2f(screenWidth/3 - 20, screenLength/10));
-    scoreShape.move(2*screenWidth/3 - 5, 10);
+    sf::RectangleShape scoreShape(sf::Vector2f(screenWidth/3 - 20, screenWidth/10));
+    scoreShape.move(2*screenHeight/3 - 5, 10);
     scoreShape.setFillColor(sf::Color(0,0,0,50));
     renderWindow_->draw(scoreShape);
     sf::Font font;
@@ -116,7 +116,7 @@ void Window::render( std::vector<Car> cars,  std::vector<Obstruction> roadElemen
     sf::Text score("", font, 20);
     score.setFillColor(sf::Color(255,255,255));
     score.setString("Score: " + toString(timeInGame));
-    score.setPosition(2*screenWidth/3, screenLength/20);
+    score.setPosition(2*screenWidth/3, screenWidth/20);
     renderWindow_->draw(score);
 }
 
@@ -147,5 +147,13 @@ bool Window::pollEvent(sf::Event& event) {
 
 shared_ptr<sf::RenderWindow> Window::getRenderWindow() {
     return renderWindow_;
+}
+
+unsigned int Window::getWidth() const {
+    return width_;
+}
+
+unsigned int Window::getHeight() const {
+    return height_;
 }
 

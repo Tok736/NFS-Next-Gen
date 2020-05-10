@@ -32,8 +32,8 @@ public:
 
     static void createRenderWindow(shared_ptr<Window> miniEngine, unsigned int width, unsigned int height, const std::string &title);
 
-    float getWidth() const;
-    float getHeight() const;
+    unsigned int getWidth() const;
+    unsigned int getHeight() const;
     void setWidth(unsigned int width);
     void setHeight(unsigned int height);
     bool isOpen();

@@ -18,9 +18,9 @@ int main()
     vector<int> actions;
 
     Collision col;
-    Car car(0,0,0,0.5 * screenLength,screenWidth - carWidth); //машинка в центре экрана снизу
+    Car car(0,0,0,0.5 * screenWidth,screenHeight - carHeight); //машинка в центре экрана снизу
     Obstruction Road1(0,0, 0);
-    Obstruction Road2(0,0, -roadWidth);
+    Obstruction Road2(0,0, -roadHeight);
 
     cars.push_back(car);
     elements.push_back(Road1);

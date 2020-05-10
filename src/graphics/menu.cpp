@@ -7,7 +7,7 @@
 
 bool displayMenu(std::shared_ptr<Window> &window)
 {
-    Window::createRenderWindow(window, screenLength, screenWidth, "Menu");
+    Window::createRenderWindow(window, screenWidth, screenHeight, "Menu");
     return isMenu(window);
 }
 
@@ -21,9 +21,12 @@ bool isMenu(std::shared_ptr<Window> &window)
     sf::Sprite menu1(buttonStart), menuBg(menuBackground), gameName(nameOfGame);
     int menuNum = 0;
     int start = 0;
-    menu1.setPosition(screenLength/2-90, screenWidth/2-50);
+    menu1.setPosition(screenWidth/2-90, screenHeight/2-50);
     menuBg.setPosition(0,0);
-    gameName.setPosition(screenLength/4, screenWidth/8);
+    gameName.setPosition(screenWidth/4, screenHeight/8);
+
+    float xProcentUpdate = 1;
+    float yProcentUpdate = 1;
 
     sf::Event event;
     while (!start)
@@ -37,16 +40,21 @@ bool isMenu(std::shared_ptr<Window> &window)
                 window->close();
                 return false;
             }
-            else if (sf::IntRect(screenLength / 2 - 90, screenWidth / 2 - 50, 200, 90).contains(
+            if (event.type == sf::Event::Resized)
+            {
+                window->setHeight(static_cast<unsigned int>(event.size.height));
+                window->setWidth(static_cast<unsigned int>(event.size.width));
+//                yProcentUpdate = screenWidth/
+            }
+            else if (sf::IntRect(window->getWidth()/ 2 - 90, window->getHeight()/ 2 - 50, 200*yProcentUpdate, 90*xProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
                 menu1.setTexture(buttonStartPress);
                 menuNum = 1;
             }
-
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 if (menuNum == 1) {
-                    start = 1;
                     window->clear();
+                    start = 1;
                 }
             }
         }
