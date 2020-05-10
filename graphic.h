@@ -35,8 +35,8 @@ public:
 
     static void createRenderWindow(shared_ptr<Window> miniEngine, float width, float height, const std::string &title);
 
-    float getWidth();
-    float getHeight();
+    unsigned int getWidth() const;
+    unsigned int getHeight() const;
     void setWidth(float width);
     void setHeight(float height);
     bool isOpen();
@@ -49,18 +49,19 @@ public:
     shared_ptr<sf::RenderWindow> getWindow();
     bool pollEvent(sf::Event &event);
 
+    shared_ptr<sf::RenderWindow>  getRenderWindow();
 
     friend class GameElement;
 
 private:
     shared_ptr<sf::RenderWindow> renderWindow_;
-    float height_;
-    float width_;
+    unsigned int height_;
+    unsigned int width_;
 //    Event event;
 
 };
 
 bool isMenu(std::shared_ptr<Window> &window);
-bool displayMenu();
+bool displayMenu(std::shared_ptr<Window> &window);
 
 #endif //TESTALL_GRAPHIC_H

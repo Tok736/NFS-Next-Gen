@@ -6,36 +6,35 @@
 
 
 
-int main() {
-
-    if (!displayMenu())
-        return 0;
-//	createIGameElements();
-
+int main()
+{
     shared_ptr<Window> window(new Window);
-    Window::createRenderWindow(window, screenLength, screenWidth, "Game");
 
-
+    if (!displayMenu(window))
+        return 0;
+//
+//    Window::createRenderWindow(window, screenLength, screenWidth, "Game");
+//    window->getRenderWindow();
 
     vector<Obstruction> elements;
     vector<Car> cars;
     vector<int> actions;
 
     Collision col;
-    Car car(0,0,0,0.5 * screenLength,screenWidth - carWidth); //машинка в центре экрана снизу
+    Car car(0,0,0,0.5 * screenWidth,screenHeight - carHeight); //машинка в центре экрана снизу
     Obstruction Road1(0,0, 0);
-	Obstruction Road2(0,0, -roadWidth);
-	
+    Obstruction Road2(0,0, -roadHeight);
+
     cars.push_back(car);
     elements.push_back(Road1);
-	elements.push_back(Road2);
-    for(int i = 1; i < 5; ++i) {
-        Obstruction obstr;
-        obstr.setX(i * 40);
-        obstr.setY(i * 40);
-        obstr.setId(i);
-        elements.push_back(obstr);
-    }
+    elements.push_back(Road2);
+//    for(int i = 1; i < 5; ++i) {
+//        Obstruction obstr;
+//        obstr.setX(i * 40);
+//        obstr.setY(i * 40);
+//        obstr.setId(i);
+//        elements.push_back(obstr);
+//    }
 
     Clock clock;
     int action;
@@ -43,7 +42,7 @@ int main() {
     while (window->isOpen())
     {
         float timeInGame = clock.getClockSec() + 10;
-        cout << timeInGame <<std::endl;
+//        cout << timeInGame <<std::endl;
 
         window->handleEvents(actions);
 
@@ -60,7 +59,7 @@ int main() {
         window->display();
     }
 
-	
-	return 0;
+
+    return 0;
 }
 

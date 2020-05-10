@@ -100,7 +100,7 @@ void Window::render( std::vector<Car> cars,  std::vector<Obstruction> roadElemen
         renderWindow_->draw(carSprite);
     }
 
-    sf::RectangleShape scoreShape(sf::Vector2f(screenWidth / 3 - 20, screenLength / 10));
+    sf::RectangleShape scoreShape(sf::Vector2f(screenWidth/3 - 20, screenWidth/10));
     scoreShape.move(2 * screenWidth / 3 - 5, 10);
     scoreShape.setFillColor(sf::Color(0, 0, 0, 50));
     renderWindow_->draw(scoreShape);
@@ -109,7 +109,7 @@ void Window::render( std::vector<Car> cars,  std::vector<Obstruction> roadElemen
     sf::Text score("", font, 20);
     score.setFillColor(sf::Color(255, 255, 255));
     score.setString("Score: " + toString(timeInGame));
-    score.setPosition(2 * screenWidth / 3, screenLength / 20);
+    score.setPosition(2*screenWidth/3, screenWidth/20);
     renderWindow_->draw(score);
 }
 
@@ -138,11 +138,22 @@ bool Window::pollEvent(sf::Event& event) {
     return true;
 }
 
+shared_ptr<sf::RenderWindow> Window::getRenderWindow() {
+    return renderWindow_;
+}
 
-bool displayMenu()
+unsigned int Window::getWidth() const {
+    return width_;
+}
+
+unsigned int Window::getHeight() const {
+    return height_;
+}
+
+
+bool displayMenu(std::shared_ptr<Window> &window)
 {
-    shared_ptr<Window> window(new Window);
-    Window::createRenderWindow(window, screenLength, screenWidth, "Menu");
+    Window::createRenderWindow(window, screenWidth, screenHeight, "Menu");
     return isMenu(window);
 }
 
@@ -154,14 +165,17 @@ bool isMenu(std::shared_ptr<Window> &window)
     menuBackground.loadFromFile("/home/margot/testGame/testAll/textures/menu.png");
     nameOfGame.loadFromFile("/home/margot/testGame/testAll/textures/nameOfGame.png");
     sf::Sprite menu1(buttonStart), menuBg(menuBackground), gameName(nameOfGame);
-    bool isMenu = true;
     int menuNum = 0;
-    menu1.setPosition(screenLength/2-90, screenWidth/2-50);
+    int start = 0;
+    menu1.setPosition(screenWidth/2-90, screenHeight/2-50);
     menuBg.setPosition(0,0);
-    gameName.setPosition(screenLength/4, screenWidth/8);
+    gameName.setPosition(screenWidth/4, screenHeight/8);
+
+    float xProcentUpdate = 1;
+    float yProcentUpdate = 1;
 
     sf::Event event;
-    while (window->isOpen())
+    while (!start)
     {
         menu1.setTexture(buttonStart);
         menuNum = 0;
@@ -172,15 +186,22 @@ bool isMenu(std::shared_ptr<Window> &window)
                 window->close();
                 return false;
             }
-            else if (sf::IntRect(screenLength / 2 - 90, screenWidth / 2 - 50, 200, 90).contains(
+            if (event.type == sf::Event::Resized)
+            {
+                window->setHeight(static_cast<unsigned int>(event.size.height));
+                window->setWidth(static_cast<unsigned int>(event.size.width));
+//                yProcentUpdate = screenWidth/
+            }
+            else if (sf::IntRect(window->getWidth()/ 2 - 90, window->getHeight()/ 2 - 50, 200*yProcentUpdate, 90*xProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
                 menu1.setTexture(buttonStartPress);
                 menuNum = 1;
             }
-
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                if (menuNum == 1)
-                    window->close();
+                if (menuNum == 1) {
+                    window->clear();
+                    start = 1;
+                }
             }
         }
         window->draw(menuBg);
@@ -191,4 +212,3 @@ bool isMenu(std::shared_ptr<Window> &window)
     }
     return true;
 };
-
