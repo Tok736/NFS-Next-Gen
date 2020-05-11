@@ -72,20 +72,24 @@ std::string toString(T val)
     return oss.str();
 }
 
-//void Window::render(const std::vector<Car> &cars, const std::vector<Obstruction> &roadElements, int actions) {
-void Window::render( std::vector<Car> cars,  std::vector<Obstruction> roadElements, int actions, float timeInGame) {
+
+void Window::render(std::vector<Car> &cars,  std::vector<Obstruction> &roadElements, int &actions, int &timeInGame) {
     renderWindow_->clear();
-    sf::Texture roadTexture1, roadTexture2;
-    roadTexture1.loadFromFile("src/textures/littleRoad.png");
-    roadTexture2.loadFromFile("src/textures/littleRoad.png");
+    sf::Texture roadTexture1, roadTexture2, obstruct;
+    roadTexture1.loadFromFile("src/textures/littleroad.jpg");
+    roadTexture2.loadFromFile("src/textures/littleroad.jpg");
+    obstruct.loadFromFile("src/textures/rock2-min.png");
     sf::Sprite roadSprite1(roadTexture1);
     sf::Sprite roadSprite2(roadTexture2);
+    sf::Sprite roadObstract(obstruct);
 
     if (roadElements.size() >= 2 ) {
-        roadSprite1.setPosition((float) roadElements[0].getX(), (float) roadElements[0].getY());
-        roadSprite2.setPosition((float) roadElements[1].getX(), (float) roadElements[1].getY());
+        roadObstract.setPosition((float) roadElements[2].getX(), (float) roadElements[2].getY());
+        roadSprite1.setPosition(0, (float) roadElements[0].getY());
+        roadSprite2.setPosition(0, (float) roadElements[1].getY());
         renderWindow_->draw(roadSprite1);
         renderWindow_->draw(roadSprite2);
+        renderWindow_->draw(roadObstract);
     }
     for (auto &car : cars) {
         sf::Texture carTexture;
@@ -107,8 +111,8 @@ void Window::render( std::vector<Car> cars,  std::vector<Obstruction> roadElemen
         renderWindow_->draw(carSprite);
     }
 
-    sf::RectangleShape scoreShape(sf::Vector2f(screenWidth/3 - 20, screenWidth/10));
-    scoreShape.move(2*screenHeight/3 - 5, 10);
+    sf::RectangleShape scoreShape(sf::Vector2f(screenWidth/3 - 20, screenHeight/10));
+    scoreShape.move(2*screenWidth/3+5, 10);
     scoreShape.setFillColor(sf::Color(0,0,0,50));
     renderWindow_->draw(scoreShape);
     sf::Font font;
@@ -116,7 +120,7 @@ void Window::render( std::vector<Car> cars,  std::vector<Obstruction> roadElemen
     sf::Text score("", font, 20);
     score.setFillColor(sf::Color(255,255,255));
     score.setString("Score: " + toString(timeInGame));
-    score.setPosition(2*screenWidth/3, screenWidth/20);
+    score.setPosition(2*screenWidth/3+5, screenHeight/20);
     renderWindow_->draw(score);
 }
 
@@ -155,5 +159,9 @@ unsigned int Window::getWidth() const {
 
 unsigned int Window::getHeight() const {
     return height_;
+}
+
+void Window::draw(sf::Text &toDraw) {
+    renderWindow_->draw(toDraw);
 }
 

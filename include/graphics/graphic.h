@@ -38,12 +38,13 @@ public:
     void setHeight(unsigned int height);
     bool isOpen();
 //    void render(const std::vector<Car> &cars, const std::vector<Obstruction>& roadAndObstcl, int actions);
-    void render(std::vector<Car> cars, const std::vector<Obstruction> roadAndObstcl, int actions,  float timeInGame);
+    void render(std::vector<Car> &cars, std::vector<Obstruction> &roadAndObstcl, int &actions,  int &timeInGame);
     void display();
     void close();
     void handleEvents(std::vector<int> &actions);
     void clear();
     void draw(sf::Sprite &toDraw);
+    void draw(sf::Text &toDraw);
     shared_ptr<sf::RenderWindow> getWindow();
     bool pollEvent(sf::Event &event);
 
@@ -60,8 +61,8 @@ private:
 };
 
 
-bool isMenu(std::shared_ptr<Window> &window);
-bool displayMenu(std::shared_ptr<Window> &window);
+short int isMenu(std::shared_ptr<Window> &window);
+short int displayMenu(std::shared_ptr<Window> &window);
 
 
 #endif //NFS_NEXT_GEN_UTILS_H
