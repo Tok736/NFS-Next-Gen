@@ -48,7 +48,7 @@ public:
     void draw(sf::Sprite &toDraw);
     shared_ptr<sf::RenderWindow> getWindow();
     bool pollEvent(sf::Event &event);
-
+    void draw(sf::Text &toDraw);
     shared_ptr<sf::RenderWindow>  getRenderWindow();
 
     friend class GameElement;
@@ -61,7 +61,7 @@ private:
 
 };
 
-bool isMenu(std::shared_ptr<Window> &window);
-bool displayMenu(std::shared_ptr<Window> &window);
+short int isMenu(std::shared_ptr<Window> &window);
+short int displayMenu(std::shared_ptr<Window> &window);
 
 #endif //TESTALL_GRAPHIC_H
