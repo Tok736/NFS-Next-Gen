@@ -39,7 +39,7 @@ public:
     void setWidth(unsigned int width);
     void setHeight(unsigned int height);
     bool isOpen();
-    void render(std::vector<Car> &cars, std::vector<Obstruction> &roadAndObstcl, int &actions,  int &timeInGame);
+    void render(std::vector<shared_ptr<IGameElement>> &roadAndObstcl, int &actions,  int &timeInGame);
     void display();
     void close();
     void handleEvents(std::vector<int> &actions);
@@ -49,11 +49,10 @@ public:
     shared_ptr<sf::RenderWindow> getWindow();
     bool pollEvent(sf::Event &event);
 
-    void createTextures(std::vector<Car> &cars,std::vector<Obstruction> &roadAndObstcl);
+    void createTextures(std::vector<shared_ptr<IGameElement>> &roadAndObstcl);
 
     shared_ptr<sf::RenderWindow>  getRenderWindow();
 
-    friend class GameElement;
 
 private:
     shared_ptr<sf::RenderWindow> renderWindow_;
@@ -69,6 +68,7 @@ short int displayMenu(std::shared_ptr<Window> &window);
 short int pauseWindow(std::shared_ptr<Window> &window,const int &timeInGame);
 short int isPause(std::shared_ptr<Window> &window,const int &timeInGame);
 
+bool countDown(std::shared_ptr<Window> &window);
 
 template <typename T>
 std::string toString(T val)

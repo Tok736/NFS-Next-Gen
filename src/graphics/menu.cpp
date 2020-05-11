@@ -103,6 +103,8 @@ short int isMenu(std::shared_ptr<Window> &window)
                     window->display();
                     usleep(100000);
                     window->clear();
+                    if (!countDown(window))
+                        return(0);
                     return 1; //single
                 }
                 if (menuNum == 3)
@@ -140,3 +142,20 @@ short int isMenu(std::shared_ptr<Window> &window)
     }
     return 0;
 };
+
+
+bool countDown(std::shared_ptr<Window> &window)
+{
+    window->clear();
+    sf::Texture countDownBackground;
+    countDownBackground.loadFromFile("src/textures/littleRoad.png");
+    sf::Sprite countDownBg(countDownBackground);
+    int menuNum = 0;
+    int start = 0;
+    countDownBg.setPosition(0,0);
+    
+    window->draw(countDownBg);
+    window->display();
+    sleep (3);
+    return true;
+}
