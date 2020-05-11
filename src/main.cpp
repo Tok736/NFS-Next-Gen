@@ -1,9 +1,8 @@
-#include "sum/sum.h"
 #include <iostream>
+#include "logic/Game.h"
 
 int main() {
-    std::cout << "Hello!" << std::endl;
-    std::cout << "5 + 7 = " << sum(5, 7) << std::endl;
-
+    Game myGame;
+    myGame.playGame();
     return 0;
 }

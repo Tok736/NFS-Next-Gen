@@ -5,9 +5,8 @@ project(${PROJECT_NAME} CXX)
 # ==== Standard and flags ==== #
 set(GCC_COVERAGE_COMPILE_FLAGS "-lboost_system -lboost_thread")
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS  "-lm -Wno-unknown-pragmas -Wall -Wextra -Werror -fprofile-arcs -ftest-coverage -lgcov")
+set(CMAKE_CXX_FLAGS  "-lm -Wno-unknown-pragmas -Wall -Wextra -fprofile-arcs -ftest-coverage -lgcov")
 set(CMAKE_EXE_LINKER_FLAGS "-lgcov --coverage")
-
 # ==== Main directories ==== #
 set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 set(SOURCE_DIR ${PROJECT_SOURCE_DIR}/src)
@@ -17,7 +16,7 @@ set(LIBRARIES_DIR ${PROJECT_SOURCE_DIR}/libs)
 # ==== Need for running main.cpp ==== #
 include_directories(${INCLUDE_DIR})
 file(GLOB_RECURSE SOURCE_CPPS ${SOURCE_DIR}/*/*.cpp)
-add_executable(${PROJECT_NAME} ${SOURCE_CPPS} ${SOURCE_DIR}/main.cpp)
+add_executable(${PROJECT_NAME} ${SOURCE_CPPS} ${SOURCE_DIR}/main.cpp src/logic/ClientState.cpp src/logic/MapGenerator.cpp src/physics/Obstruction.cpp src/logic/ServerState.cpp src/logic/Game.cpp)
 
 # ==== Linking with cpp math library ==== #
 target_link_libraries(${PROJECT_NAME} m)
