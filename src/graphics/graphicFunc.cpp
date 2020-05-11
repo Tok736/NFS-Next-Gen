@@ -151,7 +151,7 @@ void Window::render(std::vector<Car> &cars,  std::vector<Obstruction> &roadEleme
     }
 
     sf::RectangleShape scoreShape(sf::Vector2f(screenWidth/3 - 20, screenHeight/10));
-    scoreShape.move(2*screenWidth/3+5, 10);
+    scoreShape.move(35*screenWidth/48, 10);
     scoreShape.setFillColor(sf::Color(0,0,0,50));
     renderWindow_->draw(scoreShape);
     sf::Font font;
@@ -159,7 +159,7 @@ void Window::render(std::vector<Car> &cars,  std::vector<Obstruction> &roadEleme
     sf::Text score("", font, 20);
     score.setFillColor(sf::Color(255,255,255));
     score.setString("Score: " + toString<int>(timeInGame));
-    score.setPosition(2*screenWidth/3+5, screenHeight/20);
+    score.setPosition(35*screenWidth/48, screenHeight/20);
     renderWindow_->draw(score);
 }
 
