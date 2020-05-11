@@ -66,10 +66,8 @@ void Window::handleEvents(std::vector<int> &actions) {
                 actions.push_back(myUp);
             if (event.key.code == sf::Keyboard::Down)
                 actions.push_back(myDown);
-        }
-        else if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-        {
-
+            if (event.key.code == sf::Keyboard::Escape)
+                actions.push_back(pauseOfTheGame);
         }
         else break;
     }

@@ -66,7 +66,7 @@ int main()
             window->close();
         else if (!actions.empty() && actions[0] == pauseOfTheGame)
         {
-
+            actions.pop_back();
             if (!pauseWindow(window, freq))
                 return 0;
         }
