@@ -66,8 +66,8 @@ private:
 
 short int isMenu(std::shared_ptr<Window> &window);
 short int displayMenu(std::shared_ptr<Window> &window);
-bool pauseWindow(std::shared_ptr<Window> &window,const int &timeInGame);
-bool isPause(std::shared_ptr<Window> &window,const int &timeInGame);
+short int pauseWindow(std::shared_ptr<Window> &window,const int &timeInGame);
+short int isPause(std::shared_ptr<Window> &window,const int &timeInGame);
 
 
 template <typename T>
