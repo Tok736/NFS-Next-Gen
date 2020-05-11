@@ -33,6 +33,7 @@
 #define myUp		 3
 #define myRightUp	 4
 
+#define pauseOfTheGame 100
 #define endOfTheGame 0
 
 using std::vector;

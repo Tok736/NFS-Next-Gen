@@ -1,6 +1,7 @@
 
 #include "../include/physics/physics.h"
-#include "../include/graphics//graphic.h"
+#include "../include/graphics/graphic.h"
+
 
 
 //road id [0,1]
@@ -63,10 +64,12 @@ int main()
 
         if (!actions.empty() && actions[0] == endOfTheGame)
             window->close();
-//        else if (!actions.empty() && actions[0] == pauseOfTheGame)
-//        {
-//            pauseWindow();
-//        }
+        else if (!actions.empty() && actions[0] == pauseOfTheGame)
+        {
+
+            if (!pauseWindow(window, freq))
+                return 0;
+        }
         else {
             if (!actions.empty())
                 action = actions[0];

@@ -6,6 +6,11 @@
 #include "graphics/graphic.h"
 #include "physics/physics.h"
 
+#define obstractX 56
+#define obstractY 56
+#define carX carHeight/2
+#define carY carLength/2
+
 /////////////////////                    CLOCK            //////////////////////////////////////////
 
 void Clock::restart() {
@@ -30,6 +35,7 @@ void Window::createRenderWindow(shared_ptr<Window> miniEngine, unsigned int widt
     miniEngine->renderWindow_= newWindow;
     miniEngine->setHeight(height);
     miniEngine->setWidth(width);
+
 }
 
 void Window::setWidth(unsigned int width) {
@@ -51,7 +57,7 @@ void Window::handleEvents(std::vector<int> &actions) {
             actions.push_back(endOfTheGame);
             return;
         }
-        if (event.type == sf::Event::KeyPressed) {
+        else if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::Right)
                 actions.push_back(myRight);
             if (event.key.code == sf::Keyboard::Left)
@@ -60,6 +66,10 @@ void Window::handleEvents(std::vector<int> &actions) {
                 actions.push_back(myUp);
             if (event.key.code == sf::Keyboard::Down)
                 actions.push_back(myDown);
+        }
+        else if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+
         }
         else break;
     }
@@ -117,7 +127,7 @@ void Window::render(std::vector<Car> &cars,  std::vector<Obstruction> &roadEleme
     for (; iterRoad!=roadElements.end(); iterRoad++)
     {
         sf::Sprite roadObstract(mapOfRextures.find((*iterRoad).getId())->second[0]);
-        roadObstract.setPosition((float) (*iterRoad).getX(), (float) (*iterRoad).getY());
+        roadObstract.setPosition((float) (*iterRoad).getX() - obstractX, (float) (*iterRoad).getY() - obstractY);
         renderWindow_->draw(roadObstract);
     }
 
@@ -138,7 +148,7 @@ void Window::render(std::vector<Car> &cars,  std::vector<Obstruction> &roadEleme
         else
             carSprite.setTexture(mapOfRextures.find(car.getId())->second[0]);
 
-        carSprite.setPosition((float) car.getX(), (float) car.getY());
+        carSprite.setPosition((float) car.getX() - carX, (float) car.getY() + carY);
         renderWindow_->draw(carSprite);
     }
 

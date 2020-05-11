@@ -8,7 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "wrap.h"
-#include "../include/physics/physics.h"
+#include "../physics/physics.h"
 #include <sstream>
 #include <unistd.h>
 
@@ -39,7 +39,6 @@ public:
     void setWidth(unsigned int width);
     void setHeight(unsigned int height);
     bool isOpen();
-//    void render(const std::vector<Car> &cars, const std::vector<Obstruction>& roadAndObstcl, int actions);
     void render(std::vector<Car> &cars, std::vector<Obstruction> &roadAndObstcl, int &actions,  int &timeInGame);
     void display();
     void close();
@@ -67,6 +66,9 @@ private:
 
 short int isMenu(std::shared_ptr<Window> &window);
 short int displayMenu(std::shared_ptr<Window> &window);
+bool pauseWindow(std::shared_ptr<Window> &window,const int &timeInGame);
+bool isPause(std::shared_ptr<Window> &window,const int &timeInGame);
+
 
 template <typename T>
 std::string toString(T val)

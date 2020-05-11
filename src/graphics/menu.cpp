@@ -140,4 +140,3 @@ short int isMenu(std::shared_ptr<Window> &window)
     }
     return 0;
 };
-
