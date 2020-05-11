@@ -2,7 +2,7 @@
 // Created by margot on 02.05.2020.
 //
 
-#include <sstream>
+
 #include "graphics/graphic.h"
 #include "physics/physics.h"
 
@@ -46,7 +46,7 @@ bool Window::isOpen() {
 
 void Window::handleEvents(std::vector<int> &actions) {
     sf::Event event{};
-    if (renderWindow_->pollEvent(event)) {
+    while (renderWindow_->pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             actions.push_back(endOfTheGame);
             return;
@@ -61,52 +61,83 @@ void Window::handleEvents(std::vector<int> &actions) {
             if (event.key.code == sf::Keyboard::Down)
                 actions.push_back(myDown);
         }
+        else break;
     }
 }
 
-template <typename T>
-std::string toString(T val)
-{
-    std::ostringstream oss;
-    oss<<val;
-    return oss.str();
-}
 
+void Window::createTextures(std::vector<Car> &cars, std::vector<Obstruction> &roadAndObstcl) {
+
+    for (auto & car : cars)
+    {
+        sf::Texture tempTextureCar;
+        std::vector<sf::Texture> tempVectorOfTextures;
+        for (int i=0; i<4; i++)
+        {
+            tempTextureCar.loadFromFile("src/textures/CarAction_"+toString(i)+".png");
+            tempVectorOfTextures.push_back(tempTextureCar);
+        }
+        mapOfRextures.insert(std::pair<int, std::vector<sf::Texture>>(car.getId(), tempVectorOfTextures));
+    }
+
+    for (auto & roadElem : roadAndObstcl)
+    {
+        sf::Texture tempTexture;
+        std::vector<sf::Texture> tempVectorOfTextures;
+        if (roadElem.getId()== 0 || roadElem.getId() == 1)
+        {
+            tempTexture.loadFromFile("src/textures/littleRoad.png");
+            tempVectorOfTextures.push_back(tempTexture);
+        } else{
+            tempTexture.loadFromFile("src/textures/obstruction" + toString(roadElem.getId())+ ".png");
+            tempVectorOfTextures.push_back(tempTexture);
+        }
+        mapOfRextures.insert(std::pair<int, std::vector<sf::Texture>>(roadElem.getId(), tempVectorOfTextures));
+    }
+}
 
 void Window::render(std::vector<Car> &cars,  std::vector<Obstruction> &roadElements, int &actions, int &timeInGame) {
     renderWindow_->clear();
-    sf::Texture roadTexture1, roadTexture2, obstruct;
-    roadTexture1.loadFromFile("src/textures/littleroad.jpg");
-    roadTexture2.loadFromFile("src/textures/littleroad.jpg");
-    obstruct.loadFromFile("src/textures/rock2-min.png");
-    sf::Sprite roadSprite1(roadTexture1);
-    sf::Sprite roadSprite2(roadTexture2);
-    sf::Sprite roadObstract(obstruct);
+
+    sf::Sprite roadSprite1(mapOfRextures.find(roadElements[0].getId())->second[0]);
+    sf::Sprite roadSprite2(mapOfRextures.find(roadElements[1].getId())->second[0]);
+
 
     if (roadElements.size() >= 2 ) {
-        roadObstract.setPosition((float) roadElements[2].getX(), (float) roadElements[2].getY());
+
         roadSprite1.setPosition(0, (float) roadElements[0].getY());
         roadSprite2.setPosition(0, (float) roadElements[1].getY());
         renderWindow_->draw(roadSprite1);
         renderWindow_->draw(roadSprite2);
+    }
+
+//    if (timeInGame)
+
+    auto iterRoad = roadElements.begin()+2;
+    for (; iterRoad!=roadElements.end(); iterRoad++)
+    {
+        sf::Sprite roadObstract(mapOfRextures.find((*iterRoad).getId())->second[0]);
+        roadObstract.setPosition((float) (*iterRoad).getX(), (float) (*iterRoad).getY());
         renderWindow_->draw(roadObstract);
     }
+
+
     for (auto &car : cars) {
-        sf::Texture carTexture;
-        if (actions != -1)
+        sf::Sprite carSprite;
+        if (actions != myNoAction)
         {
             if (actions == myUp)
-                carTexture.loadFromFile("src/textures/Car_1.png");
+                carSprite.setTexture(mapOfRextures.find(car.getId())->second[1]);
             else if (actions == myDown)
-                carTexture.loadFromFile("src/textures/Car_0.png");
+                carSprite.setTexture(mapOfRextures.find(car.getId())->second[0]);
             else if (actions == myLeft)
-                carTexture.loadFromFile("src/textures/Car_4.png");
+                carSprite.setTexture(mapOfRextures.find(car.getId())->second[2]);
             else if (actions == myRight)
-                carTexture.loadFromFile("src/textures/Car_6.png");
+                carSprite.setTexture(mapOfRextures.find(car.getId())->second[3]);
         }
         else
-            carTexture.loadFromFile("src/textures/Car_0.png");
-        sf::Sprite carSprite(carTexture);
+            carSprite.setTexture(mapOfRextures.find(car.getId())->second[0]);
+
         carSprite.setPosition((float) car.getX(), (float) car.getY());
         renderWindow_->draw(carSprite);
     }
@@ -119,7 +150,7 @@ void Window::render(std::vector<Car> &cars,  std::vector<Obstruction> &roadEleme
     font.loadFromFile("src/fonts/fontForScore.ttf");
     sf::Text score("", font, 20);
     score.setFillColor(sf::Color(255,255,255));
-    score.setString("Score: " + toString(timeInGame));
+    score.setString("Score: " + toString<int>(timeInGame));
     score.setPosition(2*screenWidth/3+5, screenHeight/20);
     renderWindow_->draw(score);
 }

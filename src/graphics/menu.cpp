@@ -67,19 +67,19 @@ short int isMenu(std::shared_ptr<Window> &window)
             //Single Game
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)window->getHeight()/3 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
-                singleGame.setFillColor(sf::Color(83,15,173));
+                singleGame.setFillColor(sf::Color(1,255,244));
                 menuNum = 2;
             }
             //Coop Game
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)4*window->getHeight()/9 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
-                coopGame.setFillColor(sf::Color(255,0,173));
+                coopGame.setFillColor(sf::Color(255,160,18));
                 menuNum = 3;
             }
             //Exit
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)5*window->getHeight()/9 + 30*yProcentUpdate, 200*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
-                exitFromGame.setFillColor(sf::Color(240,73,60));
+                exitFromGame.setFillColor(sf::Color(235,19,199));
                 menuNum = 4;
             }
             //handle Pressed Button
@@ -87,12 +87,21 @@ short int isMenu(std::shared_ptr<Window> &window)
             {
                 //pressed Single Game
                 if (menuNum == 2) {
-                    singleGame.setCharacterSize(40);
+                    singleGame.setCharacterSize(50);
                     window->draw(menuBg);
                     window->draw(singleGame);
                     window->draw(coopGame);
                     window->draw(exitFromGame);
                     window->display();
+                    window->clear();
+                    usleep(200000);
+                    singleGame.setCharacterSize(60);
+                    window->draw(menuBg);
+                    window->draw(singleGame);
+                    window->draw(coopGame);
+                    window->draw(exitFromGame);
+                    window->display();
+                    usleep(100000);
                     window->clear();
                     return 1; //single
                 }
@@ -104,7 +113,15 @@ short int isMenu(std::shared_ptr<Window> &window)
                 //pressed Exit
                 if (menuNum == 4)
                 {
-                    exitFromGame.setCharacterSize(40);
+                    exitFromGame.setCharacterSize(50);
+                    window->draw(menuBg);
+                    window->draw(singleGame);
+                    window->draw(coopGame);
+                    window->draw(exitFromGame);
+                    window->display();
+                    window->clear();
+                    usleep(200000);
+                    exitFromGame.setCharacterSize(60);
                     window->draw(menuBg);
                     window->draw(singleGame);
                     window->draw(coopGame);

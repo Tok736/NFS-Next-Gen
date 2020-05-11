@@ -9,6 +9,8 @@
 #include <string>
 #include "wrap.h"
 #include "../include/physics/physics.h"
+#include <sstream>
+#include <unistd.h>
 
 class Clock{
 
@@ -48,6 +50,8 @@ public:
     shared_ptr<sf::RenderWindow> getWindow();
     bool pollEvent(sf::Event &event);
 
+    void createTextures(std::vector<Car> &cars,std::vector<Obstruction> &roadAndObstcl);
+
     shared_ptr<sf::RenderWindow>  getRenderWindow();
 
     friend class GameElement;
@@ -56,13 +60,21 @@ private:
     shared_ptr<sf::RenderWindow> renderWindow_;
     unsigned int height_;
     unsigned int width_;
-//    Event event;
 
+    std::map<int, std::vector<sf::Texture>> mapOfRextures;
 };
 
 
 short int isMenu(std::shared_ptr<Window> &window);
 short int displayMenu(std::shared_ptr<Window> &window);
+
+template <typename T>
+std::string toString(T val)
+{
+    std::ostringstream oss;
+    oss<<val;
+    return oss.str();
+}
 
 
 #endif //NFS_NEXT_GEN_UTILS_H
