@@ -65,7 +65,6 @@ void ServerState::serverLoop() {  //добавить обработку врем
         }
         break;
     }
-    exit();
 }
 
 void ServerState::exit() {

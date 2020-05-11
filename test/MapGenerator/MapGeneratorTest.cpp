@@ -10,7 +10,7 @@ TEST(logicBranchTestExample, MapGeneratorTest) {
     myGen2.generate();
     myGen3.generate();
 
-    std::vector<std::shared_ptr<IGameElement>> vec1, vec2, vec3, vec4;
+    std::vector<std::shared_ptr<IGameElement>> vec1, vec2, vec3;
 
     vec1 = myGen1.getVector();
     vec2 = myGen2.getVector();

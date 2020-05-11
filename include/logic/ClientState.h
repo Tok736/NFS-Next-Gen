@@ -16,9 +16,13 @@
 #include <vector>
 #include <memory>
 
+template<typename T> using sp_t = std::shared_ptr<T>;
+template<typename T> using vsp_t = std::vector<sp_t<T>>;
+
+
 class ClientState {
 public:
-    std::vector<std::shared_ptr<IGameElement>> actualElements;
+    vsp_t<IGameElement> actualElements;
 //    GameData data;
     Window* myWindow;
     Event* myEvent;

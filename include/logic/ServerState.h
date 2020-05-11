@@ -12,9 +12,12 @@
 #include <vector>
 #include <memory>
 
+template<typename T> using sp_t = std::shared_ptr<T>;
+template<typename T> using vsp_t = std::vector<sp_t<T>>;
+
 class ServerState {
 public:
-    std::vector<std::shared_ptr<IGameElement>> myMap;
+    vsp_t<IGameElement> myMap;
     Host* myHost;
     std::vector<Car*> players;
     std::vector<Event*> input;
@@ -26,7 +29,7 @@ public:
     ServerState(Collision* clsnPtr, int difficulty = 5);
     ServerState(Host* hstPtr, Collision* clsnPtr, int difficulty = 5);
     ~ServerState();
-    std::vector<std::shared_ptr<IGameElement>> composeActualElements;
+    vsp_t<IGameElement> composeActualElements;
     void gamePreparation();
     void serverLoop();
     void exit();
