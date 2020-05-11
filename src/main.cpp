@@ -1,6 +1,31 @@
+
+#include "../include/physics/physics.h"
 #include "../include/graphics/graphic.h"
-#include "../include/phisics/physics.h"
-#include <iostream>
+
+
+
+//road id [0,1]
+//cars id [2..9]
+//obstraction id [10..20]
+//decor id [21..30]
+
+//obstructions id:
+// cone - 10
+// mud - 11
+// oil - 12
+// pit - 13
+// rock1 - 14
+// rock2 - 15
+// rock3 - 16
+// water - 17
+// wheel - 18
+
+
+//decor id
+// tree1 - 21
+// tree2 - 22
+// tree 3 -23
+
 
 int main()
 {
@@ -17,16 +42,17 @@ int main()
     vector<int> actions;
 
     Collision col;
-    Car car(0,0,0,0.5 * screenWidth,screenHeight - carHeight); //машинка в центре экрана снизу
+    Car car(2,0,0,0.5 * screenWidth,screenHeight - carHeight); //машинка в центре экрана снизу
     Obstruction Road1(0,0, 0);
-    Obstruction Road2(0,0, -roadHeight);
-    Obstruction rock(0,0.5 * screenWidth,0);
+    Obstruction Road2(1,0, -roadHeight);
+    Obstruction rock(18,0.5 * screenWidth,0);
 
     cars.push_back(car);
     elements.push_back(Road1);
     elements.push_back(Road2);
     elements.push_back(rock);
 
+    window->createTextures(cars,elements);
 
     Clock clock;
     int action;
@@ -38,10 +64,12 @@ int main()
 
         if (!actions.empty() && actions[0] == endOfTheGame)
             window->close();
-//        else if (!actions.empty() && actions[0] == pauseOfTheGame)
-//        {
-//            pauseWindow();
-//        }
+        else if (!actions.empty() && actions[0] == pauseOfTheGame)
+        {
+
+            if (!pauseWindow(window, freq))
+                return 0;
+        }
         else {
             if (!actions.empty())
                 action = actions[0];
@@ -56,4 +84,5 @@ int main()
 
 
     return 0;
+
 }

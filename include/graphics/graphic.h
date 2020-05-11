@@ -8,7 +8,9 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "wrap.h"
-#include "../phisics/physics.h"
+#include "../physics/physics.h"
+#include <sstream>
+#include <unistd.h>
 
 class Clock{
 
@@ -37,7 +39,6 @@ public:
     void setWidth(unsigned int width);
     void setHeight(unsigned int height);
     bool isOpen();
-//    void render(const std::vector<Car> &cars, const std::vector<Obstruction>& roadAndObstcl, int actions);
     void render(std::vector<Car> &cars, std::vector<Obstruction> &roadAndObstcl, int &actions,  int &timeInGame);
     void display();
     void close();
@@ -48,6 +49,8 @@ public:
     shared_ptr<sf::RenderWindow> getWindow();
     bool pollEvent(sf::Event &event);
 
+    void createTextures(std::vector<Car> &cars,std::vector<Obstruction> &roadAndObstcl);
+
     shared_ptr<sf::RenderWindow>  getRenderWindow();
 
     friend class GameElement;
@@ -56,13 +59,24 @@ private:
     shared_ptr<sf::RenderWindow> renderWindow_;
     unsigned int height_;
     unsigned int width_;
-//    Event event;
 
+    std::map<int, std::vector<sf::Texture>> mapOfRextures;
 };
 
 
 short int isMenu(std::shared_ptr<Window> &window);
 short int displayMenu(std::shared_ptr<Window> &window);
+bool pauseWindow(std::shared_ptr<Window> &window,const int &timeInGame);
+bool isPause(std::shared_ptr<Window> &window,const int &timeInGame);
+
+
+template <typename T>
+std::string toString(T val)
+{
+    std::ostringstream oss;
+    oss<<val;
+    return oss.str();
+}
 
 
 #endif //NFS_NEXT_GEN_UTILS_H
