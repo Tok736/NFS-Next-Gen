@@ -40,7 +40,7 @@ public:
     void setWidth(float width);
     void setHeight(float height);
     bool isOpen();
-    void render(std::vector<Car> cars, const std::vector<Obstruction> roadAndObstcl, int actions,  float timeInGame);
+    void render(std::vector<Car> &cars, std::vector<Obstruction> &roadAndObstcl, int &actions,  int &timeInGame);
     void display();
     void close();
     void handleEvents(std::vector<int> &actions);

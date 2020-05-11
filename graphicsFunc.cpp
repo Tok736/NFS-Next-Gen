@@ -68,33 +68,37 @@ std::string toString(T val)
 }
 
 //void Window::render(const std::vector<Car> &cars, const std::vector<Obstruction> &roadElements, int actions) {
-void Window::render( std::vector<Car> cars,  std::vector<Obstruction> roadElements, int actions, float timeInGame) {
+void Window::render(std::vector<Car> &cars,  std::vector<Obstruction> &roadElements, int &actions, int &timeInGame) {
     renderWindow_->clear();
-    sf::Texture roadTexture1, roadTexture2;
-    roadTexture1.loadFromFile("/home/margot/testGame/testAll/textures/littleroad.jpg");
-    roadTexture2.loadFromFile("/home/margot/testGame/testAll/textures/littleroad.jpg");
+    sf::Texture roadTexture1, roadTexture2, obstruct;
+    roadTexture1.loadFromFile("/home/vlad/Cproject/textures/littleroad.jpg");
+    roadTexture2.loadFromFile("/home/vlad/Cproject/textures/littleroad.jpg");
+	obstruct.loadFromFile("/home/vlad/Cproject/textures/rock1-min.png");
     sf::Sprite roadSprite1(roadTexture1);
     sf::Sprite roadSprite2(roadTexture2);
+	sf::Sprite roadObstract(obstruct);
 
     if (roadElements.size() >= 2) {
+    	roadObstract.setPosition((float) roadElements[2].getX(), (float) roadElements[2].getY());
         roadSprite1.setPosition((float) roadElements[0].getX(), (float) roadElements[0].getY());
         roadSprite2.setPosition((float) roadElements[1].getX(), (float) roadElements[1].getY());
         renderWindow_->draw(roadSprite1);
         renderWindow_->draw(roadSprite2);
+		renderWindow_->draw(roadObstract);
     }
     for (auto &car : cars) {
         sf::Texture carTexture;
-        if (actions != -1) {
+        if (actions != myNoAction) {
             if (actions == myUp)
-                carTexture.loadFromFile("/home/margot/testGame/testAll/textures/Car_1.png");
+                carTexture.loadFromFile("/home/vlad/Cproject/textures/Car_1.png");
             else if (actions == myDown)
-                carTexture.loadFromFile("/home/margot/testGame/testAll/textures/Car_0.png");
+                carTexture.loadFromFile("/home/vlad/Cproject/textures/Car_0.png");
             else if (actions == myLeft)
-                carTexture.loadFromFile("/home/margot/testGame/testAll/textures/Car_4.png");
+                carTexture.loadFromFile("/home/vlad/Cproject/textures/Car_4.png");
             else if (actions == myRight)
-                carTexture.loadFromFile("/home/margot/testGame/testAll/textures/Car_6.png");
+                carTexture.loadFromFile("/home/vlad/Cproject/textures/Car_6.png");
         } else
-            carTexture.loadFromFile("/home/margot/testGame/testAll/textures/Car_0.png");
+            carTexture.loadFromFile("/home/vlad/Cproject/textures/Car_0.png");
         sf::Sprite carSprite(carTexture);
         carSprite.setPosition((float) car.getX(), (float) car.getY());
         renderWindow_->draw(carSprite);
@@ -105,7 +109,7 @@ void Window::render( std::vector<Car> cars,  std::vector<Obstruction> roadElemen
     scoreShape.setFillColor(sf::Color(0, 0, 0, 50));
     renderWindow_->draw(scoreShape);
     sf::Font font;
-    font.loadFromFile("/home/margot/testGame/testAll/fonts/fontForScore.ttf");
+    font.loadFromFile("/home/vlad/Cproject/fonts/fontForScore.ttf");
     sf::Text score("", font, 20);
     score.setFillColor(sf::Color(255, 255, 255));
     score.setString("Score: " + toString(timeInGame));
@@ -164,7 +168,7 @@ short int displayMenu(std::shared_ptr<Window> &window)
 short int isMenu(std::shared_ptr<Window> &window)
 {
     sf::Texture menuBackground;
-    menuBackground.loadFromFile("/home/margot/testGame/testAll/textures/bg.png");
+    menuBackground.loadFromFile("/home/vlad/Cproject/textures/bg.png");
     sf::Sprite menuBg(menuBackground);
     int menuNum = 0;
     int start = 0;
@@ -176,7 +180,7 @@ short int isMenu(std::shared_ptr<Window> &window)
     window->setHeight(screenHeight);
 
     sf::Font font;
-    font.loadFromFile("/home/margot/testGame/testAll/fonts/fontForScore.ttf");
+    font.loadFromFile("/home/vlad/Cproject/fonts/fontForScore.ttf");
     sf::Text singleGame("Single game", font, 60), coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
     singleGame.setFillColor(sf::Color(255,255,255));
     coopGame.setFillColor(sf::Color(255,255,255));

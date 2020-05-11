@@ -14,10 +14,19 @@
 // ms
 #define FpsTime 100
 // actions
-#define myLeft 4
-#define myRight 6
-#define myUp 8
-#define myDown 2
+
+
+
+#define myLeft		-1
+#define myRightDown -2
+#define myDown		-3
+#define myLeftDown	-4
+#define myNoAction	 0
+#define myRight		 1
+#define myLeftUp	 2
+#define myUp		 3
+#define myRightUp	 4
+
 #define endOfTheGame 0
 
 
@@ -92,10 +101,11 @@ class Collision{
 public:
     Collision():freq(0){};
     void setFreq(int _freq){ freq = _freq; }//часота кадров нужна для определения границ области расчетов
-    void setAction(vector<Obstruction> &elements, vector<Car> &Cars, vector<int> &actions, float timeInGame);
+    void setAction(vector<Obstruction> &elements, vector<Car> &Cars, vector<int> &actions);
 private:
     int freq;
     MatrixManager Calculator;
+	void recalculateForSingleCar(Car &car, int &comboAction);
     void handleAllChunk(){};
     int* selectObject(){ return nullptr; }
 };
