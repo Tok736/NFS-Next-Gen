@@ -6,9 +6,7 @@
 
 MapGenerator::MapGenerator(short difficulty) : difficulty(difficulty) {
     this->generate();
-
-    std::cout << mapVector.begin()->getX() << " : " << mapVector.begin()->getY();
-
+    
 //    for (int i = 0; i < mapVector.size(); ++i) {
 //        std::cout << "x: " << mapVector[i]->getX() << " y: " << mapVector[i]->getY() << std::endl;
 //    }
