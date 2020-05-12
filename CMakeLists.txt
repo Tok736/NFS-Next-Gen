@@ -20,7 +20,7 @@ file(GLOB_RECURSE SOURCE_CPPS ${SOURCE_DIR}/*/*.cpp)
 add_executable(${PROJECT_NAME} ${SOURCE_CPPS} ${SOURCE_DIR}/main.cpp)
 
 # ==== Linking with cpp math library ==== #
-target_link_libraries(${PROJECT_NAME} m)
+target_link_libraries(${PROJECT_NAME})
 
 # ==== Linking with Boost ==== #
 find_package(Boost REQUIRED COMPONENTS system filesystem date_time thread)
@@ -81,4 +81,11 @@ if (SQLITE3_FOUND)
     target_link_libraries (${PROJECT_NAME} ${SQLite3_LIBRARIES})
 endif (SQLITE3_FOUND)
 
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+find_package(SFML REQUIRED system window graphics network audio)
+
+if (SFML_FOUND)
+    include_directories(${SFML_INCLUDE_DIR})
+    target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})
+endif()
 
