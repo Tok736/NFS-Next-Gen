@@ -6,7 +6,7 @@
 
 MapGenerator::MapGenerator(short difficulty) : difficulty(difficulty) {
     this->generate();
-
+    mapVector[0].setX(1050);
 //    for (int i = 0; i < mapVector.size(); ++i) {
 //        std::cout << "x: " << mapVector[i]->getX() << " y: " << mapVector[i]->getY() << std::endl;
 //    }
@@ -16,7 +16,7 @@ MapGenerator::~MapGenerator() {}
 
 void MapGenerator::generate() {
     int koef = 1000;
-    int columnAmount = 5;
+    int columnAmount = 6;
     int columnWidth = width / columnAmount;
     std::srand(time(NULL));
     for (int i = columnWidth / 2; i <= koef * difficulty; i += columnWidth) {
