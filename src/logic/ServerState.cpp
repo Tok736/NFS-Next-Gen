@@ -50,12 +50,12 @@ void ServerState::composeActualElements(vsp_t<IGameElement> &actualElements) {
         }
     }
 
-//    vsp_t<Car>::const_iterator it;
-//    it = players.begin();
-//    while (it != players.end()) {
-//        actualElements.push_back(*it);
-//        ++it;
-//    }
+    vsp_t<Car>::const_iterator it;
+    it = players.begin();
+    while (it != players.end()) {
+        actualElements.push_back(*it);
+        ++it;
+    }
 
     return;
 }

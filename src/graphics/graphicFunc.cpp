@@ -80,12 +80,12 @@ void Window::createTextures(std::vector<shared_ptr<IGameElement>> &roadAndObstcl
     {
         sf::Texture tempTexture;
         std::vector<sf::Texture> tempVectorOfTextures;
-        if (roadElem->getId()== 0 || roadElem->getId() == 1)
+        if (roadElem->getId()== 0)
         {
             tempTexture.loadFromFile("src/textures/littleRoad.png");
             tempVectorOfTextures.push_back(tempTexture);
         }
-        else if (roadElem->getId() >=2 && roadElem->getId() <= 9)
+        else if (roadElem->getId() >=1 && roadElem->getId() <= 9)
         {
             for (int i=0; i<4; i++)
             {
@@ -105,42 +105,42 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
     renderWindow_->clear();
 
 
-    if (roadElements.size() >= 2 )
+    for (auto & roadElement : roadElements)
     {
-        sf::Sprite roadSprite1(mapOfRextures.find(roadElements[0]->getId())->second[0]);
-        sf::Sprite roadSprite2(mapOfRextures.find(roadElements[1]->getId())->second[0]);
-        roadSprite1.setPosition(0, (float) roadElements[0]->getY());
-        roadSprite2.setPosition(0, (float) roadElements[1]->getY());
-        renderWindow_->draw(roadSprite1);
-        renderWindow_->draw(roadSprite2);
-    }
-
-    auto iterRoad = roadElements.begin()+2;
-    for (; iterRoad!=roadElements.end(); iterRoad++)
-    {
-        if ((*iterRoad)->getId() >= 2 && (*iterRoad)->getId() <= 9)
+        if (roadElement->getId() == 0)
+        {
+            sf::Sprite roadSprite1(mapOfRextures.find(roadElements[0]->getId())->second[0]);
+            sf::Sprite roadSprite2(mapOfRextures.find(roadElements[1]->getId())->second[0]);
+            roadSprite1.setPosition(0, (float) roadElements[0]->getY());
+            roadSprite2.setPosition(0, (float) roadElements[1]->getY());
+            renderWindow_->draw(roadSprite1);
+            renderWindow_->draw(roadSprite2);
+        }
+        else if (roadElement->getId() >= 1 && roadElement->getId() <= 9)
         {
             sf::Sprite carSprite;
             if (actions != myNoAction)
             {
                 if (actions == myUp)
-                    carSprite.setTexture(mapOfRextures.find((*iterRoad)->getId())->second[1]);
+                    carSprite.setTexture(mapOfRextures.find(roadElement->getId())->second[1]);
                 else if (actions == myDown)
-                    carSprite.setTexture(mapOfRextures.find((*iterRoad)->getId())->second[0]);
+                    carSprite.setTexture(mapOfRextures.find(roadElement->getId())->second[0]);
                 else if (actions == myLeft)
-                    carSprite.setTexture(mapOfRextures.find((*iterRoad)->getId())->second[2]);
+                    carSprite.setTexture(mapOfRextures.find(roadElement->getId())->second[2]);
                 else if (actions == myRight)
-                    carSprite.setTexture(mapOfRextures.find((*iterRoad)->getId())->second[3]);
+                    carSprite.setTexture(mapOfRextures.find(roadElement->getId())->second[3]);
             }
             else
-                carSprite.setTexture(mapOfRextures.find((*iterRoad)->getId())->second[0]);
+                carSprite.setTexture(mapOfRextures.find(roadElement->getId())->second[0]);
 
-            carSprite.setPosition((float) (*iterRoad)->getX() - carX, (float) (*iterRoad)->getY() + carY);
+            carSprite.setPosition((float) roadElement->getX() - carX, (float) roadElement->getY() + carY);
             renderWindow_->draw(carSprite);
         }
-        sf::Sprite roadObstract(mapOfRextures.find((*iterRoad)->getId())->second[0]);
-        roadObstract.setPosition((float) (*iterRoad)->getX() - obstractX, (float) (*iterRoad)->getY() - obstractY);
-        renderWindow_->draw(roadObstract);
+        else {
+            sf::Sprite roadObstract(mapOfRextures.find(roadElement->getId())->second[0]);
+            roadObstract.setPosition((float) roadElement->getX() - obstractX, (float) roadElement->getY() - obstractY);
+            renderWindow_->draw(roadObstract);
+        }
     }
 
 
