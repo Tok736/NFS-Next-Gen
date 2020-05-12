@@ -1,12 +1,12 @@
 #include "MapGenerator.h"
 #include <iostream>
 
-#define width 580
-#define height 600
+#define width 1440
+#define height 900
 
 MapGenerator::MapGenerator(short difficulty) : difficulty(difficulty) {
     this->generate();
-    
+
     std::cout << mapVector.begin()->getX() << " : " << mapVector.begin()->getY();
 
 //    for (int i = 0; i < mapVector.size(); ++i) {
