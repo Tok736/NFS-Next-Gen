@@ -6,6 +6,7 @@
 #define NFS_NEXT_GEN_UTILS_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 #include "wrap.h"
 #include "../physics/physics.h"

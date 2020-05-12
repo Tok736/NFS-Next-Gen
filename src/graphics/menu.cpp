@@ -13,6 +13,11 @@ short int displayMenu(std::shared_ptr<Window> &window)
 
 short int isMenu(std::shared_ptr<Window> &window)
 {
+    sf::SoundBuffer buffer;
+    buffer.loadFromFile("src/sounds/button.ogg");
+    sf::Sound sound;
+    sound.setBuffer(buffer);
+
     sf::Texture menuBackground;
     menuBackground.loadFromFile("src/textures/bg.png");
     sf::Sprite menuBg(menuBackground);
@@ -27,6 +32,7 @@ short int isMenu(std::shared_ptr<Window> &window)
 
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
+
     sf::Text singleGame("Single game", font, 60), coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
     singleGame.setFillColor(sf::Color(255,255,255));
     coopGame.setFillColor(sf::Color(255,255,255));
@@ -37,6 +43,8 @@ short int isMenu(std::shared_ptr<Window> &window)
     window->draw(singleGame);
     window->draw(coopGame);
     window->draw(exitFromGame);
+
+    int prevButton = 0;
 
     sf::Event event;
     while (!start)
@@ -68,19 +76,28 @@ short int isMenu(std::shared_ptr<Window> &window)
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)window->getHeight()/3 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
                 singleGame.setFillColor(sf::Color(1,255,244));
+                if (prevButton != 2)
+                    sound.play();
                 menuNum = 2;
+                prevButton = 2;
             }
             //Coop Game
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)4*window->getHeight()/9 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
                 coopGame.setFillColor(sf::Color(255,160,18));
+                if (prevButton != 3)
+                    sound.play();
                 menuNum = 3;
+                prevButton = 3;
             }
             //Exit
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)5*window->getHeight()/9 + 30*yProcentUpdate, 200*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
                 exitFromGame.setFillColor(sf::Color(235,19,199));
+                if (prevButton != 4)
+                    sound.play();
                 menuNum = 4;
+                prevButton = 4;
             }
             //handle Pressed Button
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
