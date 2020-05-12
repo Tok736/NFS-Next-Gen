@@ -134,7 +134,7 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
                 carSprite.setTexture(mapOfRextures.find(roadElement->getId())->second[0]);
 
             carSprite.setPosition((float) roadElement->getX() - carX, (float) roadElement->getY() + carY);
-            carSprite.setRotation((float) roadElement->getAngle());
+            carSprite.rotate((float) roadElement->getAngle());
             renderWindow_->draw(carSprite);
         }
         else {
