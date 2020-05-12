@@ -71,9 +71,9 @@ std::string toString(T val)
 void Window::render(std::vector<Car> &cars,  std::vector<Obstruction> &roadElements, int &actions, int &timeInGame) {
     renderWindow_->clear();
     sf::Texture roadTexture1, roadTexture2, obstruct;
-    roadTexture1.loadFromFile("/home/vlad/Cproject/textures/littleroad.jpg");
-    roadTexture2.loadFromFile("/home/vlad/Cproject/textures/littleroad.jpg");
-	obstruct.loadFromFile("/home/vlad/Cproject/textures/rock1-min.png");
+    roadTexture1.loadFromFile("/home/purplelime/tp_project_1sem/NFS-Next-Gen/textures/littleroad.jpg");
+    roadTexture2.loadFromFile("/home/purplelime/tp_project_1sem/NFS-Next-Gen/textures/littleroad.jpg");
+	obstruct.loadFromFile("//home/purplelime/tp_project_1sem/NFS-Next-Gen/textures/rock1-min.png");
     sf::Sprite roadSprite1(roadTexture1);
     sf::Sprite roadSprite2(roadTexture2);
 	sf::Sprite roadObstract(obstruct);
@@ -90,15 +90,15 @@ void Window::render(std::vector<Car> &cars,  std::vector<Obstruction> &roadEleme
         sf::Texture carTexture;
         if (actions != myNoAction) {
             if (actions == myUp)
-                carTexture.loadFromFile("/home/vlad/Cproject/textures/Car_1.png");
+                carTexture.loadFromFile("/home/purplelime/tp_project_1sem/NFS-Next-Gen/textures/Car_1.png");
             else if (actions == myDown)
-                carTexture.loadFromFile("/home/vlad/Cproject/textures/Car_0.png");
+                carTexture.loadFromFile("/home/purplelime/tp_project_1sem/NFS-Next-Gen/textures/Car_0.png");
             else if (actions == myLeft)
-                carTexture.loadFromFile("/home/vlad/Cproject/textures/Car_4.png");
+                carTexture.loadFromFile("/home/purplelime/tp_project_1sem/NFS-Next-Gen/textures/Car_4.png");
             else if (actions == myRight)
-                carTexture.loadFromFile("/home/vlad/Cproject/textures/Car_6.png");
+                carTexture.loadFromFile("/home/purplelime/tp_project_1sem/NFS-Next-Gen/textures/Car_6.png");
         } else
-            carTexture.loadFromFile("/home/vlad/Cproject/textures/Car_0.png");
+            carTexture.loadFromFile("/home/purplelime/tp_project_1sem/NFS-Next-Gen/textures/Car_0.png");
         sf::Sprite carSprite(carTexture);
         carSprite.setPosition((float) car.getX(), (float) car.getY());
         renderWindow_->draw(carSprite);
@@ -109,7 +109,7 @@ void Window::render(std::vector<Car> &cars,  std::vector<Obstruction> &roadEleme
     scoreShape.setFillColor(sf::Color(0, 0, 0, 50));
     renderWindow_->draw(scoreShape);
     sf::Font font;
-    font.loadFromFile("/home/vlad/Cproject/fonts/fontForScore.ttf");
+    font.loadFromFile("/home/purplelime/tp_project_1sem/NFS-Next-Gen/fonts/fontForScore.ttf");
     sf::Text score("", font, 20);
     score.setFillColor(sf::Color(255, 255, 255));
     score.setString("Score: " + toString(timeInGame));
@@ -168,7 +168,7 @@ short int displayMenu(std::shared_ptr<Window> &window)
 short int isMenu(std::shared_ptr<Window> &window)
 {
     sf::Texture menuBackground;
-    menuBackground.loadFromFile("/home/vlad/Cproject/textures/bg.png");
+    menuBackground.loadFromFile("/home/purplelime/tp_project_1sem/NFS-Next-Gen/textures/bg.png");
     sf::Sprite menuBg(menuBackground);
     int menuNum = 0;
     int start = 0;
@@ -180,7 +180,7 @@ short int isMenu(std::shared_ptr<Window> &window)
     window->setHeight(screenHeight);
 
     sf::Font font;
-    font.loadFromFile("/home/vlad/Cproject/fonts/fontForScore.ttf");
+    font.loadFromFile("/home/purplelime/tp_project_1sem/NFS-Next-Gen/fonts/fontForScore.ttf");
     sf::Text singleGame("Single game", font, 60), coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
     singleGame.setFillColor(sf::Color(255,255,255));
     coopGame.setFillColor(sf::Color(255,255,255));
