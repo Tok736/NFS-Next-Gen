@@ -133,9 +133,16 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
             else
                 carSprite.setTexture(mapOfRextures.find(roadElement->getId())->second[0]);
 
-            carSprite.setPosition((float) roadElement->getX() - carX, (float) roadElement->getY() + carY);
-            carSprite.rotate((float) roadElement->getAngle());
+            carSprite.setOrigin(carX, carY);
+            cout << "posX: "<<roadElement->getX()<<" posY: "<<roadElement->getY();
+
+            cout<<" OriginX: "<<carSprite.getOrigin().x<<" OriginY: "<<carSprite.getOrigin().y<< " rotate: "<<(float) roadElement->getAngle()<<std::endl;
+            carSprite.setRotation((float) roadElement->getAngle());
+            carSprite.setPosition(roadElement->getX(), roadElement->getY());
+//            carSprite.setPosition((float) roadElement->getX() - carX, (float) roadElement->getY() + carY);
+//            carSprite.setPosition(roadElement->getX(), roadElement->getY());
             renderWindow_->draw(carSprite);
+
         }
         else {
             sf::Sprite roadObstract(mapOfRextures.find(roadElement->getId())->second[0]);

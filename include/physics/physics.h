@@ -17,8 +17,8 @@ using std::string;
 #define screenHeight 900
 #define screenWidth 1440
 
-#define carHeight 98 //размеры текстур должны быть в начале игры закнуты в словарь вида map<id, pair<pathToFile, pair<int width, int length>>
-#define carLength 47
+#define carHeight 47 //размеры текстур должны быть в начале игры закнуты в словарь вида map<id, pair<pathToFile, pair<int width, int length>>
+#define carLength 98
 #define obstrWidth 60
 #define obstrLength 80
 #define roadHeight 900
@@ -38,6 +38,8 @@ using std::string;
 
 #define pauseOfTheGame 100
 #define endOfTheGame 0
+
+
 
 class IGameElement{
 public:
