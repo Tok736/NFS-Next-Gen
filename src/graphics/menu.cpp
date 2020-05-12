@@ -13,6 +13,11 @@ short int displayMenu(std::shared_ptr<Window> &window)
 
 short int isMenu(std::shared_ptr<Window> &window)
 {
+    sf::SoundBuffer buffer;
+    buffer.loadFromFile("src/sounds/button.ogg");
+    sf::Sound sound;
+    sound.setBuffer(buffer);
+
     sf::Texture menuBackground;
     menuBackground.loadFromFile("src/textures/bg.png");
     sf::Sprite menuBg(menuBackground);
@@ -27,6 +32,7 @@ short int isMenu(std::shared_ptr<Window> &window)
 
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
+
     sf::Text singleGame("Single game", font, 60), coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
     singleGame.setFillColor(sf::Color(255,255,255));
     coopGame.setFillColor(sf::Color(255,255,255));
@@ -37,6 +43,8 @@ short int isMenu(std::shared_ptr<Window> &window)
     window->draw(singleGame);
     window->draw(coopGame);
     window->draw(exitFromGame);
+
+    int prevButton = 0;
 
     sf::Event event;
     while (!start)
@@ -68,19 +76,28 @@ short int isMenu(std::shared_ptr<Window> &window)
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)window->getHeight()/3 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
                 singleGame.setFillColor(sf::Color(1,255,244));
+                if (prevButton != 2)
+                    sound.play();
                 menuNum = 2;
+                prevButton = 2;
             }
             //Coop Game
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)4*window->getHeight()/9 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
                 coopGame.setFillColor(sf::Color(255,160,18));
+                if (prevButton != 3)
+                    sound.play();
                 menuNum = 3;
+                prevButton = 3;
             }
             //Exit
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)5*window->getHeight()/9 + 30*yProcentUpdate, 200*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
                 exitFromGame.setFillColor(sf::Color(235,19,199));
+                if (prevButton != 4)
+                    sound.play();
                 menuNum = 4;
+                prevButton = 4;
             }
             //handle Pressed Button
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -103,6 +120,8 @@ short int isMenu(std::shared_ptr<Window> &window)
                     window->display();
                     usleep(100000);
                     window->clear();
+                    if (!countDown(window))
+                        return(0);
                     return 1; //single
                 }
                 if (menuNum == 3)
@@ -140,3 +159,59 @@ short int isMenu(std::shared_ptr<Window> &window)
     }
     return 0;
 };
+
+
+bool countDown(std::shared_ptr<Window> &window)
+{
+    window->clear();
+    sf::Texture countDownBackground;
+    countDownBackground.loadFromFile("src/textures/littleRoad.png");
+    sf::Sprite countDownBg(countDownBackground);
+
+    countDownBg.setPosition(0,0);
+
+    sf::Font font;
+    font.loadFromFile("src/fonts/fontForScore.ttf");
+    window->draw(countDownBg);
+    window->display();
+    sf::Text timeDown;
+    timeDown.setFont(font);
+    timeDown.setFillColor(sf::Color(255,255,255));
+
+    usleep(500000);
+    for (int i = 3; i>=1; i--)
+    {
+        timeDown.setCharacterSize(30);
+        timeDown.setString(toString(i));
+        timeDown.setPosition(screenWidth/2 - 35, 1*screenHeight/4 - 35);
+        window->draw(countDownBg);
+        window->draw(timeDown);
+        window->display();
+        window->clear();
+        timeDown.setCharacterSize(55);
+        window->draw(countDownBg);
+        window->draw(timeDown);
+        window->display();
+        window->clear();
+        timeDown.setCharacterSize(80);
+        window->draw(countDownBg);
+        window->draw(timeDown);
+        window->display();
+        window->clear();
+        timeDown.setCharacterSize(120);
+        window->draw(countDownBg);
+        window->draw(timeDown);
+        window->display();
+        sleep(1);
+    }
+    window->clear();
+    sf::Text go("Go!", font, 130);
+    go.setPosition(screenWidth/2 - 94, screenHeight/3);
+    go.setFillColor(sf::Color(115,250,1));
+    window->draw(countDownBg);
+    window->draw(go);
+    window->display();
+    sleep(1);
+    window->clear();
+    return true;
+}
