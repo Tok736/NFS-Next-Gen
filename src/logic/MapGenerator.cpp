@@ -12,11 +12,11 @@ MapGenerator::MapGenerator(short difficulty) : difficulty(difficulty) {
 MapGenerator::~MapGenerator() {}
 
 void MapGenerator::generate() {
-    int koef = 1000;
+    int koef = 5000;
     int columnAmount = 6;
     int columnWidth = width / columnAmount;
     std::srand(time(NULL));
-    for (int i = columnWidth / 2; i <= koef * difficulty; i += columnWidth) {
+    for (int i = columnWidth / 2; i <= koef * difficulty; i += columnWidth + 200) {
         mapVector.push_back(std::make_shared<Obstruction>(10 + (rand() % 9), 378 + columnWidth / 2 + columnWidth * (rand() % columnAmount), -i));
     }
 }
