@@ -81,7 +81,8 @@ void ClientState::clientLoop() {
     myServerState->gamePreparation();  //пока нет сети, серверная часть туть
 
     actualElements.push_back(std::make_shared<Obstruction>(0, 0, 0));
-    actualElements.push_back(std::make_shared<Obstruction>(1, 0, 0));
+    actualElements.push_back(std::make_shared<Car>(1,0,0,0,0));
+    actualElements.push_back(std::make_shared<Car>(2,0,0,0,0));
     for (int i = 10; i <=18; ++i) {
         actualElements.push_back(std::make_shared<Obstruction>(i, 0, 0));
     }

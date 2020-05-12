@@ -77,7 +77,7 @@ void ServerState::gamePreparation() {
 
     bool flag = true;
     while (flag) {  //проходит один раз т.к. пока что только одиночная игра
-        players.push_back(std::make_shared<Car>(1, 0, 0, 0.5 * screenWidth, screenHeight - carHeight));
+        players.push_back(std::make_shared<Car>(2, 0, 0, 0.5 * screenWidth, screenHeight - carHeight));
         flag = false;
     }
     myMap.insert(myMap.begin(), std::make_shared<Obstruction>(0,0, -roadHeight));  //Road2

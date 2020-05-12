@@ -80,16 +80,17 @@ void Window::createTextures(std::vector<shared_ptr<IGameElement>> &roadAndObstcl
     {
         sf::Texture tempTexture;
         std::vector<sf::Texture> tempVectorOfTextures;
-        if (roadElem->getId()== 0)
+        int id = roadElem->getId();
+        if (id == 0)
         {
             tempTexture.loadFromFile("src/textures/littleRoad.png");
             tempVectorOfTextures.push_back(tempTexture);
         }
-        else if (roadElem->getId() >=1 && roadElem->getId() <= 9)
+        else if (id >=1 && id <= 9)
         {
             for (int i=0; i<4; i++)
             {
-                tempTexture.loadFromFile("src/textures/CarAction_"+toString(i)+".png");
+                tempTexture.loadFromFile("src/textures/CarAction_" + toString(id)+toString(i)+".png");
                 tempVectorOfTextures.push_back(tempTexture);
             }
         }
@@ -97,7 +98,7 @@ void Window::createTextures(std::vector<shared_ptr<IGameElement>> &roadAndObstcl
             tempTexture.loadFromFile("src/textures/obstruction" + toString(roadElem->getId())+ ".png");
             tempVectorOfTextures.push_back(tempTexture);
         }
-        mapOfRextures.insert(std::pair<int, std::vector<sf::Texture>>(roadElem->getId(), tempVectorOfTextures));
+        mapOfRextures.insert(std::pair<int, std::vector<sf::Texture>>(id, tempVectorOfTextures));
     }
 }
 
