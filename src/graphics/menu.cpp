@@ -150,12 +150,51 @@ bool countDown(std::shared_ptr<Window> &window)
     sf::Texture countDownBackground;
     countDownBackground.loadFromFile("src/textures/littleRoad.png");
     sf::Sprite countDownBg(countDownBackground);
-    int menuNum = 0;
-    int start = 0;
+
     countDownBg.setPosition(0,0);
-    
+
+    sf::Font font;
+    font.loadFromFile("src/fonts/fontForScore.ttf");
     window->draw(countDownBg);
     window->display();
-    sleep (3);
+    sf::Text timeDown;
+    timeDown.setFont(font);
+    timeDown.setFillColor(sf::Color(255,255,255));
+
+    usleep(500000);
+    for (int i = 3; i>=1; i--)
+    {
+        timeDown.setCharacterSize(30);
+        timeDown.setString(toString(i));
+        timeDown.setPosition(screenWidth/2 - 35, 1*screenHeight/4 - 35);
+        window->draw(countDownBg);
+        window->draw(timeDown);
+        window->display();
+        window->clear();
+        timeDown.setCharacterSize(55);
+        window->draw(countDownBg);
+        window->draw(timeDown);
+        window->display();
+        window->clear();
+        timeDown.setCharacterSize(80);
+        window->draw(countDownBg);
+        window->draw(timeDown);
+        window->display();
+        window->clear();
+        timeDown.setCharacterSize(120);
+        window->draw(countDownBg);
+        window->draw(timeDown);
+        window->display();
+        sleep(1);
+    }
+    window->clear();
+    sf::Text go("Go!", font, 130);
+    go.setPosition(screenWidth/2 - 94, screenHeight/3);
+    go.setFillColor(sf::Color(115,250,1));
+    window->draw(countDownBg);
+    window->draw(go);
+    window->display();
+    sleep(1);
+    window->clear();
     return true;
 }
