@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 
-=======
 cmake_minimum_required(VERSION 3.9)
 set(PROJECT_NAME NFS_Next_Gen)
 project(${PROJECT_NAME} CXX)
@@ -91,5 +89,3 @@ if (SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
     target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})
 endif()
->>>>>>> dev
-
