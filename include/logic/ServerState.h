@@ -30,7 +30,7 @@ public:
 //    ServerState(Collision* clsnPtr, int difficulty = 5);
 //    ServerState(Host* hstPtr, Collision* clsnPtr, int difficulty = 5);
     ~ServerState();
-    vsp_t<IGameElement> composeActualElements(vsp_t<IGameElement> &actualElements);
+    void composeActualElements(vsp_t<IGameElement> &actualElements);
     void gamePreparation();
     void serverLoop();
     void exit();

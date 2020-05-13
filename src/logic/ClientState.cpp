@@ -81,8 +81,11 @@ void ClientState::clientLoop() {
     int action;
     myServerState->gamePreparation();  //пока нет сети, серверная часть туть
 
+    myServerState->composeActualElements(actualElements);
 
-    myWindow->createTextures(myServerState->players,myServerState->myMap);
+
+    myWindow->createTextures(actualElements);
+
 
     while (myWindow->isOpen()) {
         int freq = (int)clock.getClockSec() + 10;
@@ -103,7 +106,8 @@ void ClientState::clientLoop() {
             myServerState->myCollision.setFreq(freq);
             myServerState->myCollision.setAction(myServerState->myMap, myServerState->players, actions);
         }
-        myWindow->render(myServerState->players, myServerState->myMap, action, freq);
+        myServerState->composeActualElements(actualElements);
+        myWindow->render(actualElements, action, freq);
         myWindow->display();
 
 //        for(vector<Obstruction>::iterator it=myServerState->myMap.begin() + 2; it!=myServerState->myMap.end(); ++it){

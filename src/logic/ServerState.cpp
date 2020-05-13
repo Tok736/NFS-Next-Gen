@@ -28,7 +28,7 @@ ServerState::~ServerState() {
 
 }
 
-vsp_t<IGameElement> ServerState::composeActualElements(vsp_t<IGameElement> &actualElements) {
+void ServerState::composeActualElements(vsp_t<IGameElement> &actualElements) {
 
     //в актуальные попадают элементы с y=[-100; height + 100]
 
@@ -55,9 +55,7 @@ vsp_t<IGameElement> ServerState::composeActualElements(vsp_t<IGameElement> &actu
         ++it;
     }
 
-
-
-
+    return;
 }
 
 
