@@ -16,10 +16,11 @@ template<typename T> using sp_t = std::shared_ptr<T>;
 template<typename T> using vsp_t = std::vector<sp_t<T>>;
 
 class ServerState {
+    int actElTracker = 2;  //т.к. первые два элемента это дорога
 public:
-    std::vector<Obstruction> myMap;
+    vsp_t<Obstruction> myMap;
 //    Host* myHost;
-    std::vector<Car> players;
+    vsp_t<Car> players;
 //    std::vector<Event*> input;
     Collision myCollision;
 
@@ -29,7 +30,7 @@ public:
 //    ServerState(Collision* clsnPtr, int difficulty = 5);
 //    ServerState(Host* hstPtr, Collision* clsnPtr, int difficulty = 5);
     ~ServerState();
-    vsp_t<IGameElement> composeActualElements;
+    vsp_t<IGameElement> composeActualElements(vsp_t<IGameElement> &actualElements);
     void gamePreparation();
     void serverLoop();
     void exit();

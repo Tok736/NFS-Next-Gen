@@ -27,7 +27,6 @@ class Game {
     sp_t<ClientState> myClientState;
     sp_t <ServerState> myServerState;
 
-    short menu();
 //    void exitGame();
 public:
     Game();

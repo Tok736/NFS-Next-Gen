@@ -81,8 +81,6 @@ void ClientState::clientLoop() {
     int action;
     myServerState->gamePreparation();  //пока нет сети, серверная часть туть
 
-    int firstPosition = myServerState->myMap[2].getY();
-    int distance = 0;
 
     myWindow->createTextures(myServerState->players,myServerState->myMap);
 
@@ -91,6 +89,12 @@ void ClientState::clientLoop() {
         myWindow->handleEvents(actions);
         if (!actions.empty() && actions[0] == endOfTheGame)
             myWindow->close();
+        else if (!actions.empty() && actions[0] == pauseOfTheGame)
+        {
+            actions.pop_back();
+            if (!pauseWindow(myWindow, freq))
+                return;
+        }
         else {
             if (!actions.empty())
                 action = actions[0];
@@ -98,13 +102,9 @@ void ClientState::clientLoop() {
                 action = myNoAction;
             myServerState->myCollision.setFreq(freq);
             myServerState->myCollision.setAction(myServerState->myMap, myServerState->players, actions);
-            distance = abs(firstPosition - myServerState->myMap[2].getY());
         }
         myWindow->render(myServerState->players, myServerState->myMap, action, freq);
         myWindow->display();
-
-        std::cout << "distance: " << distance << std::endl;
-
 
 //        for(vector<Obstruction>::iterator it=myServerState->myMap.begin() + 2; it!=myServerState->myMap.end(); ++it){
 //            it->setY(it->getY() + 1);

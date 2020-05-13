@@ -7,20 +7,20 @@
 #include <vector>
 #include <memory>
 
-//#define width 580
-//#define height 600
+#define width 672  //ширина дороги [378;1050]
+#define height 900
 
 template<typename T> using sp_t = std::shared_ptr<T>;
 template<typename T> using vsp_t = std::vector<sp_t<T>>;
 
 class MapGenerator {
     short difficulty;
-    std::vector<Obstruction> mapVector;
+    vsp_t<Obstruction> mapVector;
 public:
     MapGenerator(short difficulty = 2);
     ~MapGenerator();
     void generate();
-    std::vector<Obstruction> getVector();
+    vsp_t<Obstruction> getVector();
 };
 
 #endif //NFS_NEXT_GEN_MAPGENERATOR_H
