@@ -1,4 +1,3 @@
-
 #include "../include/physics/physics.h"
 #include "../include/graphics/graphic.h"
 #include "logic/Game.h"
@@ -30,6 +29,5 @@ int main()
 {
     Game myGame;
     myGame.playGame();
-
     return 0;
 }
