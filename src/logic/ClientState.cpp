@@ -1,6 +1,5 @@
 #include "logic/ClientState.h"
 
-
 ClientState::ClientState() {
     myWindow = std::make_shared<Window>();
 //    myEvent = new MockEvent;
@@ -91,8 +90,8 @@ void ClientState::clientLoop() {
 
 //    myServerState->composeActualElements(actualElements);
 
-
     while (myWindow->isOpen()) {
+    	usleep(9000);
         int freq = (int)clock.getClockSec() + 10;
         myWindow->handleEvents(actions);
         if (!actions.empty() && actions[0] == endOfTheGame)

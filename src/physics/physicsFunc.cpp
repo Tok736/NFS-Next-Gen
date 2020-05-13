@@ -47,7 +47,7 @@ void Collision:: recalculateForSingleCar(std::shared_ptr<Car> &car, int &comboAc
 	if (speed <= 0)
 		car->setV(5);
 	else if (comboAction) {
-		int step = speed + 1;
+		int step = speed + 5;
 		if (comboAction == myUp && y - step > 0.5 * screenHeight && speed < 50) { //  машинка не может подняться выше середины экрана
 			car->setV(step);
 			car->setY(y - step);
@@ -57,15 +57,19 @@ void Collision:: recalculateForSingleCar(std::shared_ptr<Car> &car, int &comboAc
 			step -= 0.25 * step;
 			car->setV(step);
 		}
-		if (comboAction== myLeft && x - step > 0)
+		if (comboAction== myLeft && x - step > 0) {
 			car->setX(x - step);
-		if (comboAction== myRight && x + step < screenHeight)
+			car->setAngle(car->getAngle() -  step);
+		}
+		if (comboAction== myRight && x + step < screenHeight) {
 			car->setX(x + step);
+			car->setAngle(car->getAngle() + step);
+		}
 	}
 }
 
 void Collision::setAction(vector<std::shared_ptr<Obstruction>> &elements, vector<std::shared_ptr<Car>> &Cars, vector<int> &actions) {
-	int speed = freq / 10;
+	int speed =  freq / 10;
 	int comboAction = myNoAction;
 	
 	for (auto & Car : Cars) {
