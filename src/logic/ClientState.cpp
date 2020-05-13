@@ -88,6 +88,12 @@ void ClientState::clientLoop() {
         myWindow->handleEvents(actions);
         if (!actions.empty() && actions[0] == endOfTheGame)
             myWindow->close();
+        else if (!actions.empty() && actions[0] == pauseOfTheGame)
+        {
+            actions.pop_back();
+            if (!pauseWindow(myWindow, freq))
+                return;
+        }
         else {
             if (!actions.empty())
                 action = actions[0];
