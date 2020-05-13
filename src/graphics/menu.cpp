@@ -1,0 +1,161 @@
+//
+// Created by margot on 02.05.2020.
+//
+
+#include "graphics/graphic.h"
+#include "physics/physics.h"
+
+short int displayMenu(std::shared_ptr<Window> &window)
+{
+    Window::createRenderWindow(window, screenWidth, screenHeight, "Menu");
+    return isMenu(window);
+}
+
+short int isMenu(std::shared_ptr<Window> &window)
+{
+    sf::Texture menuBackground;
+    menuBackground.loadFromFile("src/textures/bg.png");
+    sf::Sprite menuBg(menuBackground);
+    int menuNum = 0;
+    int start = 0;
+    menuBg.setPosition(0,0);
+
+    float xProcentUpdate = 1;
+    float yProcentUpdate = 1;
+    window->setWidth(screenWidth);
+    window->setHeight(screenHeight);
+
+    sf::Font font;
+    font.loadFromFile("src/fonts/fontForScore.ttf");
+    sf::Text singleGame("Single game", font, 60), coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
+    singleGame.setFillColor(sf::Color(255,255,255));
+    coopGame.setFillColor(sf::Color(255,255,255));
+    exitFromGame.setFillColor(sf::Color(255,255,255));
+    singleGame.setPosition(screenWidth/9, screenHeight/3);
+    coopGame.setPosition(screenWidth/9, 4*screenHeight/9);
+    exitFromGame.setPosition(screenWidth/9, 5*screenHeight/9);
+    window->draw(singleGame);
+    window->draw(coopGame);
+    window->draw(exitFromGame);
+
+    sf::Event event;
+    while (!start)
+    {
+        singleGame.setFillColor(sf::Color(255,255,255));
+        coopGame.setFillColor(sf::Color(255,255,255));
+        exitFromGame.setFillColor(sf::Color(255,255,255));
+        menuNum = 0;
+        window->clear();
+        if (window->pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                window->close();
+                return 0;
+            }
+            if (event.type == sf::Event::Resized)
+            {
+                window->setHeight(static_cast<unsigned int>(event.size.height));
+                window->setWidth(static_cast<unsigned int>(event.size.width));
+                xProcentUpdate = (float)window->getWidth()/screenWidth;
+                yProcentUpdate = (float)window->getHeight()/screenHeight;
+                if (yProcentUpdate == 0)
+                    yProcentUpdate = 1;
+                if (xProcentUpdate == 0)
+                    xProcentUpdate = 1;
+            }
+            //Single Game
+            if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)window->getHeight()/3 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
+                    sf::Mouse::getPosition(*window->getWindow()))) {
+                singleGame.setFillColor(sf::Color(1,255,244));
+                menuNum = 2;
+            }
+            //Coop Game
+            if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)4*window->getHeight()/9 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
+                    sf::Mouse::getPosition(*window->getWindow()))) {
+                coopGame.setFillColor(sf::Color(255,160,18));
+                menuNum = 3;
+            }
+            //Exit
+            if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)5*window->getHeight()/9 + 30*yProcentUpdate, 200*xProcentUpdate, 90*yProcentUpdate).contains(
+                    sf::Mouse::getPosition(*window->getWindow()))) {
+                exitFromGame.setFillColor(sf::Color(235,19,199));
+                menuNum = 4;
+            }
+            //handle Pressed Button
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                //pressed Single Game
+                if (menuNum == 2) {
+                    singleGame.setCharacterSize(50);
+                    window->draw(menuBg);
+                    window->draw(singleGame);
+                    window->draw(coopGame);
+                    window->draw(exitFromGame);
+                    window->display();
+                    window->clear();
+                    usleep(200000);
+                    singleGame.setCharacterSize(60);
+                    window->draw(menuBg);
+                    window->draw(singleGame);
+                    window->draw(coopGame);
+                    window->draw(exitFromGame);
+                    window->display();
+                    usleep(100000);
+                    window->clear();
+                    if (!countDown(window))
+                        return(0);
+                    return 1; //single
+                }
+                if (menuNum == 3)
+                {
+                    //coop
+                    return 2;
+                }
+                //pressed Exit
+                if (menuNum == 4)
+                {
+                    exitFromGame.setCharacterSize(50);
+                    window->draw(menuBg);
+                    window->draw(singleGame);
+                    window->draw(coopGame);
+                    window->draw(exitFromGame);
+                    window->display();
+                    window->clear();
+                    usleep(200000);
+                    exitFromGame.setCharacterSize(60);
+                    window->draw(menuBg);
+                    window->draw(singleGame);
+                    window->draw(coopGame);
+                    window->draw(exitFromGame);
+                    window->display();
+                    window->close();
+                    return 0;
+                }
+            }
+        }
+        window->draw(menuBg);
+        window->draw(singleGame);
+        window->draw(coopGame);
+        window->draw(exitFromGame);
+        window->display();
+    }
+    return 0;
+};
+
+
+bool countDown(std::shared_ptr<Window> &window)
+{
+    window->clear();
+    sf::Texture countDownBackground;
+    countDownBackground.loadFromFile("src/textures/littleRoad.png");
+    sf::Sprite countDownBg(countDownBackground);
+    int menuNum = 0;
+    int start = 0;
+    countDownBg.setPosition(0,0);
+    
+    window->draw(countDownBg);
+    window->display();
+    sleep (3);
+    return true;
+}
