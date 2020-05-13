@@ -38,10 +38,8 @@ void ServerState::composeActualElements(vsp_t<IGameElement> &actualElements) {
     actualElements.push_back(myMap[1]);
 
     int iterator = actElTracker;
-    std::cout << "tracker: " << actElTracker << " map size: " << myMap.size() << std::endl;  //========================================
     while (iterator < myMap.size() && myMap[iterator]->getY() > -100) {
         if (myMap[iterator]->getY() < (height + 100)) {
-            std::cout << "iterator: " << iterator << "myMap[iterator]->getY()" << myMap[iterator]->getY() << std::endl;  //========================
                 actualElements.push_back(myMap[iterator]);
                 ++iterator;
         } else {

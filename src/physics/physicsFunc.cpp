@@ -26,7 +26,7 @@ void Collision:: recalculateForSingleCar(std::shared_ptr<Car> &car, int &comboAc
 	int speed = freq / 10;
 	
 	model::d2::point_xy<int> p1(1, 1), p2(2, 2);
-	std::cout << "Distance p1-p2 is: " << distance(p1, p2) << std::endl;
+//	std::cout << "Distance p1-p2 is: " << distance(p1, p2) << std::endl;
 	/*QRect r1(100, 200, 15, 15);
 	QRect r2(110, 210, 20, 20);
 	if (overlaps(r1, r2))

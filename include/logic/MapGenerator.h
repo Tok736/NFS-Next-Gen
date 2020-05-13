@@ -17,7 +17,7 @@ class MapGenerator {
     short difficulty;
     vsp_t<Obstruction> mapVector;
 public:
-    MapGenerator(short difficulty = 2);
+    MapGenerator(short difficulty = 5);
     ~MapGenerator();
     void generate();
     vsp_t<Obstruction> getVector();
