@@ -17,7 +17,7 @@ void moveRoadDown(vector<Obstruction> &elements, int &speed) {
 	else
 		elements[1].setY(elements[1].getY() + speed);
 	for (int i = 2; i < elements.size(); ++i)
-		elements[i].setY(elements[2].getY() + speed);
+		elements[i].setY(elements[i].getY() + speed);
 }
 
 void Collision:: recalculateForSingleCar(Car &car, int &comboAction) {
