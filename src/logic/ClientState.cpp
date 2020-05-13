@@ -99,6 +99,7 @@ void ClientState::clientLoop() {
         myWindow->render(myServerState->players, myServerState->myMap, action, freq);
         myWindow->display();
 
+        std::cout << "freq: " << myServerState->myCollision.freq << std::endl;
 //        for(vector<Obstruction>::iterator it=myServerState->myMap.begin() + 2; it!=myServerState->myMap.end(); ++it){
 //            it->setY(it->getY() + 1);
 //        }
