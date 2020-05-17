@@ -42,6 +42,9 @@
 *.idb
 *.pdb
 
+# DataBases
+*.db
+
 # Kernel Module Compile Results
 *.mod*
 *.cmd
@@ -53,7 +56,8 @@ dkms.conf
 
 # CMake
 cmake-build-*/
-
+build/
+report/
 
 # File-based project format
 *.iws
