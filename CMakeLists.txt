@@ -41,50 +41,18 @@ target_link_libraries(${PROJECT_NAME} gtest gtest_main)
 include_directories(${LIBRARIES_DIR}/googletest/googlemock/include)
 target_link_libraries(${PROJECT_NAME} gmock gmock_main)
 
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
 # ==== Linking with SQLite DataBase ==== #
-# Look for the necessary header
-find_path(SQLite3_INCLUDE_DIR NAMES sqlite3.h)
-mark_as_advanced(SQLite3_INCLUDE_DIR)
-
-# Look for the necessary library
-find_library(SQLite3_LIBRARY NAMES sqlite3 sqlite)
-mark_as_advanced(SQLite3_LIBRARY)
-
-# Extract version information from the header file
-if(SQLite3_INCLUDE_DIR)
-    file(STRINGS ${SQLite3_INCLUDE_DIR}/sqlite3.h _ver_line
-            REGEX "^#define SQLITE_VERSION  *\"[0-9]+\\.[0-9]+\\.[0-9]+\""
-            LIMIT_COUNT 1)
-    string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]+"
-            SQLite3_VERSION "${_ver_line}")
-    unset(_ver_line)
-endif()
-
-find_package_handle_standard_args(SQLite3
-        REQUIRED_VARS SQLite3_INCLUDE_DIR SQLite3_LIBRARY
-        VERSION_VAR SQLite3_VERSION)
-
-# Create the imported target
-if(SQLite3_FOUND)
-    set(SQLite3_INCLUDE_DIRS ${SQLite3_INCLUDE_DIR})
-    set(SQLite3_LIBRARIES ${SQLite3_LIBRARY})
-    if(NOT TARGET SQLite::SQLite3)
-        add_library(SQLite::SQLite3 UNKNOWN IMPORTED)
-        set_target_properties(SQLite::SQLite3 PROPERTIES
-                IMPORTED_LOCATION             "${SQLite3_LIBRARY}"
-                INTERFACE_INCLUDE_DIRECTORIES "${SQLite3_INCLUDE_DIR}")
-    endif()
-endif()
-
-if (SQLITE3_FOUND)
+find_package(SQLite3)
+if (SQLite3_FOUND)
     include_directories(${SQLite3_INCLUDE_DIRS})
-    target_link_libraries (${PROJECT_NAME} ${SQLite3_LIBRARIES})
-endif (SQLITE3_FOUND)
+    #add_library(SQLite STATIC src/physics/SQLite.cpp)
+    target_link_libraries(${PROJECT_NAME}  ${SQLite3_LIBRARIES})
+endif (SQLite3_FOUND)
 
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+# ==== Linking with SFML ==== #
 find_package(SFML REQUIRED system window graphics network audio)
-
 if (SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
     target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})

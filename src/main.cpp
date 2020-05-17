@@ -1,7 +1,7 @@
 #include "../include/physics/physics.h"
 #include "../include/graphics/graphic.h"
 #include "logic/Game.h"
-
+#include "physics/SQLite.h"
 //road id [0,1]
 //cars id [2..9]
 //obstraction id [10..20]
@@ -27,7 +27,10 @@
 
 int main()
 {
-    Game myGame;
-    myGame.playGame();
+	SQLiteDataBase db;
+	while (db.setUser("player", "12345") == USER_ALREADY_EXISTS){} //повторный ввод - для регистрации
+	while (db.getAuthorizeUser("player", "12345") == USER_NOT_FOUND){} //повторный ввод - для авторизации
+    //Game myGame;
+    //myGame.playGame();
     return 0;
 }
