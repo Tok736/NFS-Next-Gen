@@ -34,8 +34,8 @@ script:
   - cd build
   - cmake ..
   - make
-  - ctest --output-on-failure
-  - valgrind --tool=memcheck --leak-check=full --leak-resolution=med ./test/runTest
+  - cd ../test
+  - valgrind --tool=memcheck --leak-check=full --leak-resolution=med ./runTest
   - cppcheck --enable=all --check-config --suppress=missingIncludeSystem -I ../include ../src
 
 after_success:

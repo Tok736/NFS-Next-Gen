@@ -61,6 +61,7 @@ int SQLiteDataBase::setUser(const string &nickName, const string &passwd) {
 		sqlite3_finalize(stmt);
 		return USER_ALREADY_EXISTS;
 	}
+	sqlite3_finalize(stmt);
 	sqlQuery = "INSERT INTO USERS (Id, Name, Password, NetworkScore, LocalScore)"  \
          " VALUES (((SELECT COUNT(Id) FROM USERS) + 1),'" + nickName + "','" + passwd + "',0 ,0);";
 	return queryExecutor();
@@ -114,15 +115,14 @@ int SQLiteDataBase::selectInfo() {
 	sqlite3_stmt *stmt = nullptr;
 	
 	if (!findUser(&stmt)) { // пользователя не найден
-		if (status ==
-			SUCCESS) { // если предыдущий сеанс авторизации заполнил кортеж, то необходимо его проинициализировать начальными значениями
+		if (status == SUCCESS) { // если предыдущий сеанс авторизации заполнил кортеж, то необходимо его проинициализировать начальными значениями
 			std::get<0>(selectResult) = -1; // id
 			std::get<1>(selectResult) = "null"; // name
 			std::get<2>(selectResult) = "null"; // passwd
 			std::get<3>(selectResult) = -1; // networkScore
 			std::get<4>(selectResult) = -1; // localScore
-			sqlite3_finalize(stmt);
 		}
+		sqlite3_finalize(stmt);
 		return USER_NOT_FOUND;
 	} else {
 		if (!stmt)

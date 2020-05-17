@@ -176,7 +176,7 @@ bool SQLiteDataBase::findUser(sqlite3_stmt **stmt) {
 class SQLiteDataBase : AbstractDataBase {
 public:
 	SQLiteDataBase();
-	~SQLiteDataBase();
+	~SQLiteDataBase() override;
 	int getAuthorizeUser(const string &nickName, const string &passwd) override;
 	const std::tuple<vector<string>, vector<int>, vector<int>> &getStandings(int topCount) override;
 	const string &getUserNickname() override;

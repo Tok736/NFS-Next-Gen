@@ -1,8 +1,7 @@
 #include "gtest/gtest.h"
-#include "gmock/gmock.h"
-#include "../include/physics/SQLite.h"
+#include "../../include/physics/SQLite.h"
 
-constexpr int usersCount = 20; //количество потенциальных пользователей в БД
+constexpr int usersCount = 200; //количество потенциальных пользователей в БД
 constexpr int localScore = 100;
 constexpr int networkScore = 200;
 
@@ -71,5 +70,6 @@ TEST(googleTestExample, DataBasetest) {
 	checkDeleteUser(db,nickNames, usersPasswds);
 	putUsersInDataBase(db,nickNames, usersPasswds);
 	checkDeleteUser(db,nickNames, usersPasswds);
+	db.getStandings(20);
 	cout << "Success DataBaseTest\n";
 }
