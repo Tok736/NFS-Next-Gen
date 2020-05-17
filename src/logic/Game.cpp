@@ -11,6 +11,9 @@ void  Game::playGame() {
 
     sp_t<Window> window(new Window);
 
+    if (displayLoginMenu().first != "margot")
+        return ;
+
     switch (displayMenu(window)) {
         case 1:
             std::cout << "Запуск клиента\n";

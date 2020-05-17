@@ -140,8 +140,6 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
             cout<<" OriginX: "<<carSprite.getOrigin().x<<" OriginY: "<<carSprite.getOrigin().y<< " rotate: "<<(float) roadElement->getAngle()<<std::endl;
             carSprite.setRotation((float) roadElement->getAngle());
             carSprite.setPosition(roadElement->getX(), roadElement->getY());
-//            carSprite.setPosition((float) roadElement->getX() - carX, (float) roadElement->getY() + carY);
-//            carSprite.setPosition(roadElement->getX(), roadElement->getY());
             renderWindow_->draw(carSprite);
 
         }
@@ -178,9 +176,6 @@ void Window::clear() {
     renderWindow_->clear();
 }
 
-void Window::draw(sf::Sprite &toDraw) {
-    renderWindow_->draw(toDraw);
-}
 
 shared_ptr<sf::RenderWindow> Window::getWindow() {
     return renderWindow_;
@@ -203,7 +198,16 @@ unsigned int Window::getHeight() const {
     return height_;
 }
 
-void Window::draw(sf::Text &toDraw) {
+
+
+void Window::draw(const sf::Text& toDraw) {
     renderWindow_->draw(toDraw);
 }
 
+void Window::draw(const sf::Sprite &toDraw) {
+    renderWindow_->draw(toDraw);
+}
+
+void Window::draw(const sf::RectangleShape &toDraw) {
+    renderWindow_->draw(toDraw);
+}
