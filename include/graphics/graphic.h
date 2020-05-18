@@ -13,6 +13,8 @@
 #include <sstream>
 #include <unistd.h>
 
+using std::pair;
+using std::string;
 
 class Clock{
 
@@ -67,13 +69,14 @@ private:
 };
 
 
-short int isMenu(std::shared_ptr<Window> &window);
-short int displayMenu(std::shared_ptr<Window> &window);
+short int isMenu(std::shared_ptr<Window> &window,const string& name);
+short int displayMenu(std::shared_ptr<Window> &window,const string& name);
+
 short int pauseWindow(std::shared_ptr<Window> &window,const int &timeInGame);
 short int isPause(std::shared_ptr<Window> &window,const int &timeInGame);
 
-std::pair<std::string,std::string > displayLoginMenu();
-std::pair<std::string,std::string > isLogin();
+pair<pair<string,string>,string> displayLoginMenu(string &type);
+pair<pair<string,string>,string>  isLogin(string &type);
 
 bool countDown(std::shared_ptr<Window> &window);
 

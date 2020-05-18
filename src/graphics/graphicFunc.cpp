@@ -6,10 +6,17 @@
 #include "graphics/graphic.h"
 #include "physics/physics.h"
 
-#define obstractX 56
-#define obstractY 56
-#define carX carHeight/2
-#define carY carLength/2
+enum obstrectsCoord
+{
+    obstractX = 56,
+    obstractY = 56,
+};
+
+enum carCoord{
+    carX = carHeight/2,
+    carY = carLength/2,
+};
+
 
 /////////////////////                    CLOCK            //////////////////////////////////////////
 

@@ -5,14 +5,18 @@
 #include "graphics/graphic.h"
 #include "physics/physics.h"
 
+
+
+
 FocusController fc ;
 
-std::pair<std::string,std::string > displayLoginMenu()
+pair<pair<string,string>,string>  displayLoginMenu(string &type)
 {
-    return isLogin();
+
+    return isLogin(type);
 }
 
-std::pair<std::string,std::string > isLogin()
+pair<pair<string,string>,string>  isLogin(string &type)
 {
 //    Window::createRenderWindow(window, screenWidth, screenHeight, "Login");
     sf::RenderWindow window(sf::VideoMode(screenWidth, screenHeight), L"Login");
@@ -21,7 +25,11 @@ std::pair<std::string,std::string > isLogin()
     font.loadFromFile("src/fonts/fontForScore.ttf");
 
     sf::Texture menuBackground;
-    menuBackground.loadFromFile("src/textures/login.png");
+    if (type == "login")
+        menuBackground.loadFromFile("src/textures/login.png");
+    else
+        menuBackground.loadFromFile("src/textures/registration.png");
+
     sf::Sprite menuBg(menuBackground);
     menuBg.setPosition(0,0);
 
@@ -41,7 +49,7 @@ std::pair<std::string,std::string > isLogin()
     fc.setFocusObject( &tbLogin ) ;
 
 
-    std::pair<std::string, std::string>data;
+    pair<pair<string, string>, string>data;
 
     bool pressButton = false;
 
@@ -55,6 +63,16 @@ std::pair<std::string,std::string > isLogin()
                 window.close();
             if ( event.type == sf::Event::MouseButtonPressed )
             {
+                if (sf::IntRect(60, 604, 224, 23).contains(sf::Mouse::getPosition(window)) && type == "login")
+                {
+                    type = "registration";
+                    menuBackground.loadFromFile("src/textures/registration.png");
+                }
+                if (sf::IntRect(60, 604, 130, 23).contains(sf::Mouse::getPosition(window)) && type == "registration")
+                {
+                    type = "login";
+                    menuBackground.loadFromFile("src/textures/login.png");
+                }
                 if (sf::IntRect(370, 292 , 433,60).contains(sf::Mouse::getPosition(window)))
                 {
                     fc.setFocusObject( &tbLogin ) ;
@@ -63,8 +81,9 @@ std::pair<std::string,std::string > isLogin()
                     fc.setFocusObject( &tbPassw ) ;
                 }
                 else if (sf::IntRect(583, 488, 217,79).contains(sf::Mouse::getPosition(window))){
-                    data.first = tbLogin.getText().getString();
-                    data.second = tbPassw.getText().getString();
+                    data.first.first = tbLogin.getText().getString();
+                    data.first.second = tbPassw.getText().getString();
+                    data.second = type;
                     pressButton = true;
                 }
             }

@@ -41,7 +41,7 @@ target_link_libraries(${PROJECT_NAME} gtest gtest_main)
 include_directories(${LIBRARIES_DIR}/googletest/googlemock/include)
 target_link_libraries(${PROJECT_NAME} gmock gmock_main)
 
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+
 
 # ==== Linking with SQLite DataBase ==== #
 find_package(SQLite3)
@@ -52,6 +52,8 @@ if (SQLite3_FOUND)
 endif (SQLite3_FOUND)
 
 # ==== Linking with SFML ==== #
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+
 find_package(SFML REQUIRED system window graphics network audio)
 if (SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})

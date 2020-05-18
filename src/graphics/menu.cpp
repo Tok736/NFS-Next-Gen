@@ -5,13 +5,13 @@
 #include "graphics/graphic.h"
 #include "physics/physics.h"
 
-short int displayMenu(std::shared_ptr<Window> &window)
+short int displayMenu(std::shared_ptr<Window> &window,const string &name)
 {
     Window::createRenderWindow(window, screenWidth, screenHeight, "Menu");
-    return isMenu(window);
+    return isMenu(window, name);
 }
 
-short int isMenu(std::shared_ptr<Window> &window)
+short int isMenu(std::shared_ptr<Window> &window,const string& name)
 {
     sf::SoundBuffer buffer;
     buffer.loadFromFile("src/sounds/button.ogg");
@@ -33,13 +33,16 @@ short int isMenu(std::shared_ptr<Window> &window)
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
 
-    sf::Text singleGame("Single game", font, 60), coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
+    sf::Text playerName("Hello, " + name+"!", font, 65), singleGame("Single game", font, 60), coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
+    playerName.setFillColor(sf::Color::Black);
     singleGame.setFillColor(sf::Color(255,255,255));
     coopGame.setFillColor(sf::Color(255,255,255));
     exitFromGame.setFillColor(sf::Color(255,255,255));
     singleGame.setPosition(screenWidth/9, screenHeight/3);
     coopGame.setPosition(screenWidth/9, 4*screenHeight/9);
+    playerName.setPosition(screenWidth/2, screenHeight/2);
     exitFromGame.setPosition(screenWidth/9, 5*screenHeight/9);
+    window->draw(playerName);
     window->draw(singleGame);
     window->draw(coopGame);
     window->draw(exitFromGame);
@@ -152,6 +155,9 @@ short int isMenu(std::shared_ptr<Window> &window)
             }
         }
         window->draw(menuBg);
+
+        window->draw(playerName);
+
         window->draw(singleGame);
         window->draw(coopGame);
         window->draw(exitFromGame);

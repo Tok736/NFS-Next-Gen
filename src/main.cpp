@@ -27,10 +27,8 @@
 
 int main()
 {
-	SQLiteDataBase db;
-	while (db.setUser("player", "12345") == USER_ALREADY_EXISTS){} //повторный ввод - для регистрации
-	while (db.getAuthorizeUser("player", "12345") == USER_NOT_FOUND){} //повторный ввод - для авторизации
-    //Game myGame;
-    //myGame.playGame();
+
+    Game myGame;
+    myGame.playGame();
     return 0;
 }
