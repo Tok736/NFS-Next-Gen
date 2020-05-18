@@ -1,5 +1,7 @@
 #include "../include/physics/SQLite.h"
 #include <iostream>
+using std::string;
+using std::vector;
 
 SQLiteDataBase::SQLiteDataBase() {
 	connectToDataBase();
@@ -13,8 +15,8 @@ SQLiteDataBase::~SQLiteDataBase() {
 }
 
 int SQLiteDataBase::getAuthorizeUser(const string &nickName, const string &passwd) {
-	sqlQuery = "SELECT * FROM USERS WHERE Name='" + nickName + "' AND Password='" + passwd + '\'';
-	if (selectInfo() == SUCCESS) {
+	string sqlQuery = "SELECT * FROM USERS WHERE Name='" + nickName + "' AND Password='" + passwd + '\'';
+	if (getSingle(sqlQuery, FILL) == SUCCESS) {
 		status = USER_BEEN_LOGGED;
 		return getUserId(); // id
 	}
@@ -29,7 +31,7 @@ const std::tuple<vector<string>, vector<int>, vector<int>> &SQLiteDataBase::getS
 		std::get<1>(topTable).clear();
 		std::get<2>(topTable).clear();
 	}
-	sqlQuery = "SELECT Name, LocalScore, NetworkScore FROM USERS ORDER BY (LocalScore + NetworkScore) DESC LIMIT " +
+	string sqlQuery = "SELECT Name, LocalScore1, LocalScore2 FROM USERS ORDER BY (LocalScore1 + LocalScore2) DESC LIMIT " +
 			   std::to_string(topCount);
 	int rez = sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &stmt, nullptr);
 	if (rez != SQLITE_OK)
@@ -52,40 +54,36 @@ const string &SQLiteDataBase::getUserNickname() { return std::get<1>(selectResul
 int SQLiteDataBase::deleteUser() {
 	if (status != USER_BEEN_LOGGED) // пользователя можно удалить, только будучи авторизованным
 		return USER_NOT_FOUND;
-	sqlQuery = "DELETE FROM USERS WHERE ID=" + std::to_string(getUserId());
-	return queryExecutor();
+	string sqlQuery = "DELETE FROM USERS WHERE ID=" + std::to_string(getUserId());
+	return queryExecutor(sqlQuery);
 }
 
 int SQLiteDataBase::setUser(const string &nickName, const string &passwd) {
-	sqlite3_stmt *stmt = nullptr;
-	sqlQuery = "SELECT Name FROM USERS WHERE Name='" + nickName + '\'';
-	if (findUser(&stmt)) {
-		sqlite3_finalize(stmt);
+	string sqlQuery = "SELECT Name FROM USERS WHERE Name='" + nickName + '\'';
+	if (getSingle(sqlQuery, SEARCH) != USER_NOT_FOUND)
 		return USER_ALREADY_EXISTS;
-	}
-	sqlite3_finalize(stmt);
-	sqlQuery = "INSERT INTO USERS (Id, Name, Password, NetworkScore, LocalScore)"  \
+	sqlQuery = "INSERT INTO USERS (Id, Name, Password, LocalScore2, LocalScore1)"  \
          " VALUES (((SELECT COUNT(Id) FROM USERS) + 1),'" + nickName + "','" + passwd + "',0 ,0);";
-	return queryExecutor();
+	return queryExecutor(sqlQuery);
 }
 
 int SQLiteDataBase::setUserLocalScore(int local) {
-	sqlQuery = "UPDATE USERS SET LocalScore =" + std::to_string(local) + \
+	string sqlQuery = "UPDATE USERS SET LocalScore1 =" + std::to_string(local) + \
                 " WHERE ID=" + std::to_string(getUserId());
 	std::get<4>(selectResult) = local;
-	return queryExecutor();
+	return queryExecutor(sqlQuery);
 }
 
 int SQLiteDataBase::setUserNetworkScore(int global) {
-	sqlQuery = "UPDATE USERS SET NetworkScore =" + std::to_string(global) + \
+	string sqlQuery = "UPDATE USERS SET LocalScore2 =" + std::to_string(global) + \
                 " WHERE ID=" + std::to_string(getUserId());
 	std::get<3>(selectResult) = global;
-	return queryExecutor();
+	return queryExecutor(sqlQuery);
 }
 
 int SQLiteDataBase::getLastSession() {
-	sqlQuery = "SELECT * FROM USERS WHERE Id=(SELECT LastId FROM LAST_SESSION)";
-	if (selectInfo() == SUCCESS)
+	string sqlQuery = "SELECT * FROM USERS WHERE Id=(SELECT LastId FROM LAST_SESSION)";
+	if (getSingle(sqlQuery, FILL) != USER_NOT_FOUND)
 		return SUCCESS;
 	return USER_NOT_FOUND;
 }
@@ -93,9 +91,9 @@ int SQLiteDataBase::getLastSession() {
 int SQLiteDataBase::setLastSession() {
 	if (status != USER_BEEN_LOGGED)
 		return USER_NOT_FOUND;
-	sqlQuery = "INSERT OR REPLACE INTO LAST_SESSION(DefaultId, LastId)"
+	string sqlQuery = "INSERT OR REPLACE INTO LAST_SESSION(DefaultId, LastId)"
 			   "  VALUES(1, " + std::to_string(getUserId()) + ')';
-	return queryExecutor();
+	return queryExecutor(sqlQuery);
 }
 
 int SQLiteDataBase::getUserLocalScore() { return std::get<4>(selectResult); }
@@ -105,66 +103,61 @@ int SQLiteDataBase::getUserNetworkScore() { return std::get<3>(selectResult); }
 int SQLiteDataBase::getUserId() { return std::get<0>(selectResult); }
 
 int SQLiteDataBase::connectToDataBase() {
-	int rez = sqlite3_open("dataBase/UserData.db", &db);
+	int rez = sqlite3_open(ROOT_TO_DB, &db);
 	if (rez != SQLITE_OK)
 		throw std::runtime_error(string("Error! Can't open dataBase"));
 	return (SUCCESS);
 }
 
 int SQLiteDataBase::createTable() {
-	sqlQuery = "CREATE TABLE IF NOT EXISTS USERS(" \
+	string sqlQuery = "CREATE TABLE IF NOT EXISTS USERS(" \
       "Id           INT PRIMARY KEY	NOT NULL," \
       "Name			CHAR(15)        NOT NULL," \
       "Password     CHAR(15)		NOT NULL," \
-      "NetworkScore INT				NOT NULL," \
-      "LocalScore   INT				NOT NULL);" \
+      "LocalScore2  INT				NOT NULL," \
+      "LocalScore1  INT				NOT NULL);" \
       "CREATE TABLE IF NOT EXISTS LAST_SESSION(" \
       "DefaultId INT PRIMARY KEY NOT NULL," \
       "LastId INT );";
-	return queryExecutor();
+	return queryExecutor(sqlQuery);
 }
 
-int SQLiteDataBase::queryExecutor() {
+int SQLiteDataBase::queryExecutor(const string& sqlQuery) {
 	int rez = sqlite3_exec(db, sqlQuery.c_str(), nullptr, nullptr, nullptr);
 	if (rez != SQLITE_OK)
 		throw std::runtime_error(string("Error in Sql query: " + string(sqlite3_errmsg(db))));
 	return SUCCESS;
 }
 
-int SQLiteDataBase::selectInfo() {
+int SQLiteDataBase::getSingle(const std::string &sqlQuery, int queryType) {
 	sqlite3_stmt *stmt = nullptr;
 	
-	if (!findUser(&stmt)) { // пользователя не найден
-		if (status == USER_BEEN_LOGGED) { // если предыдущий сеанс авторизации заполнил кортеж, то необходимо его проинициализировать начальными значениями
-			std::get<0>(selectResult) = -1; // id
-			std::get<1>(selectResult) = "null"; // name
-			std::get<2>(selectResult) = "null"; // passwd
-			std::get<3>(selectResult) = -1; // networkScore
-			std::get<4>(selectResult) = -1; // localScore
+	int rez = sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &stmt, nullptr);
+	if (rez != SQLITE_OK)
+		throw std::runtime_error(string("Error in Sql query: " + string(sqlite3_errmsg(db))));
+	rez = sqlite3_step(stmt);
+	if (rez != SQLITE_ROW && rez != SQLITE_DONE) {
+		sqlite3_finalize(stmt);
+		throw std::runtime_error(sqlite3_errmsg(db));
+	}
+	if (rez == SQLITE_DONE) {// не нашли пользователя
+		if (status == USER_BEEN_LOGGED) {
+			std::get<Id>(selectResult) = -1;
+			std::get<Name>(selectResult) = "null";
+			std::get<Password>(selectResult) = "null";
+			std::get<LocalScore1>(selectResult) = -1;
+			std::get<LocalScore2>(selectResult) = -1;
 		}
 		sqlite3_finalize(stmt);
 		return USER_NOT_FOUND;
-	} else {
-		if (!stmt)
-			throw std::runtime_error(string("Broken pointer!"));
-		std::get<0>(selectResult) = sqlite3_column_int(stmt, 0); // id
-		std::get<1>(selectResult) = (char *) sqlite3_column_text(stmt, 1); // name
-		std::get<2>(selectResult) = (char *) sqlite3_column_text(stmt, 2); // passwd
-		std::get<3>(selectResult) = sqlite3_column_int(stmt, 3); // networkScore
-		std::get<4>(selectResult) = sqlite3_column_int(stmt, 4); // localScore
+	}
+	if (queryType == FILL) {
+		std::get<Id>(selectResult) = sqlite3_column_int(stmt, Id);
+		std::get<Name>(selectResult) = (char *) sqlite3_column_text(stmt, Name);
+		std::get<Password>(selectResult) = (char *) sqlite3_column_text(stmt, Password);
+		std::get<LocalScore1>(selectResult) = sqlite3_column_int(stmt, LocalScore1);
+		std::get<LocalScore2>(selectResult) = sqlite3_column_int(stmt, LocalScore2);
 	}
 	sqlite3_finalize(stmt);
 	return SUCCESS;
-}
-
-bool SQLiteDataBase::findUser(sqlite3_stmt **stmt) {
-	int rez = sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, stmt, nullptr);
-	if (rez != SQLITE_OK)
-		throw std::runtime_error(string("Error in Sql query: " + string(sqlite3_errmsg(db))));
-	rez = sqlite3_step(*stmt);
-	if (rez != SQLITE_ROW && rez != SQLITE_DONE) {
-		sqlite3_finalize(*stmt);
-		throw std::runtime_error(sqlite3_errmsg(db));
-	}
-	return rez != SQLITE_DONE;
 }
