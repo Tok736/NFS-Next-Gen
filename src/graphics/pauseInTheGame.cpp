@@ -29,10 +29,10 @@ short int isPause(std::shared_ptr<Window> &window,const int &timeInGame)
     font.loadFromFile("src/fonts/fontForScore.ttf");
     std::string scoreString("Your score: " + toString(timeInGame) + "!");
     sf::Text continueGame("Continue", font, 60), startAgain("Start again", font, 60), exitFromGame("Exit", font, 60), score(scoreString, font, 70);
-    score.setFillColor(sf::Color(33,255,130));
-    continueGame.setFillColor(sf::Color(255,255,255));
-    startAgain.setFillColor(sf::Color(255,255,255));
-    exitFromGame.setFillColor(sf::Color(255,255,255));
+//    score.setFillColor(sf::Color(33,255,130));
+//    continueGame.setFillColor(sf::Color(255,255,255));
+//    startAgain.setFillColor(sf::Color(255,255,255));
+//    exitFromGame.setFillColor(sf::Color(255,255,255));
     score.setPosition(screenWidth/4, screenHeight/10);
     continueGame.setPosition(screenWidth/9, screenHeight/3);
     startAgain.setPosition(screenWidth/9, 4*screenHeight/9);
