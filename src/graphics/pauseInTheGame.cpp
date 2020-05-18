@@ -45,10 +45,10 @@ short int isPause(std::shared_ptr<Window> &window,const int &timeInGame)
     sf::Event event;
     while (!start)
     {
-        score.setFillColor(sf::Color(33,255,130));
-        continueGame.setFillColor(sf::Color(255,255,255));
-        startAgain.setFillColor(sf::Color(255,255,255));
-        exitFromGame.setFillColor(sf::Color(255,255,255));
+//        score.setFillColor(sf::Color(33,255,130));
+//        continueGame.setFillColor(sf::Color(255,255,255));
+//        startAgain.setFillColor(sf::Color(255,255,255));
+//        exitFromGame.setFillColor(sf::Color(255,255,255));
         menuNum = 0;
         window->clear();
         if (window->pollEvent(event))
@@ -72,19 +72,19 @@ short int isPause(std::shared_ptr<Window> &window,const int &timeInGame)
             //continue Game
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)window->getHeight()/3 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
-                continueGame.setFillColor(sf::Color(1,255,244));
+//                continueGame.setFillColor(sf::Color(1,255,244));
                 menuNum = 2;
             }
             //restart Game
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)4*window->getHeight()/9 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
-                startAgain.setFillColor(sf::Color(235, 230, 9));
+//                startAgain.setFillColor(sf::Color(235, 230, 9));
                 menuNum = 3;
             }
             //Exit
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)5*window->getHeight()/9 + 30*yProcentUpdate, 200*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
-                exitFromGame.setFillColor(sf::Color(82,43,255));
+//                exitFromGame.setFillColor(sf::Color(82,43,255));
                 menuNum = 4;
             }
             //handle Pressed Button

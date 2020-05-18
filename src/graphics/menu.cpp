@@ -29,9 +29,9 @@ short int isMenu(std::shared_ptr<Window> &window)
     font.loadFromFile("src/fonts/fontForScore.ttf");
 
     sf::Text singleGame("Single game", font, 60), coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
-    singleGame.setFillColor(sf::Color(255,255,255));
-    coopGame.setFillColor(sf::Color(255,255,255));
-    exitFromGame.setFillColor(sf::Color(255,255,255));
+//    singleGame.setFillColor(sf::Color(255,255,255));
+//    coopGame.setFillColor(sf::Color(255,255,255));
+//    exitFromGame.setFillColor(sf::Color(255,255,255));
     singleGame.setPosition(screenWidth/9, screenHeight/3);
     coopGame.setPosition(screenWidth/9, 4*screenHeight/9);
     exitFromGame.setPosition(screenWidth/9, 5*screenHeight/9);
@@ -42,9 +42,9 @@ short int isMenu(std::shared_ptr<Window> &window)
     sf::Event event;
     while (!start)
     {
-        singleGame.setFillColor(sf::Color(255,255,255,0));
-        coopGame.setFillColor(sf::Color(255,255,255,0));
-        exitFromGame.setFillColor(sf::Color(255,255,255,0));
+//        singleGame.setFillColor(sf::Color(255,255,255));
+//        coopGame.setFillColor(sf::Color(255,255,255));
+//        exitFromGame.setFillColor(sf::Color(255,255,255));
         menuNum = 0;
         window->clear();
         if (window->pollEvent(event))
@@ -68,19 +68,19 @@ short int isMenu(std::shared_ptr<Window> &window)
             //Single Game
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)window->getHeight()/3 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
-                singleGame.setFillColor(sf::Color(1,255,244,0));
+//                singleGame.setFillColor(sf::Color(1,255,244));
                 menuNum = 2;
             }
             //Coop Game
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)4*window->getHeight()/9 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
-                coopGame.setFillColor(sf::Color(255,160,18,0));
+//                coopGame.setFillColor(sf::Color(255,160,18));
                 menuNum = 3;
             }
             //Exit
             if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)5*window->getHeight()/9 + 30*yProcentUpdate, 200*xProcentUpdate, 90*yProcentUpdate).contains(
                     sf::Mouse::getPosition(*window->getWindow()))) {
-                exitFromGame.setFillColor(sf::Color(235,19,199,0));
+//                exitFromGame.setFillColor(sf::Color(235,19,199));
                 menuNum = 4;
             }
             //handle Pressed Button
@@ -160,7 +160,7 @@ bool countDown(std::shared_ptr<Window> &window)
     window->display();
     sf::Text timeDown;
     timeDown.setFont(font);
-    timeDown.setFillColor(sf::Color(255,255,255,0));
+//    timeDown.setFillColor(sf::Color(255,255,255));
 
     usleep(500000);
     for (int i = 3; i>=1; i--)
@@ -191,7 +191,7 @@ bool countDown(std::shared_ptr<Window> &window)
     window->clear();
     sf::Text go("Go!", font, 130);
     go.setPosition(screenWidth/2 - 94, screenHeight/3);
-    go.setFillColor(sf::Color(115,250,1,0));
+//    go.setFillColor(sf::Color(115,250,1));
     window->draw(countDownBg);
     window->draw(go);
     window->display();
