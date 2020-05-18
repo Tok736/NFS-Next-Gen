@@ -46,6 +46,7 @@ public:
 
 private:
     FocusObject * m_object ;
+
 } ;
 
 
@@ -81,7 +82,8 @@ public:
     }
     void event ( const sf::Event & event ) override
     {
-        if (event.type == sf::Event::TextEntered && (m_newText.getSize()<15 || (m_newText.getSize() ==15 && event.text.unicode == 0x8)))
+        if (event.type == sf::Event::TextEntered && (m_newText.getSize()<15 ||
+            (m_newText.getSize() ==15 && event.text.unicode == 0x8)))
         {
             //Обработка ввода
             m_textChanged = true ;

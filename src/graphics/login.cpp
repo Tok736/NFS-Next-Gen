@@ -42,7 +42,6 @@ pair<pair<string,string>,string>  isLogin(string &type)
     password.setCharacterSize(48);
     login.setString ( "" ) ;
     password.setString ( "" ) ;
-    int x = 0 ;
     TextBox tbLogin ( login ) ;
     TextBox tbPassw ( password ) ;
 
@@ -59,8 +58,10 @@ pair<pair<string,string>,string>  isLogin(string &type)
         while (window.pollEvent(event))
         {
             // Close window : exit
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed) {
+                type = "exit";
                 window.close();
+            }
             if ( event.type == sf::Event::MouseButtonPressed )
             {
                 if (sf::IntRect(60, 604, 224, 23).contains(sf::Mouse::getPosition(window)) && type == "login")

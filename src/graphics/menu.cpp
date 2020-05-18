@@ -33,14 +33,14 @@ short int isMenu(std::shared_ptr<Window> &window,const string& name)
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
 
-    sf::Text playerName("Hello, " + name+"!", font, 65), singleGame("Single game", font, 60), coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
-    playerName.setFillColor(sf::Color::Black);
+    sf::Text playerName("Hello," + name+"!", font, 65), singleGame("Single game", font, 60), coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
+    playerName.setFillColor(sf::Color::Yellow);
     singleGame.setFillColor(sf::Color(255,255,255));
     coopGame.setFillColor(sf::Color(255,255,255));
     exitFromGame.setFillColor(sf::Color(255,255,255));
     singleGame.setPosition(screenWidth/9, screenHeight/3);
     coopGame.setPosition(screenWidth/9, 4*screenHeight/9);
-    playerName.setPosition(screenWidth/2, screenHeight/2);
+    playerName.setPosition(11*screenWidth/18, screenHeight/18);
     exitFromGame.setPosition(screenWidth/9, 5*screenHeight/9);
     window->draw(playerName);
     window->draw(singleGame);

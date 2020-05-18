@@ -12,13 +12,6 @@ Game::~Game() {}
 
 //void Game::exitGame() {}
 
-void checkLogin(SQLiteDataBase &db, pair<pair<string, string>, string> &user, string &type)
-{
-    while (type == "login" && db.getAuthorizeUser(user.first.first, user.first.second) == USER_NOT_FOUND)
-    {
-        user = displayLoginMenu(type);
-    }
-}
 
 void  Game::playGame() {
 
@@ -30,36 +23,44 @@ void  Game::playGame() {
     pair<pair<string, string>, string> user;
     user.second = type;
 
-//    user = displayLoginMenu(type);
 
-    checkLogin(db, user, type);
-    while (type == "registration")
+    bool success = false;
+    while (!success)
     {
         user = displayLoginMenu(type);
-        if (db.setUser(user.first.first, user.first.second) == SUCCESS) {
-            checkLogin(db, user, type);
+        if (user.second == "login" && db.getAuthorizeUser(user.first.first, user.first.second) != USER_NOT_FOUND)
+            success = true;
+        else if (user.second == "registration" && db.setUser(user.first.first, user.first.second) == SUCCESS)
+            type = "login";
+        else if (user.second == "exit") {
+            type = "exit";
+            success = true;
         }
-    } //повторный ввод - для регистрации
+    }
 
+    if (type != "exit")
+        switch (displayMenu(window, db.getUserNickname())) {
+            case 1:
+                std::cout << "Запуск клиента\n";
 
-    switch (displayMenu(window, db.getUserNickname())) {
-        case 1:
-            std::cout << "Запуск клиента\n";
+                myClientState = std::make_shared<ClientState>(window, std::make_shared<ServerState>());
+                myClientState->clientLoop();
+                break;
+            case 2:
+                std::cout << "Запуск сервера\n";
+                window->close();
+                break;
+            case 0:
+                std::cout << "Выход\n";
+                window->close();
+                break;
+            default:
+                std::cout << "Нажато что-то не то\n";
+                window->close();
+                break;
+        }
+    else{
+        window->close();
 
-            myClientState = std::make_shared<ClientState>(window, std::make_shared<ServerState>());
-            myClientState->clientLoop();
-            break;
-        case 2:
-            std::cout << "Запуск сервера\n";
-            window->close();
-            break;
-        case 0:
-            std::cout << "Выход\n";
-            window->close();
-            break;
-        default:
-            std::cout << "Нажато что-то не то\n";
-            window->close();
-            break;
     }
 }
