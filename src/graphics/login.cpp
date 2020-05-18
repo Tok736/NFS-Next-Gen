@@ -34,7 +34,6 @@ std::pair<std::string,std::string > isLogin()
     password.setCharacterSize(48);
     login.setString ( "" ) ;
     password.setString ( "" ) ;
-    int x = 0 ;
     TextBox tbLogin ( login ) ;
     TextBox tbPassw ( password ) ;
 
