@@ -13,6 +13,7 @@
 #include <sstream>
 #include <unistd.h>
 
+
 class Clock{
 
 public:
@@ -45,8 +46,9 @@ public:
     void close();
     void handleEvents(std::vector<int> &actions);
     void clear();
-    void draw(sf::Sprite &toDraw);
-    void draw(sf::Text &toDraw);
+    void draw(const sf::Sprite& toDraw);
+    void draw(const sf::RectangleShape& toDraw);
+    void draw(const sf::Text& toDraw);
     shared_ptr<sf::RenderWindow> getWindow();
     bool pollEvent(sf::Event &event);
 
@@ -61,6 +63,7 @@ private:
     unsigned int width_;
 
     std::map<int, std::vector<sf::Texture>> mapOfRextures;
+
 };
 
 
@@ -68,6 +71,9 @@ short int isMenu(std::shared_ptr<Window> &window);
 short int displayMenu(std::shared_ptr<Window> &window);
 short int pauseWindow(std::shared_ptr<Window> &window,const int &timeInGame);
 short int isPause(std::shared_ptr<Window> &window,const int &timeInGame);
+
+std::pair<std::string,std::string > displayLoginMenu();
+std::pair<std::string,std::string > isLogin();
 
 bool countDown(std::shared_ptr<Window> &window);
 

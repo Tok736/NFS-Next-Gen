@@ -80,16 +80,17 @@ void Window::createTextures(std::vector<shared_ptr<IGameElement>> &roadAndObstcl
     {
         sf::Texture tempTexture;
         std::vector<sf::Texture> tempVectorOfTextures;
-        if (roadElem->getId()== 0)
+        int id = roadElem->getId();
+        if (id == 0)
         {
             tempTexture.loadFromFile("src/textures/littleRoad.png");
             tempVectorOfTextures.push_back(tempTexture);
         }
-        else if (roadElem->getId() >=1 && roadElem->getId() <= 9)
+        else if (id >=1 && id <= 9)
         {
             for (int i=0; i<4; i++)
             {
-                tempTexture.loadFromFile("src/textures/CarAction_"+toString(i)+".png");
+                tempTexture.loadFromFile("src/textures/CarAction_" + toString(id)+toString(i)+".png");
                 tempVectorOfTextures.push_back(tempTexture);
             }
         }
@@ -97,7 +98,7 @@ void Window::createTextures(std::vector<shared_ptr<IGameElement>> &roadAndObstcl
             tempTexture.loadFromFile("src/textures/obstruction" + toString(roadElem->getId())+ ".png");
             tempVectorOfTextures.push_back(tempTexture);
         }
-        mapOfRextures.insert(std::pair<int, std::vector<sf::Texture>>(roadElem->getId(), tempVectorOfTextures));
+        mapOfRextures.insert(std::pair<int, std::vector<sf::Texture>>(id, tempVectorOfTextures));
     }
 }
 
@@ -133,9 +134,14 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
             else
                 carSprite.setTexture(mapOfRextures.find(roadElement->getId())->second[0]);
 
-            carSprite.setPosition((float) roadElement->getX() - carX, (float) roadElement->getY() + carY);
-//            carSprite.rotate((float) roadElement->getAngle());
+            carSprite.setOrigin(carX, carY);
+            cout << "posX: "<<roadElement->getX()<<" posY: "<<roadElement->getY();
+
+            cout<<" OriginX: "<<carSprite.getOrigin().x<<" OriginY: "<<carSprite.getOrigin().y<< " rotate: "<<(float) roadElement->getAngle()<<std::endl;
+            carSprite.setRotation((float) roadElement->getAngle());
+            carSprite.setPosition(roadElement->getX(), roadElement->getY());
             renderWindow_->draw(carSprite);
+
         }
         else {
             sf::Sprite roadObstract(mapOfRextures.find(roadElement->getId())->second[0]);
@@ -170,9 +176,6 @@ void Window::clear() {
     renderWindow_->clear();
 }
 
-void Window::draw(sf::Sprite &toDraw) {
-    renderWindow_->draw(toDraw);
-}
 
 shared_ptr<sf::RenderWindow> Window::getWindow() {
     return renderWindow_;
@@ -195,7 +198,16 @@ unsigned int Window::getHeight() const {
     return height_;
 }
 
-void Window::draw(sf::Text &toDraw) {
+
+
+void Window::draw(const sf::Text& toDraw) {
     renderWindow_->draw(toDraw);
 }
 
+void Window::draw(const sf::Sprite &toDraw) {
+    renderWindow_->draw(toDraw);
+}
+
+void Window::draw(const sf::RectangleShape &toDraw) {
+    renderWindow_->draw(toDraw);
+}
