@@ -12,7 +12,7 @@ add_executable(runTest test.cpp ${SOURCE_CPPS} ${TEST_CPPS})
 
 target_link_libraries(runTest gtest gtest_main gmock gmock_main)
 
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules")
 find_package(SFML REQUIRED system window graphics network audio)
 
 if (SFML_FOUND)

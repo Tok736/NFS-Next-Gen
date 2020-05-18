@@ -42,7 +42,7 @@ target_link_libraries(${PROJECT_NAME} gmock gmock_main)
 
 # ==== Linking with SFML ==== #
 
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules")
 find_package(SFML REQUIRED system window graphics network audio)
 
 if (SFML_FOUND)
