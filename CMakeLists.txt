@@ -43,11 +43,11 @@ target_link_libraries(${PROJECT_NAME} gmock gmock_main)
 
 # ==== Linking with SQLite DataBase ==== #
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
-find_package(SQLITE3)
-if (SQLITE3_FOUND)
+find_package(SQLite3)
+if (SQLite3_FOUND)
     include_directories(${SQLite3_INCLUDE_DIRS})
     target_link_libraries (${PROJECT_NAME} ${SQLite3_LIBRARIES})
-endif (SQLITE3_FOUND)
+endif (SQLite3_FOUND)
 
 
 

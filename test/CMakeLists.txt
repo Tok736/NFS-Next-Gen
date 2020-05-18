@@ -11,11 +11,11 @@ add_library(SQLite STATIC ../src/SQLite.cpp)
 add_executable(runTest test.cpp dataBase/dataBaseTest.cpp ${TEST_CPPS})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/../cmake_modules")
-find_package(SQLITE3)
-if (SQLITE3_FOUND)
+find_package(SQLite3)
+if (SQLite3_FOUND)
     include_directories(${SQLite3_INCLUDE_DIRS})
     target_link_libraries (SQLite ${SQLite3_LIBRARIES})
-endif (SQLITE3_FOUND)
+endif (SQLite3_FOUND)
 
 target_link_libraries(runTest gtest gtest_main gmock gmock_main SQLite)
 

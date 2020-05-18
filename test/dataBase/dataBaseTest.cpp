@@ -46,13 +46,24 @@ void checkDeleteUser(SQLiteDataBase &db, vector<string> &users, vector<string> &
 }
 
 void checkUsersUpdate(SQLiteDataBase &db, vector<string> &users, vector<string> &passwd) {
-	for (int i = 0;
-		 i < usersCount; ++i) { // устанавливаем всем пользователям  рейтинги в виде очков, проверяем обновления
+	for (int i = 0; i < usersCount; ++i) { // устанавливаем всем пользователям  рейтинги в виде очков, проверяем обновления
 		db.getAuthorizeUser(users[i], passwd[i]);
 		ASSERT_EQ(db.setUserLocalScore(localScore), SUCCESS);
 		ASSERT_EQ(db.setUserNetworkScore(networkScore), SUCCESS);
 		ASSERT_EQ(db.getUserLocalScore(), localScore);
 		ASSERT_EQ(db.getUserNetworkScore(), networkScore);
+	}
+}
+
+void checkLastSession(SQLiteDataBase &db, vector<string> &users, vector<string> &passwd)
+{
+	ASSERT_EQ(db.getLastSession(), USER_NOT_FOUND); // Не было установки (галочки) для сохранения сессии
+	for (int i = 0; i < usersCount - 1; ++i) { // устанавливаем всем пользователям  рейтинги в виде очков, проверяем обновления
+		db.getAuthorizeUser(users[i], passwd[i]);
+		ASSERT_EQ(db.setLastSession(), SUCCESS); // Сохраняем сессию текущего авторизованного пользователя
+		db.getAuthorizeUser(users[i + 1], passwd[i + 1]); // Заходим под другим пользователем
+		ASSERT_EQ(db.getLastSession(), SUCCESS); // Открываем сессию предыдущего пользователя
+		ASSERT_EQ(db.getUserNickname(), users[i]); //  Проверяем, что доступна сохраненная сессия
 	}
 }
 
@@ -69,6 +80,7 @@ TEST(googleTestExample, DataBasetest) {
 	checkUsersUpdate(db, nickNames, usersPasswds);
 	checkDeleteUser(db,nickNames, usersPasswds);
 	putUsersInDataBase(db,nickNames, usersPasswds);
+	checkLastSession(db,nickNames, usersPasswds);
 	checkDeleteUser(db,nickNames, usersPasswds);
 	db.getStandings(20);
 	cout << "Success DataBaseTest\n";
