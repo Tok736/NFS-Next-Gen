@@ -158,7 +158,7 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
     sf::Text score("", font, 20);
-    score.setFillColor(sf::Color(255,255,255));
+    score.setFillColor(sf::Color(255,255,255,0));
     score.setString("Score: " + toString<int>(timeInGame));
     score.setPosition(35*screenWidth/48, screenHeight/20);
     renderWindow_->draw(score);
