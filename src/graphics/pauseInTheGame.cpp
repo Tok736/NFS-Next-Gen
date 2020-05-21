@@ -52,10 +52,10 @@ short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNu
     renderPause(window, menuBg, continueGame, startAgain, exitFromGame);
     usleep(200000);
     window->clear();
-    setSizeForButton(window, menuNum, continueGame, startAgain, exitFromGame, 40);
+    setSizeForButton(menuNum, continueGame, startAgain, exitFromGame, 40);
     renderPause(window, menuBg,continueGame, startAgain, exitFromGame);
     usleep(100000);
-    setSizeForButton(window, menuNum, continueGame, startAgain, exitFromGame, 60);
+    setSizeForButton(menuNum, continueGame, startAgain, exitFromGame, 60);
     renderPause(window, menuBg,continueGame, startAgain, exitFromGame);
     window->clear();
     if (menuNum == continueB)

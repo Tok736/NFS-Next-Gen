@@ -40,7 +40,7 @@ void updateLoginView(const shared_ptr<sf::RenderWindow>& window, sf::Text &goToF
 }
 
 
-void setBg(const shared_ptr<sf::RenderWindow>& window, string &type,
+void setBg(string &type,
         sf::Texture &menuBackground, sf::Text &goToForm, sf::Text &actionWithForm)
 {
     if (type == "login") {
@@ -64,10 +64,10 @@ void buttonIsPressedForm(const shared_ptr<sf::RenderWindow>& window, const int& 
     renderPause(window, menuBg, goToForm, actionWithForm, exitFromGame);
     usleep(200000);
     window->clear();
-    setSizeForButton(window, menuNum, goToForm, actionWithForm, exitFromGame, 20);
+    setSizeForButton(menuNum, goToForm, actionWithForm, exitFromGame, 20);
     renderPause(window, menuBg, goToForm, actionWithForm, exitFromGame);
     usleep(100000);
-    setSizeForButton(window, menuNum, goToForm, actionWithForm, exitFromGame, 30);
+    setSizeForButton(menuNum, goToForm, actionWithForm, exitFromGame, 30);
     renderPause(window, menuBg, goToForm, actionWithForm, exitFromGame);
     window->clear();
 }
@@ -84,7 +84,7 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
     exitFromGame.setPosition(screenWidth/2, screenHeight/1.45);
 
     sf::Texture menuBackground;
-    setBg(window,type,menuBackground, goToForm, actionWithForm);
+    setBg(type,menuBackground, goToForm, actionWithForm);
 
     goToForm.setFont(font);
     actionWithForm.setFont(font);
@@ -137,7 +137,7 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
                         type = "registration";
                     else
                         type = "login";
-                    setBg(window,type,menuBackground, goToForm, actionWithForm);
+                    setBg(type,menuBackground, goToForm, actionWithForm);
                     buttonIsPressedForm(window,menuNum,menuBg, goToForm, actionWithForm, exitFromGame);
                 }
 
