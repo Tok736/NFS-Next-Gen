@@ -40,6 +40,7 @@ public:
 
     unsigned int getWidth() const;
     unsigned int getHeight() const;
+
     void setWidth(unsigned int width);
     void setHeight(unsigned int height);
     bool isOpen();
@@ -69,16 +70,14 @@ private:
 };
 
 
-short int isMenu(std::shared_ptr<Window> &window,const string& name);
-short int displayMenu(std::shared_ptr<Window> &window,const string& name);
+short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name);
 
-short int pauseWindow(std::shared_ptr<Window> &window,const int &timeInGame);
-short int isPause(std::shared_ptr<Window> &window,const int &timeInGame);
+short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &timeInGame);
 
-pair<pair<string,string>,string> displayLoginMenu(string &type);
-pair<pair<string,string>,string>  isLogin(string &type);
+pair<pair<string,string>,string> displayLoginMenu(const shared_ptr<sf::RenderWindow>& window, string &type);
+pair<pair<string,string>,string>  isLogin(const shared_ptr<sf::RenderWindow>& window, string &type);
 
-bool countDown(std::shared_ptr<Window> &window);
+bool countDown(const shared_ptr<sf::RenderWindow>& window);
 
 template <typename T>
 std::string toString(T val)

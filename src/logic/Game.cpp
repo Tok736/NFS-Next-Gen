@@ -16,6 +16,7 @@ Game::~Game() {}
 void  Game::playGame() {
 
     sp_t<Window> window(new Window);
+    window->createRenderWindow(window, screenWidth, screenHeight, "Menu");
 
 
     SQLiteDataBase db;
@@ -27,7 +28,7 @@ void  Game::playGame() {
     bool success = false;
     while (!success)
     {
-        user = displayLoginMenu(type);
+        user = displayLoginMenu(window->getRenderWindow(),type);
         if (user.second == "login" && db.getAuthorizeUser(user.first.first, user.first.second) != USER_NOT_FOUND)
             success = true;
         else if (user.second == "registration" && db.setUser(user.first.first, user.first.second) == SUCCESS)
@@ -39,7 +40,7 @@ void  Game::playGame() {
     }
 
     if (type != "exit")
-        switch (displayMenu(window, db.getUserNickname())) {
+        switch (displayMenu(window->getRenderWindow(), db.getUserNickname())) {
             case 1:
                 std::cout << "Запуск клиента\n";
 

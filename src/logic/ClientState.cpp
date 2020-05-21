@@ -100,7 +100,7 @@ void ClientState::clientLoop() {
         else if (!actions.empty() && actions[0] == pauseOfTheGame)
         {
             actions.pop_back();
-            if (!pauseWindow(myWindow, freq))
+            if (!pauseWindow(myWindow->getRenderWindow(), freq))
                 return;
         }
         else {

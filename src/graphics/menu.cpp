@@ -5,13 +5,8 @@
 #include "graphics/graphic.h"
 #include "physics/physics.h"
 
-short int displayMenu(std::shared_ptr<Window> &window,const string &name)
-{
-    Window::createRenderWindow(window, screenWidth, screenHeight, "Menu");
-    return isMenu(window, name);
-}
 
-short int isMenu(std::shared_ptr<Window> &window,const string& name)
+short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name)
 {
     sf::SoundBuffer buffer;
     buffer.loadFromFile("src/sounds/button.ogg");
@@ -27,8 +22,6 @@ short int isMenu(std::shared_ptr<Window> &window,const string& name)
 
     float xProcentUpdate = 1;
     float yProcentUpdate = 1;
-    window->setWidth(screenWidth);
-    window->setHeight(screenHeight);
 
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
@@ -66,18 +59,17 @@ short int isMenu(std::shared_ptr<Window> &window,const string& name)
             }
             if (event.type == sf::Event::Resized)
             {
-                window->setHeight(static_cast<unsigned int>(event.size.height));
-                window->setWidth(static_cast<unsigned int>(event.size.width));
-                xProcentUpdate = (float)window->getWidth()/screenWidth;
-                yProcentUpdate = (float)window->getHeight()/screenHeight;
+                window->setSize(sf::Vector2u(event.size.width, event.size.height));
+                xProcentUpdate = (float)window->getSize().x/screenWidth;
+                yProcentUpdate = (float)window->getSize().y/screenHeight;
                 if (yProcentUpdate == 0)
                     yProcentUpdate = 1;
                 if (xProcentUpdate == 0)
                     xProcentUpdate = 1;
             }
             //Single Game
-            if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)window->getHeight()/3 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
-                    sf::Mouse::getPosition(*window->getWindow()))) {
+            if (sf::IntRect((float)window->getSize().x/ 9 - xProcentUpdate, (float)window->getSize().y /3 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
+                    sf::Mouse::getPosition(*window))) {
                 singleGame.setFillColor(sf::Color(1,255,244));
                 if (prevButton != 2)
                     sound.play();
@@ -85,8 +77,8 @@ short int isMenu(std::shared_ptr<Window> &window,const string& name)
                 prevButton = 2;
             }
             //Coop Game
-            if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)4*window->getHeight()/9 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
-                    sf::Mouse::getPosition(*window->getWindow()))) {
+            if (sf::IntRect((float)window->getSize().x/ 9 - xProcentUpdate, (float)4*window->getSize().y/9 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
+                    sf::Mouse::getPosition(*window))) {
                 coopGame.setFillColor(sf::Color(255,160,18));
                 if (prevButton != 3)
                     sound.play();
@@ -94,8 +86,8 @@ short int isMenu(std::shared_ptr<Window> &window,const string& name)
                 prevButton = 3;
             }
             //Exit
-            if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)5*window->getHeight()/9 + 30*yProcentUpdate, 200*xProcentUpdate, 90*yProcentUpdate).contains(
-                    sf::Mouse::getPosition(*window->getWindow()))) {
+            if (sf::IntRect((float)window->getSize().x/ 9 - xProcentUpdate, (float)5*window->getSize().y/9 + 30*yProcentUpdate, 200*xProcentUpdate, 90*yProcentUpdate).contains(
+                    sf::Mouse::getPosition(*window))) {
                 exitFromGame.setFillColor(sf::Color(235,19,199));
                 if (prevButton != 4)
                     sound.play();
@@ -167,7 +159,7 @@ short int isMenu(std::shared_ptr<Window> &window,const string& name)
 };
 
 
-bool countDown(std::shared_ptr<Window> &window)
+bool countDown(const shared_ptr<sf::RenderWindow>& window)
 {
     window->clear();
     sf::Texture countDownBackground;
