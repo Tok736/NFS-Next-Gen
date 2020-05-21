@@ -7,10 +7,70 @@
 
 
 
-
 FocusController fc ;
 
+enum buttons{
+    formB = 2,
+    submitB = 3,
+    exitB = 4,
+    nothingPressed = 10,
+};
 
+void updateLoginView(const shared_ptr<sf::RenderWindow>& window, sf::Text &goToForm,
+                        sf::Text &actionWithForm, sf::Text &exitFromGame)
+{
+    goToForm.setFillColor(sf::Color(255,255,255));
+    actionWithForm.setFillColor(sf::Color(255,255,255));
+    exitFromGame.setFillColor(sf::Color(255,255,255));
+
+    if (isContain(window, goToForm))
+    {
+        goToForm.setFillColor(sf::Color(1,255,244));
+
+    }
+    //restart Game
+    if (isContain(window, actionWithForm)) {
+        actionWithForm.setFillColor(sf::Color(235, 230, 9));
+
+    }
+    //Exit
+    if (isContain(window, exitFromGame)) {
+        exitFromGame.setFillColor(sf::Color(82,43,255));
+    }
+}
+
+
+void setBg(const shared_ptr<sf::RenderWindow>& window, string &type,
+        sf::Texture &menuBackground, sf::Text &goToForm, sf::Text &actionWithForm)
+{
+    if (type == "login") {
+        menuBackground.loadFromFile("src/textures/login.png");
+        goToForm.setString("registration");
+        actionWithForm.setString("sign in");
+    }
+    else {
+        menuBackground.loadFromFile("src/textures/registration.png");
+        goToForm.setString("login");
+        actionWithForm.setString("save");
+    }
+}
+
+
+
+void buttonIsPressedForm(const shared_ptr<sf::RenderWindow>& window, const int& menuNum, sf::Sprite &menuBg,
+        sf::Text &goToForm, sf::Text &actionWithForm, sf::Text &exitFromGame)
+{
+
+    renderPause(window, menuBg, goToForm, actionWithForm, exitFromGame);
+    usleep(200000);
+    window->clear();
+    setSizeForButton(window, menuNum, goToForm, actionWithForm, exitFromGame, 20);
+    renderPause(window, menuBg, goToForm, actionWithForm, exitFromGame);
+    usleep(100000);
+    setSizeForButton(window, menuNum, goToForm, actionWithForm, exitFromGame, 30);
+    renderPause(window, menuBg, goToForm, actionWithForm, exitFromGame);
+    window->clear();
+}
 
 pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWindow>& window, string &type)
 {
@@ -18,18 +78,31 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
     sf::Font font ;
     font.loadFromFile("src/fonts/fontForScore.ttf");
 
+    sf::Text goToForm;
+    sf::Text actionWithForm;
+    sf::Text exitFromGame("Exit", font, 40);
+    exitFromGame.setPosition(screenWidth/2, screenHeight/1.45);
+
     sf::Texture menuBackground;
-    if (type == "login")
-        menuBackground.loadFromFile("src/textures/login.png");
-    else
-        menuBackground.loadFromFile("src/textures/registration.png");
+    setBg(window,type,menuBackground, goToForm, actionWithForm);
+
+    goToForm.setFont(font);
+    actionWithForm.setFont(font);
+    goToForm.setCharacterSize(30);
+    actionWithForm.setCharacterSize(40);
+    goToForm.setPosition(screenWidth/24, screenHeight/1.43);
+    actionWithForm.setPosition(screenWidth/2.77, screenHeight/1.84);
+    goToForm.setFillColor(sf::Color::White);
+    actionWithForm.setFillColor(sf::Color::White);
+
+
 
     sf::Sprite menuBg(menuBackground);
     menuBg.setPosition(0,0);
 
     sf::Text login, password;
-    login.setPosition ( 370, 292 ) ;
-    password.setPosition ( 370 , 394 ) ;
+    login.setPosition ( screenWidth/3.9, screenHeight/3.1 ) ;
+    password.setPosition ( screenWidth/3.9 , screenHeight/2.3 ) ;
     login.setFont ( font ) ;
     password.setFont ( font ) ;
     login.setCharacterSize(48);
@@ -46,39 +119,47 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
 
     bool pressButton = false;
 
+
+    int menuNum = 0;
+
     while (window->isOpen() && !pressButton)
     {
         sf::Event event{};
         while (window->pollEvent(event))
         {
-            // Close window : exit
-            if (event.type == sf::Event::Closed) {
-                type = "exit";
-                window->close();
-            }
-            if ( event.type == sf::Event::MouseButtonPressed )
+            updateLoginView(window, goToForm, actionWithForm, exitFromGame);
+            if ( sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
-                if (sf::IntRect(60, 604, 224, 23).contains(sf::Mouse::getPosition(*window)) && type == "login")
+                if (isContain(window, goToForm))
                 {
-                    type = "registration";
-                    menuBackground.loadFromFile("src/textures/registration.png");
+                    menuNum = formB;
+                    if (type == "login")
+                        type = "registration";
+                    else
+                        type = "login";
+                    setBg(window,type,menuBackground, goToForm, actionWithForm);
+                    buttonIsPressedForm(window,menuNum,menuBg, goToForm, actionWithForm, exitFromGame);
                 }
-                if (sf::IntRect(60, 604, 130, 23).contains(sf::Mouse::getPosition(*window)) && type == "registration")
-                {
-                    type = "login";
-                    menuBackground.loadFromFile("src/textures/login.png");
-                }
-                if (sf::IntRect(370, 292 , 433,60).contains(sf::Mouse::getPosition(*window)))
+
+                if (sf::IntRect(screenWidth/3.9, screenHeight/3.1 , screenWidth/3.33,screenHeight/15).contains(sf::Mouse::getPosition(*window)))
                 {
                     fc.setFocusObject( &tbLogin ) ;
                 }
-                else if (sf::IntRect(370, 391, 433,60).contains(sf::Mouse::getPosition(*window))){
+                else if (sf::IntRect(screenWidth/3.9, screenHeight/2.3, screenWidth/3.33,screenHeight/15).contains(sf::Mouse::getPosition(*window))){
                     fc.setFocusObject( &tbPassw ) ;
                 }
-                else if (sf::IntRect(583, 488, 217,79).contains(sf::Mouse::getPosition(*window))){
+                else if (isContain(window, actionWithForm)){
                     data.first.first = tbLogin.getText().getString();
                     data.first.second = tbPassw.getText().getString();
                     data.second = type;
+                    menuNum = submitB;
+                    buttonIsPressedForm(window,menuNum,menuBg, goToForm, actionWithForm, exitFromGame);
+                    pressButton = true;
+                }
+                else if(isContain(window, exitFromGame) || event.type == sf::Event::Closed) {
+                    data.second = "exit";
+                    menuNum = exitB;
+                    buttonIsPressedForm(window,menuNum,menuBg, goToForm, actionWithForm, exitFromGame);
                     pressButton = true;
                 }
             }
@@ -90,6 +171,9 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
         }
         window->clear();
         window->draw(menuBg);
+        window->draw(goToForm);
+        window->draw(exitFromGame);
+        window->draw(actionWithForm);
         window->draw ( tbLogin ) ;
         window->draw ( tbPassw ) ;
         window->display();
