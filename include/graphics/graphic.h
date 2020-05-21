@@ -65,20 +65,19 @@ private:
 
 short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name);
 short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &timeInGame);
-pair<pair<string,string>,string> displayLoginMenu(const shared_ptr<sf::RenderWindow>& window, string &type);
+pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWindow>& window, string &type);
 
 
 
-short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNum, const sf::Sprite &menuBg,
-                          sf::Text &playerName, sf::Text &singleGame, sf::Text &coopGame, sf::Text &exitFromGame);
 
 void setSizeForButton(const shared_ptr<sf::RenderWindow> &window,int menuNum, sf::Text &first,
                       sf::Text &second, sf::Text &third, int size);
 
 bool isContain(const shared_ptr<sf::RenderWindow>& window, const sf::Text& temp);
 
+void renderPause(const shared_ptr<sf::RenderWindow> &window, const sf::Sprite &menuBg,
+                 const sf::Text &first, const sf::Text &second, const sf::Text &exitFromGame);
 
-pair<pair<string,string>,string> displayLoginMenu(const shared_ptr<sf::RenderWindow>& window, string &type);
 
 
 template <typename T>

@@ -118,7 +118,6 @@ short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& n
     menuBackground.loadFromFile("src/textures/bg.png");
     sf::Sprite menuBg(menuBackground);
     int menuNum = 0;
-    int start = 0;
     menuBg.setPosition(0,0);
 
 
@@ -127,6 +126,7 @@ short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& n
 
     sf::Text playerName("Hello," + name+"!", font, 65), singleGame("Single game", font, 60);
     sf::Text coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
+
     playerName.setFillColor(sf::Color::Yellow);
     singleGame.setFillColor(sf::Color(255,255,255));
     coopGame.setFillColor(sf::Color(255,255,255));
