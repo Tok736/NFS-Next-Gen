@@ -13,6 +13,8 @@ enum buttons{
 };
 
 
+bool countDown(const shared_ptr<sf::RenderWindow>& window);
+
 
 void render(const shared_ptr<sf::RenderWindow> &window, const sf::Sprite &menuBg, const sf::Text &playerName,
                             const sf::Text &singleGame,const sf::Text &coopGame, const sf::Text &exitFromGame)
@@ -69,7 +71,7 @@ short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNu
 
 
 
-void updateView(const shared_ptr<sf::RenderWindow>& window, const sf::Event &event, sf::Sound sound, sf::Text &singleGame,
+void updateView(const shared_ptr<sf::RenderWindow>& window, sf::Sound sound, sf::Text &singleGame,
         sf::Text &coopGame, sf::Text &exitFromGame, int &prevButton, int &menuNum)
 {
     singleGame.setFillColor(sf::Color(255,255,255));
@@ -151,7 +153,7 @@ short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& n
                 window->close();
                 return 0;
             }
-            updateView(window, event, sound, singleGame,coopGame, exitFromGame, prevButton, menuNum);
+            updateView(window, sound, singleGame,coopGame, exitFromGame, prevButton, menuNum);
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
                 short int buttonPressed = buttonIsPressed(window, menuNum, menuBg,playerName, singleGame, coopGame, exitFromGame);

@@ -9,6 +9,8 @@
 #include <string>
 #include <utility>
 
+
+
 enum input{
     maxWordLen = 15
 };
@@ -118,6 +120,7 @@ private:
     mutable sf::String m_newText ;
     mutable bool m_textChanged{} ;
 } ;
+
 
 
 

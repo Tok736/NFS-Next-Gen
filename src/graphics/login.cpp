@@ -10,13 +10,9 @@
 
 FocusController fc ;
 
+
+
 pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWindow>& window, string &type)
-{
-
-    return isLogin(window,type);
-}
-
-pair<pair<string,string>,string>  isLogin(const shared_ptr<sf::RenderWindow>& window, string &type)
 {
 
     sf::Font font ;

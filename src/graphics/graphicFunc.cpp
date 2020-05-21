@@ -190,10 +190,6 @@ void Window::clear() {
 }
 
 
-shared_ptr<sf::RenderWindow> Window::getWindow() {
-    return renderWindow_;
-}
-
 bool Window::pollEvent(sf::Event& event) {
     renderWindow_->pollEvent(event);
     return true;
@@ -203,24 +199,8 @@ shared_ptr<sf::RenderWindow> Window::getRenderWindow() {
     return renderWindow_;
 }
 
-unsigned int Window::getWidth() const {
-    return width_;
-}
 
-unsigned int Window::getHeight() const {
-    return height_;
-}
-
-
-
-void Window::draw(const sf::Text& toDraw) {
-    renderWindow_->draw(toDraw);
-}
-
-void Window::draw(const sf::Sprite &toDraw) {
-    renderWindow_->draw(toDraw);
-}
-
-void Window::draw(const sf::RectangleShape &toDraw) {
-    renderWindow_->draw(toDraw);
+bool isContain(const shared_ptr<sf::RenderWindow>& window, const sf::Text& temp)
+{
+    return (temp.getGlobalBounds()).contains(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
 }
