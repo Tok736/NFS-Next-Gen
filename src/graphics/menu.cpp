@@ -27,7 +27,7 @@ void render(const shared_ptr<sf::RenderWindow> &window, const sf::Sprite &menuBg
     window->display();
 }
 
-void setSizeForButton(const shared_ptr<sf::RenderWindow> &window,int menuNum, sf::Text &singleGame,
+void setSizeForButton(int menuNum, sf::Text &singleGame,
                                 sf::Text &coopGame, sf::Text &exitFromGame, int size)
 {
     if (menuNum == singlPlayB)
@@ -44,10 +44,10 @@ short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNu
     render(window, menuBg,playerName, singleGame, coopGame, exitFromGame);
     usleep(200000);
     window->clear();
-    setSizeForButton(window, menuNum, singleGame, coopGame, exitFromGame, 40);
+    setSizeForButton(menuNum, singleGame, coopGame, exitFromGame, 40);
     render(window, menuBg,playerName, singleGame, coopGame, exitFromGame);
     usleep(100000);
-    setSizeForButton(window, menuNum, singleGame, coopGame, exitFromGame, 60);
+    setSizeForButton(menuNum, singleGame, coopGame, exitFromGame, 60);
     render(window, menuBg,playerName, singleGame, coopGame, exitFromGame);
     window->clear();
     if (menuNum == singlPlayB)

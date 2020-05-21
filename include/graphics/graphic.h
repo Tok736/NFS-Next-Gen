@@ -70,7 +70,7 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
 
 
 
-void setSizeForButton(const shared_ptr<sf::RenderWindow> &window,int menuNum, sf::Text &first,
+void setSizeForButton(int menuNum, sf::Text &first,
                       sf::Text &second, sf::Text &third, int size);
 
 bool isContain(const shared_ptr<sf::RenderWindow>& window, const sf::Text& temp);
