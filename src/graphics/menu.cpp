@@ -5,6 +5,105 @@
 #include "graphics/graphic.h"
 #include "physics/physics.h"
 
+enum buttons{
+    singlPlayB = 2,
+    coopPlayB = 3,
+    exitB = 4,
+    nothingPressed = 10,
+};
+
+
+
+void render(const shared_ptr<sf::RenderWindow> &window, const sf::Sprite &menuBg, const sf::Text &playerName,
+                            const sf::Text &singleGame,const sf::Text &coopGame, const sf::Text &exitFromGame)
+{
+    window->draw(menuBg);
+    window->draw(singleGame);
+    window->draw(coopGame);
+    window->draw(exitFromGame);
+    window->draw(playerName);
+    window->display();
+}
+
+void setSizeForButton(const shared_ptr<sf::RenderWindow> &window,int menuNum, sf::Text &singleGame,
+                                sf::Text &coopGame, sf::Text &exitFromGame, int size)
+{
+    if (menuNum == singlPlayB)
+        singleGame.setCharacterSize(size);
+    else if (menuNum == coopPlayB)
+        coopGame.setCharacterSize(size);
+    else if (menuNum == exitB)
+        exitFromGame.setCharacterSize(size);
+}
+
+short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNum, const sf::Sprite &menuBg,
+                          sf::Text &playerName, sf::Text &singleGame, sf::Text &coopGame, sf::Text &exitFromGame)
+{
+    render(window, menuBg,playerName, singleGame, coopGame, exitFromGame);
+    usleep(200000);
+    window->clear();
+    setSizeForButton(window, menuNum, singleGame, coopGame, exitFromGame, 40);
+    render(window, menuBg,playerName, singleGame, coopGame, exitFromGame);
+    usleep(100000);
+    setSizeForButton(window, menuNum, singleGame, coopGame, exitFromGame, 60);
+    render(window, menuBg,playerName, singleGame, coopGame, exitFromGame);
+    window->clear();
+    if (menuNum == singlPlayB)
+    {
+        if (!countDown(window))
+            return(0);
+        return 1;
+    }
+    else if (menuNum == coopPlayB)
+    {
+        //coop
+        return 2;
+    }
+    else if (menuNum == exitB)
+    {
+        return 0;
+    }
+    else
+        return nothingPressed;
+}
+
+
+
+void updateView(const shared_ptr<sf::RenderWindow>& window, const sf::Event &event, sf::Sound sound, sf::Text &singleGame,
+        sf::Text &coopGame, sf::Text &exitFromGame, int &prevButton, int &menuNum)
+{
+    singleGame.setFillColor(sf::Color(255,255,255));
+    coopGame.setFillColor(sf::Color(255,255,255));
+    exitFromGame.setFillColor(sf::Color(255,255,255));
+    menuNum = 0;
+
+    if (isContain(window, singleGame)) {
+        singleGame.setFillColor(sf::Color(1,255,244));
+        if (prevButton != singlPlayB) {
+            sound.play();
+        }
+        menuNum = singlPlayB;
+        prevButton = singlPlayB;
+    }
+        //Coop Game
+    if (isContain(window, coopGame)) {
+        coopGame.setFillColor(sf::Color(255,160,18));
+        if (prevButton != coopPlayB) {
+            sound.setPlayingOffset(sf::seconds(2.f));
+        }
+        menuNum = coopPlayB;
+        prevButton = coopPlayB;
+    }
+        //Exit
+    if (isContain(window, exitFromGame)) {
+        exitFromGame.setFillColor(sf::Color(235,19,199));
+        if (prevButton != exitB) {
+            sound.play();
+        }
+        menuNum = exitB;
+        prevButton = exitB;
+    }
+}
 
 short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name)
 {
@@ -20,13 +119,12 @@ short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& n
     int start = 0;
     menuBg.setPosition(0,0);
 
-    float xProcentUpdate = 1;
-    float yProcentUpdate = 1;
 
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
 
-    sf::Text playerName("Hello," + name+"!", font, 65), singleGame("Single game", font, 60), coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
+    sf::Text playerName("Hello," + name+"!", font, 65), singleGame("Single game", font, 60);
+    sf::Text coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
     playerName.setFillColor(sf::Color::Yellow);
     singleGame.setFillColor(sf::Color(255,255,255));
     coopGame.setFillColor(sf::Color(255,255,255));
@@ -42,13 +140,9 @@ short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& n
 
     int prevButton = 0;
 
-    sf::Event event;
-    while (!start)
+    sf::Event event{};
+    while (true)
     {
-        singleGame.setFillColor(sf::Color(255,255,255));
-        coopGame.setFillColor(sf::Color(255,255,255));
-        exitFromGame.setFillColor(sf::Color(255,255,255));
-        menuNum = 0;
         window->clear();
         if (window->pollEvent(event))
         {
@@ -57,107 +151,26 @@ short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& n
                 window->close();
                 return 0;
             }
-            if (event.type == sf::Event::Resized)
-            {
-                window->setSize(sf::Vector2u(event.size.width, event.size.height));
-                xProcentUpdate = (float)window->getSize().x/screenWidth;
-                yProcentUpdate = (float)window->getSize().y/screenHeight;
-                if (yProcentUpdate == 0)
-                    yProcentUpdate = 1;
-                if (xProcentUpdate == 0)
-                    xProcentUpdate = 1;
-            }
-            //Single Game
-            if (sf::IntRect((float)window->getSize().x/ 9 - xProcentUpdate, (float)window->getSize().y /3 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
-                    sf::Mouse::getPosition(*window))) {
-                singleGame.setFillColor(sf::Color(1,255,244));
-                if (prevButton != 2)
-                    sound.play();
-                menuNum = 2;
-                prevButton = 2;
-            }
-            //Coop Game
-            if (sf::IntRect((float)window->getSize().x/ 9 - xProcentUpdate, (float)4*window->getSize().y/9 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
-                    sf::Mouse::getPosition(*window))) {
-                coopGame.setFillColor(sf::Color(255,160,18));
-                if (prevButton != 3)
-                    sound.play();
-                menuNum = 3;
-                prevButton = 3;
-            }
-            //Exit
-            if (sf::IntRect((float)window->getSize().x/ 9 - xProcentUpdate, (float)5*window->getSize().y/9 + 30*yProcentUpdate, 200*xProcentUpdate, 90*yProcentUpdate).contains(
-                    sf::Mouse::getPosition(*window))) {
-                exitFromGame.setFillColor(sf::Color(235,19,199));
-                if (prevButton != 4)
-                    sound.play();
-                menuNum = 4;
-                prevButton = 4;
-            }
-            //handle Pressed Button
+            updateView(window, event, sound, singleGame,coopGame, exitFromGame, prevButton, menuNum);
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
-                //pressed Single Game
-                if (menuNum == 2) {
-                    singleGame.setCharacterSize(50);
-                    window->draw(menuBg);
-                    window->draw(singleGame);
-                    window->draw(coopGame);
-                    window->draw(exitFromGame);
-                    window->display();
-                    window->clear();
-                    usleep(200000);
-                    singleGame.setCharacterSize(60);
-                    window->draw(menuBg);
-                    window->draw(singleGame);
-                    window->draw(coopGame);
-                    window->draw(exitFromGame);
-                    window->display();
-                    usleep(100000);
-                    window->clear();
-                    if (!countDown(window))
-                        return(0);
-                    return 1; //single
-                }
-                if (menuNum == 3)
-                {
-                    //coop
-                    return 2;
-                }
-                //pressed Exit
-                if (menuNum == 4)
-                {
-                    exitFromGame.setCharacterSize(50);
-                    window->draw(menuBg);
-                    window->draw(singleGame);
-                    window->draw(coopGame);
-                    window->draw(exitFromGame);
-                    window->display();
-                    window->clear();
-                    usleep(200000);
-                    exitFromGame.setCharacterSize(60);
-                    window->draw(menuBg);
-                    window->draw(singleGame);
-                    window->draw(coopGame);
-                    window->draw(exitFromGame);
-                    window->display();
-                    window->close();
-                    return 0;
-                }
+                short int buttonPressed = buttonIsPressed(window, menuNum, menuBg,playerName, singleGame, coopGame, exitFromGame);
+                if (buttonPressed != nothingPressed)
+                    return buttonPressed;
             }
         }
-        window->draw(menuBg);
-
-        window->draw(playerName);
-
-        window->draw(singleGame);
-        window->draw(coopGame);
-        window->draw(exitFromGame);
-        window->display();
+        render(window, menuBg,playerName, singleGame, coopGame, exitFromGame);
     }
     return 0;
 };
 
+void renderCountDown(const shared_ptr<sf::RenderWindow>& window, const sf::Sprite &countDownBg, const sf::Text &timeDown)
+{
+    window->draw(countDownBg);
+    window->draw(timeDown);
+    window->display();
+    window->clear();
+}
 
 bool countDown(const shared_ptr<sf::RenderWindow>& window)
 {
@@ -182,24 +195,13 @@ bool countDown(const shared_ptr<sf::RenderWindow>& window)
         timeDown.setCharacterSize(30);
         timeDown.setString(toString(i));
         timeDown.setPosition(screenWidth/2 - 35, 1*screenHeight/4 - 35);
-        window->draw(countDownBg);
-        window->draw(timeDown);
-        window->display();
-        window->clear();
+        renderCountDown(window, countDownBg, timeDown);
         timeDown.setCharacterSize(55);
-        window->draw(countDownBg);
-        window->draw(timeDown);
-        window->display();
-        window->clear();
+        renderCountDown(window, countDownBg, timeDown);
         timeDown.setCharacterSize(80);
-        window->draw(countDownBg);
-        window->draw(timeDown);
-        window->display();
-        window->clear();
+        renderCountDown(window, countDownBg, timeDown);
         timeDown.setCharacterSize(120);
-        window->draw(countDownBg);
-        window->draw(timeDown);
-        window->display();
+        renderCountDown(window, countDownBg, timeDown);
         sleep(1);
     }
     window->clear();

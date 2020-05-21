@@ -5,6 +5,15 @@
 #include "graphics/graphic.h"
 #include "physics/physics.h"
 
+enum buttons{
+    continueB = 2,
+    restartB = 3,
+    exitB = 4,
+    nothingPressed = 10,
+};
+
+
+
 
 short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &timeInGame)
 {
@@ -14,9 +23,6 @@ short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &time
     int menuNum = 0;
     int start = 0;
     menuBg.setPosition(0,0);
-
-    float xProcentUpdate = 1;
-    float yProcentUpdate = 1;
 
 
     sf::Font font;
@@ -52,33 +58,21 @@ short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &time
                 window->close();
                 return 0;
             }
-            if (event.type == sf::Event::Resized)
-            {
-                window->setSize(sf::Vector2u(event.size.width, event.size.height));
-                xProcentUpdate = (float)window->getSize().x/screenWidth;
-                yProcentUpdate = (float)window->getSize().y/screenHeight;
-                if (yProcentUpdate == 0)
-                    yProcentUpdate = 1;
-                if (xProcentUpdate == 0)
-                    xProcentUpdate = 1;
-            }
             //continue Game
-            if (sf::IntRect((float)window->getSize().x/ 9 - xProcentUpdate, (float)window->getSize().y/3 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
-                    sf::Mouse::getPosition(*window))) {
+            if (isContain(window, continueGame))
+            {
                 continueGame.setFillColor(sf::Color(1,255,244));
-                menuNum = 2;
+                menuNum = continueB;
             }
             //restart Game
-            if (sf::IntRect((float)window->getSize().x/ 9 - xProcentUpdate, (float)4*window->getSize().y/9 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
-                    sf::Mouse::getPosition(*window))) {
+            if (isContain(window, startAgain)) {
                 startAgain.setFillColor(sf::Color(235, 230, 9));
-                menuNum = 3;
+                menuNum = restartB;
             }
             //Exit
-            if (sf::IntRect((float)window->getSize().x/ 9 - xProcentUpdate, (float)5*window->getSize().y/9 + 30*yProcentUpdate, 200*xProcentUpdate, 90*yProcentUpdate).contains(
-                    sf::Mouse::getPosition(*window))) {
+            if (isContain(window, exitFromGame)) {
                 exitFromGame.setFillColor(sf::Color(82,43,255));
-                menuNum = 4;
+                menuNum = exitB;
             }
             //handle Pressed Button
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))

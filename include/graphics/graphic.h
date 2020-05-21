@@ -72,6 +72,21 @@ private:
 
 short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name);
 
+void render(const shared_ptr<sf::RenderWindow> &window, const sf::Sprite &menuBg, const sf::Text &playerName,
+            const sf::Text &singleGame,const sf::Text &coopGame, const sf::Text &exitFromGame);
+
+short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNum, const sf::Sprite &menuBg,
+                          sf::Text &playerName, sf::Text &singleGame, sf::Text &coopGame, sf::Text &exitFromGame);
+
+void updateView(const shared_ptr<sf::RenderWindow>& window, const sf::Event &event, sf::Sound sound, sf::Text &singleGame,
+                sf::Text &coopGame, sf::Text &exitFromGame, int &prevButton, int &menuNum);
+
+
+void setSizeForButton(const shared_ptr<sf::RenderWindow> &window,int menuNum, sf::Text &singleGame,
+                      sf::Text &coopGame, sf::Text &exitFromGame, int size);
+
+
+
 short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &timeInGame);
 
 pair<pair<string,string>,string> displayLoginMenu(const shared_ptr<sf::RenderWindow>& window, string &type);
@@ -87,5 +102,10 @@ std::string toString(T val)
     return oss.str();
 }
 
+
+bool isContain(const shared_ptr<sf::RenderWindow>& window, const sf::Text& temp)
+{
+    return (temp.getGlobalBounds()).contains(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
+}
 
 #endif //NFS_NEXT_GEN_UTILS_H

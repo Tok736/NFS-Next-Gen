@@ -17,6 +17,12 @@ enum carCoord{
     carY = carLength/2,
 };
 
+enum id{
+    roadId = 0,
+    firstCarId = 1,
+    lastCarId = 9,
+};
+
 
 /////////////////////                    CLOCK            //////////////////////////////////////////
 
@@ -38,7 +44,7 @@ float Clock::getClockSec() {
 /////////////////////                    WINDOW            //////////////////////////////////////////
 
 void Window::createRenderWindow(shared_ptr<Window> miniEngine, unsigned int width, unsigned int height, const std::string &title) {
-    shared_ptr<sf::RenderWindow> newWindow(new sf::RenderWindow(sf::VideoMode(width, height), title));
+    auto newWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), title, sf::Style::Fullscreen);
     miniEngine->renderWindow_= newWindow;
     miniEngine->setHeight(height);
     miniEngine->setWidth(width);
@@ -88,21 +94,21 @@ void Window::createTextures(std::vector<shared_ptr<IGameElement>> &roadAndObstcl
         sf::Texture tempTexture;
         std::vector<sf::Texture> tempVectorOfTextures;
         int id = roadElem->getId();
-        if (id == 0)
+        vector<std:: string> typeOfObstacle;
+        if (id == roadId)
+            typeOfObstacle.emplace_back("littleRoad");
+        else if (id >=firstCarId && id <= lastCarId)
         {
-            tempTexture.loadFromFile("src/textures/littleRoad.png");
-            tempVectorOfTextures.push_back(tempTexture);
-        }
-        else if (id >=1 && id <= 9)
-        {
-            for (int i=0; i<4; i++)
-            {
-                tempTexture.loadFromFile("src/textures/CarAction_" + toString(id)+toString(i)+".png");
-                tempVectorOfTextures.push_back(tempTexture);
-            }
+            for (int i=0; i<4; i++) //numbers of cars conditions (left,up,right,down)
+                typeOfObstacle.emplace_back("CarAction_" + toString(id)+toString(i));
         }
         else{
-            tempTexture.loadFromFile("src/textures/obstruction" + toString(roadElem->getId())+ ".png");
+            typeOfObstacle.emplace_back("obstruction" + toString(roadElem->getId()));
+        }
+
+        for (auto & iter : typeOfObstacle)
+        {
+            tempTexture.loadFromFile("src/textures/" +iter +".png");
             tempVectorOfTextures.push_back(tempTexture);
         }
         mapOfRextures.insert(std::pair<int, std::vector<sf::Texture>>(id, tempVectorOfTextures));
@@ -115,7 +121,7 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
 
     for (auto & roadElement : roadElements)
     {
-        if (roadElement->getId() == 0)
+        if (roadElement->getId() == roadId)
         {
             sf::Sprite roadSprite1(mapOfRextures.find(roadElements[0]->getId())->second[0]);
             sf::Sprite roadSprite2(mapOfRextures.find(roadElements[1]->getId())->second[0]);
@@ -124,7 +130,7 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
             renderWindow_->draw(roadSprite1);
             renderWindow_->draw(roadSprite2);
         }
-        else if (roadElement->getId() >= 1 && roadElement->getId() <= 9)
+        else if (roadElement->getId() >= firstCarId && roadElement->getId() <= lastCarId)
         {
             sf::Sprite carSprite;
             if (actions != myNoAction)

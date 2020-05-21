@@ -18,8 +18,6 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
 
 pair<pair<string,string>,string>  isLogin(const shared_ptr<sf::RenderWindow>& window, string &type)
 {
-//    Window::createRenderWindow(window, screenWidth, screenHeight, "Login");
-//    sf::RenderWindow window(sf::VideoMode(screenWidth, screenHeight), L"Login");
 
     sf::Font font ;
     font.loadFromFile("src/fonts/fontForScore.ttf");
@@ -54,7 +52,7 @@ pair<pair<string,string>,string>  isLogin(const shared_ptr<sf::RenderWindow>& wi
 
     while (window->isOpen() && !pressButton)
     {
-        sf::Event event;
+        sf::Event event{};
         while (window->pollEvent(event))
         {
             // Close window : exit

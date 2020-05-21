@@ -9,6 +9,9 @@
 #include <string>
 #include <utility>
 
+enum input{
+    maxWordLen = 15
+};
 
 
 class FocusObject
@@ -82,22 +85,15 @@ public:
     }
     void event ( const sf::Event & event ) override
     {
-        if (event.type == sf::Event::TextEntered && (m_newText.getSize()<15 ||
-            (m_newText.getSize() ==15 && event.text.unicode == 0x8)))
+        if (event.type == sf::Event::TextEntered && (m_newText.getSize()<maxWordLen ||
+                            (m_newText.getSize() ==maxWordLen && event.text.unicode == 0x8)))
         {
             //Обработка ввода
             m_textChanged = true ;
-            switch ( event.text.unicode )
-            {
-                case 0x8://Backspace
-                    if ( !m_newText.isEmpty() )
-                        m_newText.erase(m_newText.getSize()-1) ;
-                    break ;
-                default :
-                {
-                    m_newText += static_cast<wchar_t>(event.text.unicode) ;
-                }
-            }
+            if (event.text.unicode == 0x8 && !m_newText.isEmpty())
+                m_newText.erase(m_newText.getSize()-1) ;
+            else
+                m_newText += static_cast<wchar_t>(event.text.unicode) ;
         }
     }
     void setText ( const sf::String & str )
