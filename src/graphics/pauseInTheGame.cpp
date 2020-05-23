@@ -5,13 +5,79 @@
 #include "graphics/graphic.h"
 #include "physics/physics.h"
 
-short int pauseWindow(std::shared_ptr<Window> &window,const int &timeInGame)
+enum buttons{
+    continueB = 2,
+    restartB = 3,
+    exitB = 4,
+    nothingPressed = 10,
+};
+
+void updatePauseView(const shared_ptr<sf::RenderWindow>& window, sf::Text &continueGame,
+                sf::Text &startAgain, sf::Text &exitFromGame, int &menuNum)
 {
-    Window::createRenderWindow(window, screenWidth, screenHeight, "Pause");
-    return isPause(window, timeInGame);
+    continueGame.setFillColor(sf::Color(255,255,255));
+    startAgain.setFillColor(sf::Color(255,255,255));
+    exitFromGame.setFillColor(sf::Color(255,255,255));
+
+    if (isContain(window, continueGame))
+    {
+        continueGame.setFillColor(sf::Color(1,255,244));
+        menuNum = continueB;
+    }
+    //restart Game
+    if (isContain(window, startAgain)) {
+        startAgain.setFillColor(sf::Color(235, 230, 9));
+        menuNum = restartB;
+    }
+    //Exit
+    if (isContain(window, exitFromGame)) {
+        exitFromGame.setFillColor(sf::Color(82,43,255));
+        menuNum = exitB;
+    }
 }
 
-short int isPause(std::shared_ptr<Window> &window,const int &timeInGame)
+void renderPause(const shared_ptr<sf::RenderWindow> &window, const sf::Sprite &menuBg,
+                 const sf::Text &continueGame, const sf::Text &startAgain, const sf::Text &exitFromGame)
+{
+    window->draw(menuBg);
+    window->draw(continueGame);
+    window->draw(startAgain);
+    window->draw(exitFromGame);
+    window->display();
+}
+
+short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNum, const sf::Sprite &menuBg,
+                          sf::Text &continueGame, sf::Text &startAgain, sf::Text &exitFromGame)
+{
+    renderPause(window, menuBg, continueGame, startAgain, exitFromGame);
+    usleep(200000);
+    window->clear();
+    setSizeForButton(menuNum, continueGame, startAgain, exitFromGame, 40);
+    renderPause(window, menuBg,continueGame, startAgain, exitFromGame);
+    usleep(100000);
+    setSizeForButton(menuNum, continueGame, startAgain, exitFromGame, 60);
+    renderPause(window, menuBg,continueGame, startAgain, exitFromGame);
+    window->clear();
+    if (menuNum == continueB)
+    {
+        return 1;
+    }
+    else if (menuNum == restartB)
+    {
+        //coop
+        return 2;
+    }
+    else if (menuNum == exitB)
+    {
+        return 0;
+    }
+    else
+        return nothingPressed;
+}
+
+
+
+short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &timeInGame)
 {
     sf::Texture menuBackground;
     menuBackground.loadFromFile("src/textures/bgPause.png");
@@ -20,10 +86,6 @@ short int isPause(std::shared_ptr<Window> &window,const int &timeInGame)
     int start = 0;
     menuBg.setPosition(0,0);
 
-    float xProcentUpdate = 1;
-    float yProcentUpdate = 1;
-    window->setWidth(screenWidth);
-    window->setHeight(screenHeight);
 
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
@@ -46,9 +108,6 @@ short int isPause(std::shared_ptr<Window> &window,const int &timeInGame)
     while (!start)
     {
         score.setFillColor(sf::Color(33,255,130));
-        continueGame.setFillColor(sf::Color(255,255,255));
-        startAgain.setFillColor(sf::Color(255,255,255));
-        exitFromGame.setFillColor(sf::Color(255,255,255));
         menuNum = 0;
         window->clear();
         if (window->pollEvent(event))
@@ -58,87 +117,12 @@ short int isPause(std::shared_ptr<Window> &window,const int &timeInGame)
                 window->close();
                 return 0;
             }
-            if (event.type == sf::Event::Resized)
-            {
-                window->setHeight(static_cast<unsigned int>(event.size.height));
-                window->setWidth(static_cast<unsigned int>(event.size.width));
-                xProcentUpdate = (float)window->getWidth()/screenWidth;
-                yProcentUpdate = (float)window->getHeight()/screenHeight;
-                if (yProcentUpdate == 0)
-                    yProcentUpdate = 1;
-                if (xProcentUpdate == 0)
-                    xProcentUpdate = 1;
-            }
-            //continue Game
-            if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)window->getHeight()/3 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
-                    sf::Mouse::getPosition(*window->getWindow()))) {
-                continueGame.setFillColor(sf::Color(1,255,244));
-                menuNum = 2;
-            }
-            //restart Game
-            if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)4*window->getHeight()/9 + 30*yProcentUpdate, 400*xProcentUpdate, 90*yProcentUpdate).contains(
-                    sf::Mouse::getPosition(*window->getWindow()))) {
-                startAgain.setFillColor(sf::Color(235, 230, 9));
-                menuNum = 3;
-            }
-            //Exit
-            if (sf::IntRect((float)window->getWidth()/ 9 - xProcentUpdate, (float)5*window->getHeight()/9 + 30*yProcentUpdate, 200*xProcentUpdate, 90*yProcentUpdate).contains(
-                    sf::Mouse::getPosition(*window->getWindow()))) {
-                exitFromGame.setFillColor(sf::Color(82,43,255));
-                menuNum = 4;
-            }
-            //handle Pressed Button
+            updatePauseView(window, continueGame, startAgain, exitFromGame, menuNum);
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
-                //pressed Single Game
-                if (menuNum == 2) {
-                    continueGame.setCharacterSize(50);
-                    window->draw(menuBg);
-                    window->draw(score);
-                    window->draw(continueGame);
-                    window->draw(startAgain);
-                    window->draw(exitFromGame);
-                    window->display();
-                    window->clear();
-                    usleep(200000);
-                    continueGame.setCharacterSize(60);
-                    window->draw(menuBg);
-                    window->draw(score);
-                    window->draw(continueGame);
-                    window->draw(startAgain);
-                    window->draw(exitFromGame);
-                    window->display();
-                    usleep(100000);
-                    window->clear();
-                    return 1; //single
-                }
-                if (menuNum == 3)
-                {
-
-                    return 2;
-                }
-                //pressed Exit
-                if (menuNum == 4)
-                {
-                    exitFromGame.setCharacterSize(50);
-                    window->draw(menuBg);
-                    window->draw(score);
-                    window->draw(continueGame);
-                    window->draw(startAgain);
-                    window->draw(exitFromGame);
-                    window->display();
-                    window->clear();
-                    usleep(200000);
-                    exitFromGame.setCharacterSize(60);
-                    window->draw(menuBg);
-                    window->draw(score);
-                    window->draw(continueGame);
-                    window->draw(startAgain);
-                    window->draw(exitFromGame);
-                    window->display();
-                    window->close();
-                    return 0;
-                }
+                short int buttonPressed = buttonIsPressed(window, menuNum, menuBg,continueGame, startAgain, exitFromGame);
+                if (buttonPressed != nothingPressed)
+                    return buttonPressed;
             }
         }
         window->draw(menuBg);
