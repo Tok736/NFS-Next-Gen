@@ -23,7 +23,7 @@ void  Game::playGame() {
     pair<pair<string, string>, string> user;
     user.second = type;
 
-
+	/*
     bool success = false;
     while (!success)
     {
@@ -36,7 +36,7 @@ void  Game::playGame() {
             type = "exit";
             success = true;
         }
-    }
+    }*/
 
     if (type != "exit")
         switch (displayMenu(window, db.getUserNickname())) {

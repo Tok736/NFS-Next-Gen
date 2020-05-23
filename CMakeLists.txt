@@ -30,16 +30,16 @@ target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
 
 # ==== Linking with Google test ==== #
-enable_testing()
+#enable_testing()
 
-add_subdirectory(${LIBRARIES_DIR}/googletest)
-add_subdirectory(test)
+#add_subdirectory(${LIBRARIES_DIR}/googletest)
+#add_subdirectory(test)
 
-include_directories(${LIBRARIES_DIR}/googletest/googletest/include)
-target_link_libraries(${PROJECT_NAME} gtest gtest_main)
+#include_directories(${LIBRARIES_DIR}/googletest/googletest/include)
+#target_link_libraries(${PROJECT_NAME} gtest gtest_main)
 
-include_directories(${LIBRARIES_DIR}/googletest/googlemock/include)
-target_link_libraries(${PROJECT_NAME} gmock gmock_main)
+#include_directories(${LIBRARIES_DIR}/googletest/googlemock/include)
+#target_link_libraries(${PROJECT_NAME} gmock gmock_main)
 
 
 
