@@ -19,18 +19,18 @@ using std::shared_ptr;
 using std::string;
 
 enum collisionType {
-	none = 0,
-	absBounce = 1, // Абсолютно упругий удар
-	noBounce = 2,  // Абсолютно неупругий удар
-	glancingBlow = 3, // Скользящий удар
-	skid = 4, // занос
+	none =		0,
+	absBounce =	1, // Абсолютно упругий удар
+	noBounce =	2,  // Абсолютно неупругий удар
+	glancingBlow =	3, // Скользящий удар
+	skid =		4, // занос
 };
 
 enum carLifeReduction {
-	low = 1,
-	medium = 2,
-	high = 3,
-	all = 4,
+	low =		1,
+	medium =	2,
+	high =		3,
+	all =		4,
 };
 
 enum groupsModels {
@@ -49,80 +49,80 @@ enum groupsModels {
 };
 
 enum groupsType {
-	groupSkidStart  = 10,
-	groupSkidEnd  = 14,
-	groupNoBounceStart = 15,
-	groupNoBounceEnd = 17,
-	groupBounceStart = 18,
-	groupBounceEnd = 18,
+	groupSkidStart  =	10,
+	groupSkidEnd  =		14,
+	groupNoBounceStart =	15,
+	groupNoBounceEnd =	17,
+	groupBounceStart =	18,
+	groupBounceEnd =	18,
 };
 
 enum groupsId {
-	group1IdStart  = 10,
-	group1IdEnd = 10,
-	group2IdStart  = 11,
-	group2IdEnd = 11,
-	group3IdStart  = 12,
-	group3IdEnd = 13,
-	group4IdStart  = 14,
-	group4IdEnd = 14,
-	group5IdStart  = 15,
-	group5IdEnd = 17,
-	group6IdStart  = 18,
-	group6IdEnd = 18,
+	group1IdStart  =	10,
+	group1IdEnd =		10,
+	group2IdStart  =	11,
+	group2IdEnd =		11,
+	group3IdStart  =	12,
+	group3IdEnd =		13,
+	group4IdStart  =	14,
+	group4IdEnd =		14,
+	group5IdStart  =	15,
+	group5IdEnd =		17,
+	group6IdStart  =	18,
+	group6IdEnd =		18,
 };
 
 enum sizes {
-	screenHeight =	900,
-	screenWidth =	1440,
-	carHeight = 	98,
+	screenHeight =		900,
+	screenWidth =		1440,
+	carHeight = 		98,
 	carWidth =		47,
-	roadHeight =	900,
-	roadWidth =	660,
-	roadCenter = 720,
-	leftRoadBorder = 390,
-	rightRoadBorder = 1050,
+	roadHeight =		900,
+	roadWidth =		660,
+	roadCenter = 		720,
+	leftRoadBorder =	390,
+	rightRoadBorder =	1050,
 };
 
 enum actions {
 	myLeft =		-1,
-	myRightDown =	-2,
+	myRightDown =		-2,
 	myDown =		-3,
-	myLeftDown =	-4,
-	myNoAction =	0,
+	myLeftDown =		-4,
+	myNoAction =		0,
 	myRight =		1,
 	myLeftUp =		2,
 	myUp =			3,
 	myRightUp =		4,
 };
 enum gameEvents {
-	FpsTime =			50,
+	FpsTime =		50,
 	pauseOfTheGame =	100,
 	endOfTheGame =		0,
 };
 
 enum carValues{
-	maxSpeed = 60,
-	maxLeftAngle = -45,
-	maxRightAngle = 45,
+	maxSpeed =		60,
+	maxLeftAngle =		-45,
+	maxRightAngle =		45,
 };
 
 enum Severity{
-	absoluteDamage = 150,
-	highDamage = 100,
-	mediumDamage = 60,
-	lowDamage = 30,
+	absoluteDamage = 	150,
+	highDamage =		100,
+	mediumDamage =		60,
+	lowDamage =		30,
 };
-constexpr float aFriction = 0.1f;
-constexpr float minSpeed = 1;
-constexpr float step = 0.75f;
-constexpr int pointsCount = 4;
-constexpr int updateTime = 3;
-constexpr int transparency = -1;
-constexpr int alphaMin = -90;
-constexpr int alphaMax = 90;
-constexpr int alphaSkid = 35;
-constexpr float pi = 3.14159;
+constexpr float aFriction =	0.1f;
+constexpr float minSpeed =	1;
+constexpr float step =		0.75f;
+constexpr int pointsCount =	4;
+constexpr int updateTime =	3;
+constexpr int transparency =	-1;
+constexpr int alphaMin =	-90;
+constexpr int alphaMax =	90;
+constexpr int alphaSkid =	35;
+constexpr float pi =		3.14159;
 
 
 class IGameElement{
