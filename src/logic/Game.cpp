@@ -24,15 +24,22 @@ void  Game::playGame() {
     pair<pair<string, string>, string> user;
     user.second = type;
 
+    string errorAuth;
 
     bool success = false;
     while (!success)
     {
-        user = displayLoginMenu(window->getRenderWindow(),type);
+        user = displayLoginMenu(window->getRenderWindow(),type, errorAuth);
         if (user.second == "login" && db.getAuthorizeUser(user.first.first, user.first.second) != USER_NOT_FOUND)
             success = true;
-        else if (user.second == "registration" && db.setUser(user.first.first, user.first.second) == SUCCESS)
+        else if (user.second == "login")
+            errorAuth = "user not found";
+        else if (user.second == "registration" && db.setUser(user.first.first, user.first.second) == SUCCESS) {
             type = "login";
+            errorAuth = "";
+        }
+        else if (user.second == "registration")
+            errorAuth = "user already exist";
         else if (user.second == "exit") {
             type = "exit";
             success = true;

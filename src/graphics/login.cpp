@@ -10,9 +10,9 @@
 FocusController fc ;
 
 enum buttons{
-    formB = 2,
-    submitB = 3,
-    exitB = 4,
+    formB = 1,
+    submitB = 2,
+    exitB = 0,
     nothingPressed = 10,
 };
 
@@ -72,7 +72,7 @@ void buttonIsPressedForm(const shared_ptr<sf::RenderWindow>& window, const int& 
     window->clear();
 }
 
-pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWindow>& window, string &type)
+pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWindow>& window, string &type,  const string &errorMassage)
 {
 
     sf::Font font ;
@@ -82,6 +82,12 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
     sf::Text actionWithForm;
     sf::Text exitFromGame("Exit", font, 40);
     exitFromGame.setPosition(screenWidth/2, screenHeight/1.45);
+
+    sf::Text errorMes(errorMassage, font, 25);
+    if (!errorMassage.empty()) {
+        errorMes.setPosition(screenWidth/2.77, screenHeight/3.46);
+        errorMes.setFillColor(sf::Color::Red);
+    }
 
     sf::Texture menuBackground;
     setBg(type,menuBackground, goToForm, actionWithForm);
@@ -120,7 +126,7 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
     bool pressButton = false;
 
 
-    int menuNum = 0;
+    int menuNum = nothingPressed;
 
     while (window->isOpen() && !pressButton)
     {
@@ -137,6 +143,7 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
                         type = "registration";
                     else
                         type = "login";
+                    errorMes.setString("");
                     setBg(type,menuBackground, goToForm, actionWithForm);
                     buttonIsPressedForm(window,menuNum,menuBg, goToForm, actionWithForm, exitFromGame);
                 }
@@ -176,6 +183,8 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
         window->draw(actionWithForm);
         window->draw ( tbLogin ) ;
         window->draw ( tbPassw ) ;
+        if (!errorMassage.empty())
+            window->draw(errorMes);
         window->display();
     }
 

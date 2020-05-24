@@ -6,9 +6,9 @@
 #include "physics/physics.h"
 
 enum buttons{
-    continueB = 2,
-    restartB = 3,
-    exitB = 4,
+    continueB = 1,
+    restartB = 2,
+    exitB = 0,
     nothingPressed = 10,
 };
 
@@ -64,7 +64,7 @@ short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNu
     }
     else if (menuNum == restartB)
     {
-        //coop
+
         return 2;
     }
     else if (menuNum == exitB)
@@ -82,7 +82,7 @@ short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &time
     sf::Texture menuBackground;
     menuBackground.loadFromFile("src/textures/bgPause.png");
     sf::Sprite menuBg(menuBackground);
-    int menuNum = 0;
+    int menuNum = nothingPressed;
     int start = 0;
     menuBg.setPosition(0,0);
 
@@ -90,7 +90,7 @@ short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &time
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
     std::string scoreString("Your score: " + toString(timeInGame) + "!");
-    sf::Text continueGame("Continue", font, 60), startAgain("Start again", font, 60), exitFromGame("Exit", font, 60), score(scoreString, font, 70);
+    sf::Text continueGame("Continue", font, 60), startAgain("Start again", font, 60), exitFromGame("Back to menu", font, 60), score(scoreString, font, 70);
     score.setFillColor(sf::Color(33,255,130));
     continueGame.setFillColor(sf::Color(255,255,255));
     startAgain.setFillColor(sf::Color(255,255,255));
