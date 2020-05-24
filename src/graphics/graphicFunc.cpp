@@ -21,6 +21,7 @@ enum id{
     roadId = 0,
     firstCarId = 1,
     lastCarId = 9,
+    noId = -1,
 };
 
 
@@ -118,6 +119,10 @@ void Window::createTextures(std::vector<shared_ptr<IGameElement>> &roadAndObstcl
 void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &actions, int &timeInGame) {
     renderWindow_->clear();
 
+    sf::Font font;
+    font.loadFromFile("src/fonts/fontForScore.ttf");
+    sf::Text hp("Health: ", font, 30);
+    hp.setPosition(screenWidth/28.24,screenHeight/21.95);
 
     for (auto & roadElement : roadElements)
     {
@@ -147,16 +152,14 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
             else
                 carSprite.setTexture(mapOfRextures.find(roadElement->getId())->second[0]);
 
+            hp.setString("Health: " + toString(roadElement->getHealthCount()) + "%");
             carSprite.setOrigin(carX, carY);
-           // cout << "posX: "<<roadElement->getX()<<" posY: "<<roadElement->getY();
-
-           // cout<<" OriginX: "<<carSprite.getOrigin().x<<" OriginY: "<<carSprite.getOrigin().y<< " rotate: "<<(float) roadElement->getAngle()<<std::endl;
             carSprite.setRotation((float) roadElement->getAngle());
             carSprite.setPosition(roadElement->getX(), roadElement->getY());
             renderWindow_->draw(carSprite);
 
         }
-        else {
+        else if (roadElement->getId() != noId) {
             sf::Sprite roadObstract(mapOfRextures.find(roadElement->getId())->second[0]);
             roadObstract.setPosition((float) roadElement->getX() - obstractX, (float) roadElement->getY() - obstractY);
             renderWindow_->draw(roadObstract);
@@ -164,16 +167,22 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
     }
 
 
-    sf::RectangleShape scoreShape(sf::Vector2f(screenWidth/3 - 20, screenHeight/10));
-    scoreShape.move(35*screenWidth/48, 10);
+    sf::RectangleShape scoreShape(sf::Vector2f(screenWidth/3.683, screenHeight/9.47));
+    sf::RectangleShape hpShape(sf::Vector2f(screenWidth/3.683, screenHeight/9.47));
+    scoreShape.move(screenWidth/1.37, screenHeight/90.0);
+    hpShape.move(0,screenHeight/90.0);
     scoreShape.setFillColor(sf::Color(0,0,0,50));
+    hpShape.setFillColor(sf::Color(0,0,0,50));
     renderWindow_->draw(scoreShape);
-    sf::Font font;
-    font.loadFromFile("src/fonts/fontForScore.ttf");
-    sf::Text score("", font, 20);
+    renderWindow_->draw(hpShape);
+    renderWindow_->draw(hp);
+
+    sf::Text score("", font, 30);
     score.setFillColor(sf::Color(255,255,255));
     score.setString("Score: " + toString<int>(timeInGame));
-    score.setPosition(35*screenWidth/48, screenHeight/20);
+    score.setPosition(screenWidth/1.28, screenHeight/21.95);
+
+
     renderWindow_->draw(score);
 }
 

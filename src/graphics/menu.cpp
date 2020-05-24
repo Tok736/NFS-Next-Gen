@@ -123,16 +123,16 @@ short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& n
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
 
-    sf::Text playerName("Hello," + name+"!", font, 65), singleGame("Single game", font, 60);
+    sf::Text playerName("Hello," + name+"!", font, 55), singleGame("Single game", font, 60);
     sf::Text scoreInGame("High score", font, 60), exitFromGame("Exit", font, 60);
 
-    playerName.setFillColor(sf::Color::Yellow);
+    playerName.setFillColor(sf::Color(243,11,109));
     singleGame.setFillColor(sf::Color(255,255,255));
     scoreInGame.setFillColor(sf::Color(255,255,255));
     exitFromGame.setFillColor(sf::Color(255,255,255));
     singleGame.setPosition(screenWidth/9, screenHeight/3);
     scoreInGame.setPosition(screenWidth/9, 4*screenHeight/9);
-    playerName.setPosition(11*screenWidth/18, screenHeight/18);
+    playerName.setPosition(screenWidth/1.97, screenHeight/30);
     exitFromGame.setPosition(screenWidth/9, 5*screenHeight/9);
     window->draw(playerName);
     window->draw(singleGame);
