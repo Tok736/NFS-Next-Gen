@@ -13,29 +13,59 @@ using std::vector;
 using std::shared_ptr;
 using std::string;
 
+enum collisionType {
+	none = 0,
+	absBounce = 1, // Абсолютно упругий удар
+	noBounce = 2,  // Абсолютно неупругий удар
+	glancingBlow = 3, // Скользящий удар
+	controlledSkid = 4, // занос управляемый
+	uncontrolledSkid = 5 // занос неуправляемый
+};
+
+enum carLifeReduction {
+	low = 1,
+	medium = 2,
+	high = 3,
+	all = 4,
+};
 
 enum groupsModels {
-	group1Height = 112,
-	group1Width  = 112,
+	group1Height = 68,
+	group1Width  = 68,
 	group2Height = 112,
 	group2Width  = 112,
-	group3Height = 112,
-	group3Width  = 112,
-	group4Height = 112,
-	group4Width  = 112,
+	group3Height = 95,
+	group3Width  = 85,
+	group4Height = 85,
+	group4Width  = 90,
 	group5Height = 112,
 	group5Width  = 112,
 	group6Height = 112,
 	group6Width  = 112,
 };
 
-enum groupsCount {
-	group1Count  = 5,
-	group2Count  = 5,
-	group3Count  = 5,
-	group4Count  = 5,
-	group5Count  = 5,
-	group6Count  = 5,
+enum groupsType {
+	groupSkidStart  = 10,
+	groupSkidEnd  = 14,
+	groupNoBounceStart = 15,
+	groupNoBounceEnd = 17,
+	groupBounceStart = 18,
+	groupBounceEnd = 18,
+};
+
+enum groupsId {
+	group1IdStart  = 10,
+	group1IdEnd = 10,
+	group2IdStart  = 11,
+	group2IdEnd = 11,
+	group3IdStart  = 12,
+	group3IdEnd = 13,
+	group4IdStart  = 14,
+	group4IdEnd = 14,
+	group5IdStart  = 15,
+	group5IdEnd = 17,
+	group6IdStart  = 18,
+	group6IdEnd = 18,
 };
 
 enum sizes {
@@ -43,8 +73,6 @@ enum sizes {
 	screenWidth =	1440,
 	carHeight = 	98,
 	carWidth =		47,
-	obstrWidth =	112,
-	obstrHeight =	112,
 	roadHeight =	900,
 	RoadWidth =	600,
 };
@@ -61,7 +89,7 @@ enum actions {
 	myRightUp =		4,
 };
 enum gameEvents {
-	FpsTime =			100,
+	FpsTime =			50,
 	pauseOfTheGame =	100,
 	endOfTheGame =		0,
 };
@@ -73,7 +101,7 @@ enum carValues{
 };
 constexpr float aFriction = 0.1f;
 constexpr float minSpeed = 1;
-constexpr float step = 0.25f;
+constexpr float step = 0.75f;
 
 class IGameElement{
 public:
@@ -92,19 +120,21 @@ public:
 };
 class Car : public IGameElement{
 public:
-	Car(): m_id(0), m_v(0), m_angle(0) {};
-	Car(int id, float angle, float x, float y) : m_id(id), m_angle(angle), m_v(0){ m_carCentre.first = x; m_carCentre.second = y; }
+	Car(): m_id(0), m_v(0), m_angle(0), m_life(all) {};
+	Car(int id, float angle, float x, float y) : m_id(id), m_angle(angle), m_v(0), m_life(all){ m_carCentre.first = x; m_carCentre.second = y; }
 	float getX() const override { return m_carCentre.first; }
 	float getY() const override { return m_carCentre.second; }
 	int getId() const override { return m_id; }
 	float getAngle() const override { return m_angle; }
+	int getLifeCount() const  { return m_life; }
 	float getV() const { return m_v; }
 	void setX(float x) { m_carCentre.first = x; }
 	void setY(float y) { m_carCentre.second = y; };
 	void setV(float v) { m_v = v; }
 	void setAngle(float alpha) { m_angle = alpha; }
-
+	void setLife(int life) { m_life = life; }
 private:
+	int m_life;
 	int m_id;
 	float m_v;
 	float m_angle;
@@ -114,7 +144,7 @@ private:
 
 class Obstruction: public IGameElement {
 public:
-	Obstruction() : m_id(0){};
+	Obstruction() : m_id(0) {};
 	Obstruction(int id, float x, float y) : m_id(id) { m_obstructionCentre.first = x; m_obstructionCentre.second = y;}
 	int getId() const override { return m_id; }
 	float getX() const override { return m_obstructionCentre.first; }
@@ -124,13 +154,14 @@ public:
 	void setX(float x) { m_obstructionCentre.first = x; }
 	void setY(float y) { m_obstructionCentre.second = y; };
 private:
+	
 	int m_id;
 	std::pair<float, float> m_obstructionCentre;
 };
 
 class Collision {
 public:
-	Collision():m_time(0), wasCollision(false), carBounce(0){ createObjectModels(); }
+	Collision():m_time(0), wasCollision(false), collisionDuration(0), collisionType(none){ createObjectModels(); }
 	void setTime(int time){ m_time = time; }
 	void setFps(int fps) {m_fps = fps;}
 	void setAction(std::vector<std::shared_ptr<Obstruction>> &elements, std::vector<std::shared_ptr<Car>> &Cars, std::vector<int> &actions);
@@ -140,7 +171,10 @@ private:
 	int m_time;
 	int m_fps;
 	bool wasCollision;
-	float carBounce;
+	int collisionDuration;
+	int collisionSeverity;
+	int collisionType;
+	float collisionEndAngle;
 private:
 	void createObjectModels();
 	void recalculateForSingleCar(std::shared_ptr<Car> &car, int &comboAction);
