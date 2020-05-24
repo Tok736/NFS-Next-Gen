@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include <memory>
+#include <unordered_map>
 
 using std::pair;
 using std::cout;
@@ -12,104 +13,174 @@ using std::vector;
 using std::shared_ptr;
 using std::string;
 
+enum collisionType {
+	none = 0,
+	absBounce = 1, // Абсолютно упругий удар
+	noBounce = 2,  // Абсолютно неупругий удар
+	glancingBlow = 3, // Скользящий удар
+	controlledSkid = 4, // занос управляемый
+	uncontrolledSkid = 5 // занос неуправляемый
+};
 
-// px
-#define screenHeight 900
-#define screenWidth 1440
+enum carLifeReduction {
+	low = 1,
+	medium = 2,
+	high = 3,
+	all = 4,
+};
 
-#define carHeight 47 //размеры текстур должны быть в начале игры закнуты в словарь вида map<id, pair<pathToFile, pair<int width, int length>>
-#define carLength 98
-#define obstrWidth 60
-#define obstrLength 80
-#define roadHeight 900
-#define RoadLength 600
-// ms
-#define FpsTime 100
-// actions
-#define myLeft		-1
-#define myRightDown -2
-#define myDown		-3
-#define myLeftDown	-4
-#define myNoAction	 0
-#define myRight		 1
-#define myLeftUp	 2
-#define myUp		 3
-#define myRightUp	 4
+enum groupsModels {
+	group1Height = 68,
+	group1Width  = 68,
+	group2Height = 112,
+	group2Width  = 112,
+	group3Height = 95,
+	group3Width  = 85,
+	group4Height = 85,
+	group4Width  = 90,
+	group5Height = 112,
+	group5Width  = 112,
+	group6Height = 112,
+	group6Width  = 112,
+};
 
-#define pauseOfTheGame 100
-#define endOfTheGame 0
+enum groupsType {
+	groupSkidStart  = 10,
+	groupSkidEnd  = 14,
+	groupNoBounceStart = 15,
+	groupNoBounceEnd = 17,
+	groupBounceStart = 18,
+	groupBounceEnd = 18,
+};
 
+enum groupsId {
+	group1IdStart  = 10,
+	group1IdEnd = 10,
+	group2IdStart  = 11,
+	group2IdEnd = 11,
+	group3IdStart  = 12,
+	group3IdEnd = 13,
+	group4IdStart  = 14,
+	group4IdEnd = 14,
+	group5IdStart  = 15,
+	group5IdEnd = 17,
+	group6IdStart  = 18,
+	group6IdEnd = 18,
+};
 
+enum sizes {
+	screenHeight =	900,
+	screenWidth =	1440,
+	carHeight = 	98,
+	carWidth =		47,
+	roadHeight =	900,
+	RoadWidth =	600,
+};
+
+enum actions {
+	myLeft =		-1,
+	myRightDown =	-2,
+	myDown =		-3,
+	myLeftDown =	-4,
+	myNoAction =	0,
+	myRight =		1,
+	myLeftUp =		2,
+	myUp =			3,
+	myRightUp =		4,
+};
+enum gameEvents {
+	FpsTime =			50,
+	pauseOfTheGame =	100,
+	endOfTheGame =		0,
+};
+
+enum carValues{
+	maxSpeed = 60,
+	maxLeftAngle = -45,
+	maxRightAngle = 45,
+};
+constexpr float aFriction = 0.1f;
+constexpr float minSpeed = 1;
+constexpr float step = 0.75f;
 
 class IGameElement{
 public:
 	virtual ~IGameElement() = default;
-	virtual int getId() = 0;
-	virtual int getX() = 0;
-	virtual int getY() = 0;
-	virtual int getAngle() = 0;
+	virtual int getId() const = 0;
+	virtual float getX() const = 0;
+	virtual float getY() const = 0;
+	virtual float getAngle() const = 0;
 };
 
 class MatrixManager{
 public:
-	void rotatePart(int *matrixA, float angle);//поворот объектной матрицы
-	void matrixOverlay(int *matrixA, int *matrixB);//наложение объектных матриц друг на друга, клетки наложения помечаются маркером с определенным весом для расчетов
-	void makeBordersCurves(int *matrixA, float coefficient);//деформация объектной матрицы(новые коэффициенты)
+	void rotatePart(std::vector<float> &matrixA, float angle);//поворот объектной матрицы
+	void matrixOverlay(std::vector<float> &matrixA, std::vector<float> &matrixB);//наложение объектных матриц друг на друга, клетки наложения помечаются маркером с определенным весом для расчетов
+	void makeBordersCurves(std::vector<float> &matrixA, float coefficient);//деформация объектной матрицы(новые коэффициенты)
 };
-
 class Car : public IGameElement{
 public:
-	Car(): id(0), idUser(0), v(0), centerAngle(0){};
-	Car(int _id, int _idUser, int _angle, int _x, int _y) : id(_id), idUser(_idUser), v(0), centerAngle(_angle){ carCentre.first = _x; carCentre.second = _y; }
-	int getX() override { return carCentre.first; }
-	int getY() override { return carCentre.second; }
-	int getId() override { return id; }
-	int getAngle() override { return centerAngle; }
-	int getV() { return v; }
-	int getDriver() { return idUser; }
-	void setUserId(int _id) { idUser = _id; }
-	void setX(int _x) { carCentre.first = _x; }
-	void setY(int _y) { carCentre.second = _y; };
-	void setV(int _v) { v = _v; }
-	void setAngle(int _alpha) { centerAngle = _alpha; }
-
+	Car(): m_id(0), m_v(0), m_angle(0), m_life(all) {};
+	Car(int id, float angle, float x, float y) : m_id(id), m_angle(angle), m_v(0), m_life(all){ m_carCentre.first = x; m_carCentre.second = y; }
+	float getX() const override { return m_carCentre.first; }
+	float getY() const override { return m_carCentre.second; }
+	int getId() const override { return m_id; }
+	float getAngle() const override { return m_angle; }
+	int getLifeCount() const  { return m_life; }
+	float getV() const { return m_v; }
+	void setX(float x) { m_carCentre.first = x; }
+	void setY(float y) { m_carCentre.second = y; };
+	void setV(float v) { m_v = v; }
+	void setAngle(float alpha) { m_angle = alpha; }
+	void setLife(int life) { m_life = life; }
 private:
-	int id;
-	int idUser;
-	int v;
-	int centerAngle;
-	pair<int, int> carCentre;
+	int m_life;
+	int m_id;
+	float m_v;
+	float m_angle;
+	std::pair<float, float> m_carCentre;
 };
 
 
 class Obstruction: public IGameElement {
 public:
-	Obstruction() : id(0){};
-	Obstruction(int id_, int x_, int y_) : id(id_) { obstructionCentre.first = x_; obstructionCentre.second = y_;}
-	int getId() override { return id; }
-	int getX() override { return obstructionCentre.first; }
-	int getY() override { return obstructionCentre.second; }
-	int getAngle() override { return 0; }
-	void setId(int _id) { id = _id; }
-	void setX(int _x) { obstructionCentre.first = _x; }
-	void setY(int _y) { obstructionCentre.second = _y; };
+	Obstruction() : m_id(0) {};
+	Obstruction(int id, float x, float y) : m_id(id) { m_obstructionCentre.first = x; m_obstructionCentre.second = y;}
+	int getId() const override { return m_id; }
+	float getX() const override { return m_obstructionCentre.first; }
+	float getY() const override { return m_obstructionCentre.second; }
+	float getAngle() const override { return 0; }
+	void setId(int id) { m_id = id; }
+	void setX(float x) { m_obstructionCentre.first = x; }
+	void setY(float y) { m_obstructionCentre.second = y; };
 private:
-	int id;
-	pair<int, int> obstructionCentre;
+	
+	int m_id;
+	std::pair<float, float> m_obstructionCentre;
 };
 
-
-class Collision{
+class Collision {
 public:
-	Collision():freq(0){};
-	void setFreq(int _freq){ freq = _freq; }//часота кадров нужна для определения границ области расчетов
-	void setAction(vector<std::shared_ptr<Obstruction>> &elements, vector<std::shared_ptr<Car>> &Cars, vector<int> &actions);
+	Collision():m_time(0), wasCollision(false), collisionDuration(0), collisionType(none){ createObjectModels(); }
+	void setTime(int time){ m_time = time; }
+	void setFps(int fps) {m_fps = fps;}
+	void setAction(std::vector<std::shared_ptr<Obstruction>> &elements, std::vector<std::shared_ptr<Car>> &Cars, std::vector<int> &actions);
 private:
-	int freq;
 	MatrixManager Calculator;
+	std::unordered_map<int, std::pair<int, int>> objectsSizes; // хранилище размеров всех препятствий, доступ по Id объекта.
+	int m_time;
+	int m_fps;
+	bool wasCollision;
+	int collisionDuration;
+	int collisionSeverity;
+	int collisionType;
+	float collisionEndAngle;
+private:
+	void createObjectModels();
 	void recalculateForSingleCar(std::shared_ptr<Car> &car, int &comboAction);
-	void handleAllChunk(){};
-	int* selectObject(){ return nullptr; }
+	void getChunk(vector<std::shared_ptr<Obstruction>> &elements, std::shared_ptr<Car> &car);
+	void handleAllChunk();
+	std::vector<float> selectObject();
 };
 
 #endif //NFS_NEXT_GEN_PHYSICS_H

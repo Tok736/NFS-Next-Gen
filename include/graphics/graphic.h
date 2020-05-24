@@ -63,10 +63,10 @@ private:
 };
 
 
-short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name);
+short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name, const std::tuple<vector<string>, vector<int>, vector<int>> &scoreTable);
 short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &timeInGame);
 pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWindow>& window, string &type);
-
+short int displayScoreTable(const shared_ptr<sf::RenderWindow>& window, const std::tuple<vector<string>, vector<int>, vector<int>> &highTable);
 
 
 

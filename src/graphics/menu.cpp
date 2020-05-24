@@ -6,9 +6,9 @@
 #include "physics/physics.h"
 
 enum buttons{
-    singlPlayB = 2,
-    coopPlayB = 3,
-    exitB = 4,
+    singlPlayB = 1,
+    scoreTableB = 2,
+    exitB = 0,
     nothingPressed = 10,
 };
 
@@ -17,38 +17,38 @@ bool countDown(const shared_ptr<sf::RenderWindow>& window);
 
 
 void render(const shared_ptr<sf::RenderWindow> &window, const sf::Sprite &menuBg, const sf::Text &playerName,
-                            const sf::Text &singleGame,const sf::Text &coopGame, const sf::Text &exitFromGame)
+                            const sf::Text &singleGame,const sf::Text &scoreInGame, const sf::Text &exitFromGame)
 {
     window->draw(menuBg);
     window->draw(singleGame);
-    window->draw(coopGame);
+    window->draw(scoreInGame);
     window->draw(exitFromGame);
     window->draw(playerName);
     window->display();
 }
 
 void setSizeForButton(int menuNum, sf::Text &singleGame,
-                                sf::Text &coopGame, sf::Text &exitFromGame, int size)
+                                sf::Text &scoreInGame, sf::Text &exitFromGame, int size)
 {
     if (menuNum == singlPlayB)
         singleGame.setCharacterSize(size);
-    else if (menuNum == coopPlayB)
-        coopGame.setCharacterSize(size);
+    else if (menuNum == scoreTableB)
+        scoreInGame.setCharacterSize(size);
     else if (menuNum == exitB)
         exitFromGame.setCharacterSize(size);
 }
 
 short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNum, const sf::Sprite &menuBg,
-                          sf::Text &playerName, sf::Text &singleGame, sf::Text &coopGame, sf::Text &exitFromGame)
+                          sf::Text &playerName, sf::Text &singleGame, sf::Text &scoreInGame, sf::Text &exitFromGame)
 {
-    render(window, menuBg,playerName, singleGame, coopGame, exitFromGame);
+    render(window, menuBg,playerName, singleGame, scoreInGame, exitFromGame);
     usleep(200000);
     window->clear();
-    setSizeForButton(menuNum, singleGame, coopGame, exitFromGame, 40);
-    render(window, menuBg,playerName, singleGame, coopGame, exitFromGame);
+    setSizeForButton(menuNum, singleGame, scoreInGame, exitFromGame, 40);
+    render(window, menuBg,playerName, singleGame, scoreInGame, exitFromGame);
     usleep(100000);
-    setSizeForButton(menuNum, singleGame, coopGame, exitFromGame, 60);
-    render(window, menuBg,playerName, singleGame, coopGame, exitFromGame);
+    setSizeForButton(menuNum, singleGame, scoreInGame, exitFromGame, 60);
+    render(window, menuBg,playerName, singleGame, scoreInGame, exitFromGame);
     window->clear();
     if (menuNum == singlPlayB)
     {
@@ -56,9 +56,8 @@ short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNu
             return(0);
         return 1;
     }
-    else if (menuNum == coopPlayB)
+    else if (menuNum == scoreTableB)
     {
-        //coop
         return 2;
     }
     else if (menuNum == exitB)
@@ -72,12 +71,12 @@ short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNu
 
 
 void updateView(const shared_ptr<sf::RenderWindow>& window, sf::Sound sound, sf::Text &singleGame,
-        sf::Text &coopGame, sf::Text &exitFromGame, int &prevButton, int &menuNum)
+        sf::Text &scoreInGame, sf::Text &exitFromGame, int &prevButton, int &menuNum)
 {
     singleGame.setFillColor(sf::Color(255,255,255));
-    coopGame.setFillColor(sf::Color(255,255,255));
+    scoreInGame.setFillColor(sf::Color(255,255,255));
     exitFromGame.setFillColor(sf::Color(255,255,255));
-    menuNum = 0;
+    menuNum = nothingPressed;
 
     if (isContain(window, singleGame)) {
         singleGame.setFillColor(sf::Color(1,255,244));
@@ -88,13 +87,13 @@ void updateView(const shared_ptr<sf::RenderWindow>& window, sf::Sound sound, sf:
         prevButton = singlPlayB;
     }
         //Coop Game
-    if (isContain(window, coopGame)) {
-        coopGame.setFillColor(sf::Color(255,160,18));
-        if (prevButton != coopPlayB) {
+    if (isContain(window, scoreInGame)) {
+        scoreInGame.setFillColor(sf::Color(255,160,18));
+        if (prevButton != scoreTableB) {
             sound.setPlayingOffset(sf::seconds(2.f));
         }
-        menuNum = coopPlayB;
-        prevButton = coopPlayB;
+        menuNum = scoreTableB;
+        prevButton = scoreTableB;
     }
         //Exit
     if (isContain(window, exitFromGame)) {
@@ -107,7 +106,7 @@ void updateView(const shared_ptr<sf::RenderWindow>& window, sf::Sound sound, sf:
     }
 }
 
-short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name)
+short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name,const std::tuple<vector<string>, vector<int>, vector<int>> &highTable)
 {
     sf::SoundBuffer buffer;
     buffer.loadFromFile("src/sounds/button.ogg");
@@ -125,19 +124,19 @@ short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& n
     font.loadFromFile("src/fonts/fontForScore.ttf");
 
     sf::Text playerName("Hello," + name+"!", font, 65), singleGame("Single game", font, 60);
-    sf::Text coopGame("Online game", font, 60), exitFromGame("Exit", font, 60);
+    sf::Text scoreInGame("High score", font, 60), exitFromGame("Exit", font, 60);
 
     playerName.setFillColor(sf::Color::Yellow);
     singleGame.setFillColor(sf::Color(255,255,255));
-    coopGame.setFillColor(sf::Color(255,255,255));
+    scoreInGame.setFillColor(sf::Color(255,255,255));
     exitFromGame.setFillColor(sf::Color(255,255,255));
     singleGame.setPosition(screenWidth/9, screenHeight/3);
-    coopGame.setPosition(screenWidth/9, 4*screenHeight/9);
+    scoreInGame.setPosition(screenWidth/9, 4*screenHeight/9);
     playerName.setPosition(11*screenWidth/18, screenHeight/18);
     exitFromGame.setPosition(screenWidth/9, 5*screenHeight/9);
     window->draw(playerName);
     window->draw(singleGame);
-    window->draw(coopGame);
+    window->draw(scoreInGame);
     window->draw(exitFromGame);
 
     int prevButton = 0;
@@ -153,15 +152,18 @@ short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& n
                 window->close();
                 return 0;
             }
-            updateView(window, sound, singleGame,coopGame, exitFromGame, prevButton, menuNum);
+            updateView(window, sound, singleGame,scoreInGame, exitFromGame, prevButton, menuNum);
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
-                short int buttonPressed = buttonIsPressed(window, menuNum, menuBg,playerName, singleGame, coopGame, exitFromGame);
-                if (buttonPressed != nothingPressed)
+                short int buttonPressed = buttonIsPressed(window, menuNum, menuBg,playerName, singleGame, scoreInGame, exitFromGame);
+                if (buttonPressed == singlPlayB || buttonPressed == exitB)
                     return buttonPressed;
+                else if (buttonPressed == scoreTableB)
+                    if (!displayScoreTable(window, highTable))
+                        return 0;
             }
         }
-        render(window, menuBg,playerName, singleGame, coopGame, exitFromGame);
+        render(window, menuBg,playerName, singleGame, scoreInGame, exitFromGame);
     }
     return 0;
 };

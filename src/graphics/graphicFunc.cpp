@@ -13,8 +13,8 @@ enum obstrectsCoord
 };
 
 enum carCoord{
-    carX = carHeight/2,
-    carY = carLength/2,
+    carX = carWidth/2,
+    carY = 0,
 };
 
 enum id{
@@ -148,9 +148,9 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
                 carSprite.setTexture(mapOfRextures.find(roadElement->getId())->second[0]);
 
             carSprite.setOrigin(carX, carY);
-            cout << "posX: "<<roadElement->getX()<<" posY: "<<roadElement->getY();
+           // cout << "posX: "<<roadElement->getX()<<" posY: "<<roadElement->getY();
 
-            cout<<" OriginX: "<<carSprite.getOrigin().x<<" OriginY: "<<carSprite.getOrigin().y<< " rotate: "<<(float) roadElement->getAngle()<<std::endl;
+           // cout<<" OriginX: "<<carSprite.getOrigin().x<<" OriginY: "<<carSprite.getOrigin().y<< " rotate: "<<(float) roadElement->getAngle()<<std::endl;
             carSprite.setRotation((float) roadElement->getAngle());
             carSprite.setPosition(roadElement->getX(), roadElement->getY());
             renderWindow_->draw(carSprite);
