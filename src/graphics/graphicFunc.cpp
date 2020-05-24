@@ -157,6 +157,7 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
 
         }
         else {
+        	cout << roadElement->getId();
             sf::Sprite roadObstract(mapOfRextures.find(roadElement->getId())->second[0]);
             roadObstract.setPosition((float) roadElement->getX() - obstractX, (float) roadElement->getY() - obstractY);
             renderWindow_->draw(roadObstract);
