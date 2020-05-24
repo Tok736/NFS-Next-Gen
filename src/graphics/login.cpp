@@ -10,9 +10,9 @@
 FocusController fc ;
 
 enum buttons{
-    formB = 2,
-    submitB = 3,
-    exitB = 4,
+    formB = 1,
+    submitB = 2,
+    exitB = 0,
     nothingPressed = 10,
 };
 
@@ -126,7 +126,7 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
     bool pressButton = false;
 
 
-    int menuNum = 0;
+    int menuNum = nothingPressed;
 
     while (window->isOpen() && !pressButton)
     {
