@@ -24,7 +24,7 @@ void  Game::playGame() {
     pair<pair<string, string>, string> user;
     user.second = type;
 
-	/*
+
     bool success = false;
     while (!success)
     {
@@ -37,10 +37,12 @@ void  Game::playGame() {
             type = "exit";
             success = true;
         }
-    }*/
+    }
+
+    auto score5 = db.getStandings(5);
 
     if (type != "exit")
-        switch (displayMenu(window->getRenderWindow(), db.getUserNickname())) {
+        switch (displayMenu(window->getRenderWindow(), db.getUserNickname(), score5)) {
             case 1:
                 std::cout << "Запуск клиента\n";
 
