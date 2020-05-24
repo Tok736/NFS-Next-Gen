@@ -94,7 +94,7 @@ void ClientState::clientLoop() {
 	float freq;
 	int time;
 	
-	myServerState->myCollision.setFps(50);
+
 	while (myWindow->isOpen()) {
 		
 		freq = clock.getClockSec();

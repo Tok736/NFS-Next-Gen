@@ -18,8 +18,7 @@ enum collisionType {
 	absBounce = 1, // Абсолютно упругий удар
 	noBounce = 2,  // Абсолютно неупругий удар
 	glancingBlow = 3, // Скользящий удар
-	controlledSkid = 4, // занос управляемый
-	uncontrolledSkid = 5 // занос неуправляемый
+	skid = 4, // занос
 };
 
 enum carLifeReduction {
@@ -74,7 +73,10 @@ enum sizes {
 	carHeight = 	98,
 	carWidth =		47,
 	roadHeight =	900,
-	RoadWidth =	600,
+	roadWidth =	660,
+	roadCenter = 720,
+	leftRoadBorder = 390,
+	rightRoadBorder = 1050,
 };
 
 enum actions {
@@ -102,6 +104,8 @@ enum carValues{
 constexpr float aFriction = 0.1f;
 constexpr float minSpeed = 1;
 constexpr float step = 0.75f;
+constexpr int pointsCount = 4;
+
 
 class IGameElement{
 public:
@@ -112,12 +116,6 @@ public:
 	virtual float getAngle() const = 0;
 };
 
-class MatrixManager{
-public:
-	void rotatePart(std::vector<float> &matrixA, float angle);//поворот объектной матрицы
-	void matrixOverlay(std::vector<float> &matrixA, std::vector<float> &matrixB);//наложение объектных матриц друг на друга, клетки наложения помечаются маркером с определенным весом для расчетов
-	void makeBordersCurves(std::vector<float> &matrixA, float coefficient);//деформация объектной матрицы(новые коэффициенты)
-};
 class Car : public IGameElement{
 public:
 	Car(): m_id(0), m_v(0), m_angle(0), m_life(all) {};
@@ -161,26 +159,19 @@ private:
 
 class Collision {
 public:
-	Collision():m_time(0), wasCollision(false), collisionDuration(0), collisionType(none){ createObjectModels(); }
+	Collision():m_time(0),  collisionDuration(0), collisionType(none){ createObjectModels(); }
 	void setTime(int time){ m_time = time; }
-	void setFps(int fps) {m_fps = fps;}
 	void setAction(std::vector<std::shared_ptr<Obstruction>> &elements, std::vector<std::shared_ptr<Car>> &Cars, std::vector<int> &actions);
 private:
-	MatrixManager Calculator;
 	std::unordered_map<int, std::pair<int, int>> objectsSizes; // хранилище размеров всех препятствий, доступ по Id объекта.
 	int m_time;
-	int m_fps;
-	bool wasCollision;
 	int collisionDuration;
-	int collisionSeverity;
 	int collisionType;
 	float collisionEndAngle;
 private:
 	void createObjectModels();
 	void recalculateForSingleCar(std::shared_ptr<Car> &car, int &comboAction);
-	void getChunk(vector<std::shared_ptr<Obstruction>> &elements, std::shared_ptr<Car> &car);
-	void handleAllChunk();
-	std::vector<float> selectObject();
+	void handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std::shared_ptr<Car> &car);
 };
 
 #endif //NFS_NEXT_GEN_PHYSICS_H
