@@ -65,19 +65,19 @@ void moveCar(std::shared_ptr<Car> &car, int &singleAction) {
 	float dSbyTic = car->getV();
 	
 	if (singleAction == myNoAction && prevAction == myNoAction) {
-		if (alpha > 1 && alpha < 90)
+		if (alpha > 1 && alpha < alphaMax)
 			car->setAngle(alpha - 0.25f * dSbyTic);
-		else if (alpha < -1 && alpha > -90)
+		else if (alpha < -1 && alpha > alphaMin)
 			car->setAngle(alpha + 0.25f * dSbyTic);
 		else
 			car->setAngle(0);
 	}
 	if (alpha != 0)
-		car->setX(x + dSbyTic * sin(3.14159f * alpha / 180));
+		car->setX(x + dSbyTic * sin(pi * alpha / 180));
 	if (singleAction == myUp && y - dSbyTic > 0.5 * screenHeight)  //  машинка не может подняться выше середины экрана
-		car->setY(y - dSbyTic * cos(3.14159f * alpha / 180));
+		car->setY(y - dSbyTic * cos(pi * alpha / 180));
 	if (singleAction == myDown && y < screenHeight - carHeight) {
-		car->setY(y + dSbyTic * cos(3.14159f * alpha / 180));
+		car->setY(y + dSbyTic * cos(pi * alpha / 180));
 	}
 	prevAction = singleAction;
 	if (singleAction == myLeft && alpha > maxLeftAngle)
@@ -91,7 +91,7 @@ void absolutelyBounce(std::shared_ptr<Car> &car, float &dSbyTic, float &alpha, f
 	dSbyTic += aFriction;
 	if (dSbyTic < 0) {
 		if (alpha != 0)
-			car->setX(x + dSbyTic * sin(3.14159f * alpha / 180));
+			car->setX(x + dSbyTic * sin(pi * alpha / 180));
 		car->setV(dSbyTic);
 		if (y < screenHeight - 0.5 * carHeight)
 			car->setY(y - dSbyTic);
@@ -136,7 +136,7 @@ void Collision::recalculateForSingleCar(std::shared_ptr<Car> &car, int &singleAc
 	float alpha = car->getAngle();
 	
 	if (collisionDuration <= 0) {
-		CheckUpdateSpeed(m_time, 3, dSbyTic);
+		CheckUpdateSpeed(m_time, updateTime, dSbyTic);
 		car->setV(dSbyTic);
 		moveCar(car, singleAction);
 	} else
@@ -151,7 +151,7 @@ void Collision::recalculateForSingleCar(std::shared_ptr<Car> &car, int &singleAc
 				rotateByAngle(car, dSbyTic, alpha, collisionEndAngle, collisionDuration);
 				break;
 			case skid:
-				makeOneSkid(car, dSbyTic, alpha, collisionDuration, 35);
+				makeOneSkid(car, dSbyTic, alpha, collisionDuration, alphaSkid);
 				break;
 			default:
 				collisionDuration = 0;
@@ -186,7 +186,7 @@ void rotate(vector<point_xy> &points)
 	point_xy temp(1.0,1.0);
 	point_xy temp2;
 	auto it = points.begin();
-	trans::rotate_transformer<bg::degree, float, 2, 2> rotate(-90.0);
+	trans::rotate_transformer<bg::degree, float, 2, 2> rotate(alphaMin.0);
 	for(; it != points.end(); ++it) {
 		temp = *it;
 		bg::transform(temp, temp2, rotate);
@@ -194,21 +194,21 @@ void rotate(vector<point_xy> &points)
 }*/
 
 void changeLife(std::shared_ptr<Car> &car, float &severity, int collisionType) {
-	int life = car->getLifeCount();
+	int health = car->getHealthCount();
 	switch (collisionType) {
 		case (absBounce || noBounce): {
-			if (severity > 150) // конец игры
-				car->setLife(life - all);
-			else if (severity > 100)
-				car->setLife(life - high);
-			else if (severity > 60)
-				car->setLife(life - medium);
-			else if (severity > 30)
-				car->setLife(life - low);
+			if (severity >= absoluteDamage) // конец игры
+				car->setLife(health - all);
+			else if (severity > highDamage)
+				car->setLife(health - high);
+			else if (severity > mediumDamage)
+				car->setLife(health - medium);
+			else if (severity > lowDamage)
+				car->setLife(health - low);
 			break;
 		}
 		case glancingBlow:
-			car->setLife(life - low);
+			car->setLife(health - low);
 			break;
 		default:
 			break;
@@ -296,7 +296,7 @@ void Collision::handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std:
 				makeBounce(car, carArea, obstructionArea, carModelAreaS);
 				collisionType = obstrId >= groupNoBounceStart && obstrId <= groupNoBounceEnd ? collisionType = noBounce : absBounce;
 				collisionDuration = (int) (dSbyTic / aFriction);
-				elements[i]->setId(-1);
+				elements[i]->setId(transparency);
 			}
 			wasChecked = i;
 			break;

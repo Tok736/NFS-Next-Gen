@@ -101,10 +101,23 @@ enum carValues{
 	maxLeftAngle = -45,
 	maxRightAngle = 45,
 };
+
+enum Severity{
+	absoluteDamage = 150,
+	highDamage = 100,
+	mediumDamage = 60,
+	lowDamage = 30,
+};
 constexpr float aFriction = 0.1f;
 constexpr float minSpeed = 1;
 constexpr float step = 0.75f;
 constexpr int pointsCount = 4;
+constexpr int updateTime = 3;
+constexpr int transparency = -1;
+constexpr int alphaMin = -90;
+constexpr int alphaMax = 90;
+constexpr int alphaSkid = 35;
+constexpr float pi = 3.14159;
 
 
 class IGameElement{
@@ -114,6 +127,7 @@ public:
 	virtual float getX() const = 0;
 	virtual float getY() const = 0;
 	virtual float getAngle() const = 0;
+	virtual int getHealthCount() const = 0;
 };
 
 class Car : public IGameElement{
@@ -124,7 +138,7 @@ public:
 	float getY() const override { return m_carCentre.second; }
 	int getId() const override { return m_id; }
 	float getAngle() const override { return m_angle; }
-	int getLifeCount() const  { return m_life; }
+	int getHealthCount() const override { return m_life; }
 	float getV() const { return m_v; }
 	void setX(float x) { m_carCentre.first = x; }
 	void setY(float y) { m_carCentre.second = y; };
@@ -142,9 +156,10 @@ private:
 
 class Obstruction: public IGameElement {
 public:
-	Obstruction() : m_id(0) {};
-	Obstruction(int id, float x, float y) : m_id(id) { m_obstructionCentre.first = x; m_obstructionCentre.second = y;}
+	Obstruction() : m_id(0), m_life(1) {};
+	Obstruction(int id, float x, float y) : m_id(id), m_life(1) { m_obstructionCentre.first = x; m_obstructionCentre.second = y;}
 	int getId() const override { return m_id; }
+	int getHealthCount() const override { return m_life; }
 	float getX() const override { return m_obstructionCentre.first; }
 	float getY() const override { return m_obstructionCentre.second; }
 	float getAngle() const override { return 0; }
@@ -152,7 +167,7 @@ public:
 	void setX(float x) { m_obstructionCentre.first = x; }
 	void setY(float y) { m_obstructionCentre.second = y; };
 private:
-	
+	int m_life;
 	int m_id;
 	std::pair<float, float> m_obstructionCentre;
 };
