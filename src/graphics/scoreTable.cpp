@@ -21,7 +21,7 @@ short int displayScoreTable(const shared_ptr<sf::RenderWindow>& window, const st
 
 
     sf::Text header("Place   Score   Name", font, 52);
-    header.setFillColor(sf::Color(0,183,240));
+    header.setColor(sf::Color(0,183,240));
     header.setPosition(screenWidth/4.1, screenHeight/4.7);
 
     sf::Text goBack("Back", font, 50);
@@ -35,8 +35,8 @@ short int displayScoreTable(const shared_ptr<sf::RenderWindow>& window, const st
         sf::Text nickname (toString(std::get<0>(highTable)[i]) , font, 40);
         tempScore.setPosition(point.first, point.second);
         nickname.setPosition(point.first + 485, point.second);
-        tempScore.setFillColor(sf::Color(255,255,255));
-        nickname.setFillColor(sf::Color(255,255,255));
+        tempScore.setColor(sf::Color(255,255,255));
+        nickname.setColor(sf::Color(255,255,255));
         scoreTable.emplace_back(tempScore, nickname);
         point.second += 55;
     }
@@ -47,7 +47,7 @@ short int displayScoreTable(const shared_ptr<sf::RenderWindow>& window, const st
     {
         if (window->pollEvent(event))
         {
-            goBack.setFillColor(sf::Color(255,162,45));
+            goBack.setColor(sf::Color(255,162,45));
             if (event.type == sf::Event::Closed)
             {
                 window->close();
@@ -55,7 +55,7 @@ short int displayScoreTable(const shared_ptr<sf::RenderWindow>& window, const st
             }
             if (isContain(window, goBack))
             {
-                goBack.setFillColor(sf::Color::Red);
+                goBack.setColor(sf::Color::Red);
             }
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && isContain(window, goBack))
             {

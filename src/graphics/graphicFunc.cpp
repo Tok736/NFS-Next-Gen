@@ -178,7 +178,7 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
     renderWindow_->draw(hp);
 
     sf::Text score("", font, 30);
-    score.setFillColor(sf::Color(255,255,255));
+    score.setColor(sf::Color(255,255,255));
     score.setString("Score: " + toString<int>(timeInGame));
     score.setPosition(screenWidth/1.28, screenHeight/21.95);
 

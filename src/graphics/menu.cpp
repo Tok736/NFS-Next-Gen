@@ -73,13 +73,13 @@ short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNu
 void updateView(const shared_ptr<sf::RenderWindow>& window, sf::Sound sound, sf::Text &singleGame,
         sf::Text &scoreInGame, sf::Text &exitFromGame, int &prevButton, int &menuNum)
 {
-    singleGame.setFillColor(sf::Color(255,255,255));
-    scoreInGame.setFillColor(sf::Color(255,255,255));
-    exitFromGame.setFillColor(sf::Color(255,255,255));
+    singleGame.setColor(sf::Color(255,255,255));
+    scoreInGame.setColor(sf::Color(255,255,255));
+    exitFromGame.setColor(sf::Color(255,255,255));
     menuNum = nothingPressed;
 
     if (isContain(window, singleGame)) {
-        singleGame.setFillColor(sf::Color(1,255,244));
+        singleGame.setColor(sf::Color(1,255,244));
         if (prevButton != singlPlayB) {
             sound.play();
         }
@@ -88,7 +88,7 @@ void updateView(const shared_ptr<sf::RenderWindow>& window, sf::Sound sound, sf:
     }
         //Coop Game
     if (isContain(window, scoreInGame)) {
-        scoreInGame.setFillColor(sf::Color(255,160,18));
+        scoreInGame.setColor(sf::Color(255,160,18));
         if (prevButton != scoreTableB) {
             sound.setPlayingOffset(sf::seconds(2.f));
         }
@@ -97,7 +97,7 @@ void updateView(const shared_ptr<sf::RenderWindow>& window, sf::Sound sound, sf:
     }
         //Exit
     if (isContain(window, exitFromGame)) {
-        exitFromGame.setFillColor(sf::Color(235,19,199));
+        exitFromGame.setColor(sf::Color(235,19,199));
         if (prevButton != exitB) {
             sound.play();
         }
@@ -126,10 +126,10 @@ short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& n
     sf::Text playerName("Hello," + name+"!", font, 55), singleGame("Single game", font, 60);
     sf::Text scoreInGame("High score", font, 60), exitFromGame("Exit", font, 60);
 
-    playerName.setFillColor(sf::Color(243,11,109));
-    singleGame.setFillColor(sf::Color(255,255,255));
-    scoreInGame.setFillColor(sf::Color(255,255,255));
-    exitFromGame.setFillColor(sf::Color(255,255,255));
+    playerName.setColor(sf::Color(243,11,109));
+    singleGame.setColor(sf::Color(255,255,255));
+    scoreInGame.setColor(sf::Color(255,255,255));
+    exitFromGame.setColor(sf::Color(255,255,255));
     singleGame.setPosition(screenWidth/9, screenHeight/3);
     scoreInGame.setPosition(screenWidth/9, 4*screenHeight/9);
     playerName.setPosition(screenWidth/1.97, screenHeight/30);
@@ -191,7 +191,7 @@ bool countDown(const shared_ptr<sf::RenderWindow>& window)
     window->display();
     sf::Text timeDown;
     timeDown.setFont(font);
-    timeDown.setFillColor(sf::Color(255,255,255));
+    timeDown.setColor(sf::Color(255,255,255));
 
     usleep(500000);
     for (int i = 3; i>=1; i--)
@@ -211,7 +211,7 @@ bool countDown(const shared_ptr<sf::RenderWindow>& window)
     window->clear();
     sf::Text go("Go!", font, 130);
     go.setPosition(screenWidth/2 - 94, screenHeight/3);
-    go.setFillColor(sf::Color(115,250,1));
+    go.setColor(sf::Color(115,250,1));
     window->draw(countDownBg);
     window->draw(go);
     window->display();
