@@ -19,23 +19,23 @@ enum buttons{
 void updateLoginView(const shared_ptr<sf::RenderWindow>& window, sf::Text &goToForm,
                         sf::Text &actionWithForm, sf::Text &exitFromGame)
 {
-    goToForm.setColor(sf::Color(255,255,255));
-    actionWithForm.setColor(sf::Color(255,255,255));
-    exitFromGame.setColor(sf::Color(255,255,255));
+    goToForm.setFillColor(sf::Color(255,255,255));
+    actionWithForm.setFillColor(sf::Color(255,255,255));
+    exitFromGame.setFillColor(sf::Color(255,255,255));
 
     if (isContain(window, goToForm))
     {
-        goToForm.setColor(sf::Color(1,255,244));
+        goToForm.setFillColor(sf::Color(1,255,244));
 
     }
     //restart Game
     if (isContain(window, actionWithForm)) {
-        actionWithForm.setColor(sf::Color(235, 230, 9));
+        actionWithForm.setFillColor(sf::Color(235, 230, 9));
 
     }
     //Exit
     if (isContain(window, exitFromGame)) {
-        exitFromGame.setColor(sf::Color(82,43,255));
+        exitFromGame.setFillColor(sf::Color(82,43,255));
     }
 }
 
@@ -86,7 +86,7 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
     sf::Text errorMes(errorMassage, font, 25);
     if (!errorMassage.empty()) {
         errorMes.setPosition(screenWidth/2.77, screenHeight/3.46);
-        errorMes.setColor(sf::Color::Red);
+        errorMes.setFillColor(sf::Color::Red);
     }
 
     sf::Texture menuBackground;
@@ -98,8 +98,8 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
     actionWithForm.setCharacterSize(40);
     goToForm.setPosition(screenWidth/24, screenHeight/1.43);
     actionWithForm.setPosition(screenWidth/2.77, screenHeight/1.84);
-    goToForm.setColor(sf::Color::White);
-    actionWithForm.setColor(sf::Color::White);
+    goToForm.setFillColor(sf::Color::White);
+    actionWithForm.setFillColor(sf::Color::White);
 
 
 

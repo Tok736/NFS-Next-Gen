@@ -15,23 +15,23 @@ enum buttons{
 void updatePauseView(const shared_ptr<sf::RenderWindow>& window, sf::Text &continueGame,
                 sf::Text &startAgain, sf::Text &exitFromGame, int &menuNum)
 {
-    continueGame.setColor(sf::Color(255,255,255));
-    startAgain.setColor(sf::Color(255,255,255));
-    exitFromGame.setColor(sf::Color(255,255,255));
+    continueGame.setFillColor(sf::Color(255,255,255));
+    startAgain.setFillColor(sf::Color(255,255,255));
+    exitFromGame.setFillColor(sf::Color(255,255,255));
 
     if (isContain(window, continueGame))
     {
-        continueGame.setColor(sf::Color(1,255,244));
+        continueGame.setFillColor(sf::Color(1,255,244));
         menuNum = continueB;
     }
     //restart Game
     if (isContain(window, startAgain)) {
-        startAgain.setColor(sf::Color(235, 230, 9));
+        startAgain.setFillColor(sf::Color(235, 230, 9));
         menuNum = restartB;
     }
     //Exit
     if (isContain(window, exitFromGame)) {
-        exitFromGame.setColor(sf::Color(82,43,255));
+        exitFromGame.setFillColor(sf::Color(82,43,255));
         menuNum = exitB;
     }
 }
@@ -91,10 +91,10 @@ short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &time
     font.loadFromFile("src/fonts/fontForScore.ttf");
     std::string scoreString("Your score: " + toString(timeInGame) + "!");
     sf::Text continueGame("Continue", font, 60), startAgain("Start again", font, 60), exitFromGame("Back to menu", font, 60), score(scoreString, font, 70);
-    score.setColor(sf::Color(33,255,130));
-    continueGame.setColor(sf::Color(255,255,255));
-    startAgain.setColor(sf::Color(255,255,255));
-    exitFromGame.setColor(sf::Color(255,255,255));
+    score.setFillColor(sf::Color(33,255,130));
+    continueGame.setFillColor(sf::Color(255,255,255));
+    startAgain.setFillColor(sf::Color(255,255,255));
+    exitFromGame.setFillColor(sf::Color(255,255,255));
     score.setPosition(screenWidth/4, screenHeight/10);
     continueGame.setPosition(screenWidth/9, screenHeight/3);
     startAgain.setPosition(screenWidth/9, 4*screenHeight/9);
@@ -107,7 +107,7 @@ short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &time
     sf::Event event;
     while (!start)
     {
-        score.setColor(sf::Color(33,255,130));
+        score.setFillColor(sf::Color(33,255,130));
         menuNum = 0;
         window->clear();
         if (window->pollEvent(event))

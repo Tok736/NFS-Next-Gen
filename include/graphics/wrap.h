@@ -64,7 +64,7 @@ public:
     {
         m_newText = m_text.getString() ;
         updateRect() ;
-        m_box.setColor( sf::Color::Blue ) ;
+        m_box.setFillColor( sf::Color::Blue ) ;
     }
     void draw ( sf::RenderTarget & render , sf::RenderStates states ) const override
     {
@@ -79,11 +79,11 @@ public:
     }
     void setFocus () override
     {
-        m_box.setColor( sf::Color(255,255,255,25) ) ;
+        m_box.setFillColor( sf::Color(255,255,255,25) ) ;
     }
     void deleteFocus () override
     {
-        m_box.setColor( sf::Color(0,0,0,0)) ;
+        m_box.setFillColor( sf::Color(0,0,0,0)) ;
     }
     void event ( const sf::Event & event ) override
     {
