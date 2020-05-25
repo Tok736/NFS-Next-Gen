@@ -70,7 +70,7 @@ short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNu
 
 
 
-void updateView(const shared_ptr<sf::RenderWindow>& window, sf::Sound sound, sf::Text &singleGame,
+void updateView(const shared_ptr<sf::RenderWindow>& window, sf::Text &singleGame,
         sf::Text &scoreInGame, sf::Text &exitFromGame, int &prevButton, int &menuNum)
 {
     singleGame.setColor(sf::Color(255,255,255));
@@ -80,27 +80,18 @@ void updateView(const shared_ptr<sf::RenderWindow>& window, sf::Sound sound, sf:
 
     if (isContain(window, singleGame)) {
         singleGame.setColor(sf::Color(1,255,244));
-        if (prevButton != singlPlayB) {
-            sound.play();
-        }
         menuNum = singlPlayB;
         prevButton = singlPlayB;
     }
         //Coop Game
     if (isContain(window, scoreInGame)) {
         scoreInGame.setColor(sf::Color(255,160,18));
-        if (prevButton != scoreTableB) {
-            sound.setPlayingOffset(sf::seconds(2.f));
-        }
         menuNum = scoreTableB;
         prevButton = scoreTableB;
     }
         //Exit
     if (isContain(window, exitFromGame)) {
         exitFromGame.setColor(sf::Color(235,19,199));
-        if (prevButton != exitB) {
-            sound.play();
-        }
         menuNum = exitB;
         prevButton = exitB;
     }
@@ -108,11 +99,6 @@ void updateView(const shared_ptr<sf::RenderWindow>& window, sf::Sound sound, sf:
 
 short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name,const std::tuple<vector<string>, vector<int>, vector<int>> &highTable)
 {
-    sf::SoundBuffer buffer;
-    buffer.loadFromFile("src/sounds/button.ogg");
-    sf::Sound sound;
-    sound.setBuffer(buffer);
-
     sf::Texture menuBackground;
     menuBackground.loadFromFile("src/textures/bg.png");
     sf::Sprite menuBg(menuBackground);
@@ -152,7 +138,7 @@ short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& n
                 window->close();
                 return 0;
             }
-            updateView(window, sound, singleGame,scoreInGame, exitFromGame, prevButton, menuNum);
+            updateView(window, singleGame,scoreInGame, exitFromGame, prevButton, menuNum);
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
                 short int buttonPressed = buttonIsPressed(window, menuNum, menuBg,playerName, singleGame, scoreInGame, exitFromGame);
