@@ -55,7 +55,7 @@ short int displayScoreTable(const shared_ptr<sf::RenderWindow>& window, const st
             }
             if (isContain(window, goBack))
             {
-                goBack.setFillColor(sf::Color::Red);
+                goBack.setColor(sf::Color::Red);
             }
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && isContain(window, goBack))
             {
