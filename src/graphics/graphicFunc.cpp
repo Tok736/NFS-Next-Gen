@@ -171,14 +171,14 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
     sf::RectangleShape hpShape(sf::Vector2f(screenWidth/3.683, screenHeight/9.47));
     scoreShape.move(screenWidth/1.37, screenHeight/90.0);
     hpShape.move(0,screenHeight/90.0);
-    scoreShape.setFillColor(sf::Color(0,0,0,50));
-    hpShape.setFillColor(sf::Color(0,0,0,50));
+    scoreShape.setColor(sf::Color(0,0,0,50));
+    hpShape.setColor(sf::Color(0,0,0,50));
     renderWindow_->draw(scoreShape);
     renderWindow_->draw(hpShape);
     renderWindow_->draw(hp);
 
     sf::Text score("", font, 30);
-    score.setFillColor(sf::Color(255,255,255));
+    score.setColor(sf::Color(255,255,255));
     score.setString("Score: " + toString<int>(timeInGame));
     score.setPosition(screenWidth/1.28, screenHeight/21.95);
 
