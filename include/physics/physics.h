@@ -22,10 +22,10 @@ enum collisionType {
 };
 
 enum carLifeReduction {
-	low = 1,
-	medium = 2,
-	high = 3,
-	all = 4,
+	low = 20,
+	medium = 30,
+	high = 60,
+	all = 100,
 };
 
 enum groupsModels {
@@ -132,8 +132,8 @@ public:
 
 class Car : public IGameElement{
 public:
-	Car(): m_id(0), m_v(0), m_angle(0), m_life(all) {};
-	Car(int id, float angle, float x, float y) : m_id(id), m_angle(angle), m_v(0), m_life(all){ m_carCentre.first = x; m_carCentre.second = y; }
+	Car(): m_life(all), m_id(0), m_v(0), m_angle(0) {};
+	Car(int id, float angle, float x, float y) : m_life(all), m_id(id),  m_v(0), m_angle(angle) { m_carCentre.first = x; m_carCentre.second = y; }
 	float getX() const override { return m_carCentre.first; }
 	float getY() const override { return m_carCentre.second; }
 	int getId() const override { return m_id; }
@@ -156,8 +156,8 @@ private:
 
 class Obstruction: public IGameElement {
 public:
-	Obstruction() : m_id(0), m_life(1) {};
-	Obstruction(int id, float x, float y) : m_id(id), m_life(1) { m_obstructionCentre.first = x; m_obstructionCentre.second = y;}
+	Obstruction() :  m_life(1), m_id(0) {};
+	Obstruction(int id, float x, float y) : m_life(all),  m_id(id) { m_obstructionCentre.first = x; m_obstructionCentre.second = y;}
 	int getId() const override { return m_id; }
 	int getHealthCount() const override { return m_life; }
 	float getX() const override { return m_obstructionCentre.first; }

@@ -193,7 +193,7 @@ void rotate(vector<point_xy> &points)
 	}
 }*/
 
-void changeLife(std::shared_ptr<Car> &car, float &severity, int collisionType) {
+void changeLife(std::shared_ptr<Car> &car, float severity, int collisionType) {
 	int health = car->getHealthCount();
 	switch (collisionType) {
 		case (absBounce || noBounce): {
@@ -228,6 +228,7 @@ void makeGlancingBlow(std::shared_ptr<Car> &car, float &obstrX, float &collision
 		car->setX(sX + 0.5f * carWidth);
 	}
 	car->setV(0.7f * dSbyTic);
+	changeLife(car, 0, glancingBlow);
 	collisionEndAngle = -0.75f * car->getAngle();
 }
 
