@@ -86,7 +86,7 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
     sf::Text errorMes(errorMassage, font, 25);
     if (!errorMassage.empty()) {
         errorMes.setPosition(screenWidth/2.77, screenHeight/3.46);
-        errorMes.setColor(sf::Color::Red);
+        errorMes.setFillColor(sf::Color::Red);
     }
 
     sf::Texture menuBackground;
@@ -98,8 +98,8 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
     actionWithForm.setCharacterSize(40);
     goToForm.setPosition(screenWidth/24, screenHeight/1.43);
     actionWithForm.setPosition(screenWidth/2.77, screenHeight/1.84);
-    goToForm.setColor(sf::Color::White);
-    actionWithForm.setColor(sf::Color::White);
+    goToForm.setFillColor(sf::Color::White);
+    actionWithForm.setFillColor(sf::Color::White);
 
 
 

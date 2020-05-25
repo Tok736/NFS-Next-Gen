@@ -64,7 +64,7 @@ public:
     {
         m_newText = m_text.getString() ;
         updateRect() ;
-        m_box.setColor( sf::Color::Blue ) ;
+        m_box.setFillColor( sf::Color::Blue ) ;
     }
     void draw ( sf::RenderTarget & render , sf::RenderStates states ) const override
     {
