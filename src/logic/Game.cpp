@@ -44,10 +44,10 @@ size_t Game::loginMenu(sp_t<Window> window, SQLiteDataBase& myDB) {
             return 0;
         }
     }
-    return 1;
+    return 2;
 }
 
-void  Game::play() {
+void  Game::start() {
 
     sp_t<Window> window(new Window);
 

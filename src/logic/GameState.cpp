@@ -1,4 +1,8 @@
 #include "logic/GameState.h"
+#include <ctime>
+#include <unistd.h>
+
+const float timeForFrame = 0.033;  //for 30 fps
 
 GameState::GameState() {
     myWindow = std::make_shared<Window>();
@@ -34,12 +38,15 @@ size_t GameState::gameLoop() {
 
     myWindow->createTextures(actualElements);
 
-//    myServerState->composeActualElements(actualElements);
     float freq;
     int time;
 
+//    int timeBefore;
+//    int timeAfter;
 
     while (myWindow->isOpen()) {
+
+//        timeBefore = std::clock();
 
         freq = clock.getClockSec();
         time = clock.getClockSec();
@@ -65,6 +72,7 @@ size_t GameState::gameLoop() {
                 action = actions[0];
             else
                 action = myNoAction;
+
             myCollision->setTime(time);
             myCollision->setAction(myMap, players, actions);
         }
@@ -85,7 +93,13 @@ size_t GameState::gameLoop() {
         int ffreq = (int) freq;
         myWindow->render(actualElements, action, ffreq);
         myWindow->display();
+//        timeAfter = std::clock();
         usleep(16000); // 50 fps, если считать, что все исполняется в пределах 40 мс
+//        sleep(timeForFrame - ((float)(timeAfter - timeBefore) / CLOCKS_PER_SEC));  //for 30fps
+//        std::cout << "time for frame: " << timeForFrame- ((float)(timeAfter - timeBefore) / CLOCKS_PER_SEC) << std::endl;
+//        std::cout << "before: " << timeBefore << std::endl;
+//        std::cout << "after: " << timeAfter << std::endl;
+
     }
     return 0;
 }

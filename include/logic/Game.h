@@ -30,7 +30,7 @@ public:
     Game();
     ~Game();
     size_t loginMenu(sp_t<Window>, SQLiteDataBase&);  //тут логин/регистрация
-    void play();
+    void start();
 };
 
 #endif //NFS_NEXT_GEN_GAME_H
