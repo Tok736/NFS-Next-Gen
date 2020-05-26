@@ -57,9 +57,22 @@ include CMakeFiles/NFS_Next_Gen.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/NFS_Next_Gen.dir/flags.make
 
+CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
+CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.o: src/graphics/gameOver.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.o -c /home/margot/NFS-Next-Gen/src/graphics/gameOver.cpp
+
+CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/margot/NFS-Next-Gen/src/graphics/gameOver.cpp > CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.i
+
+CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/margot/NFS-Next-Gen/src/graphics/gameOver.cpp -o CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.s
+
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/graphicFunc.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/graphicFunc.cpp.o: src/graphics/graphicFunc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/graphics/graphicFunc.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/graphics/graphicFunc.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/graphics/graphicFunc.cpp.o -c /home/margot/NFS-Next-Gen/src/graphics/graphicFunc.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/graphicFunc.cpp.i: cmake_force
@@ -72,7 +85,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/graphics/graphicFunc.cpp.s: cmake_force
 
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/login.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/login.cpp.o: src/graphics/login.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/graphics/login.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/graphics/login.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/graphics/login.cpp.o -c /home/margot/NFS-Next-Gen/src/graphics/login.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/login.cpp.i: cmake_force
@@ -85,7 +98,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/graphics/login.cpp.s: cmake_force
 
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/menu.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/menu.cpp.o: src/graphics/menu.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/graphics/menu.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/graphics/menu.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/graphics/menu.cpp.o -c /home/margot/NFS-Next-Gen/src/graphics/menu.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/menu.cpp.i: cmake_force
@@ -98,7 +111,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/graphics/menu.cpp.s: cmake_force
 
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/pauseInTheGame.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/pauseInTheGame.cpp.o: src/graphics/pauseInTheGame.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/graphics/pauseInTheGame.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/graphics/pauseInTheGame.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/graphics/pauseInTheGame.cpp.o -c /home/margot/NFS-Next-Gen/src/graphics/pauseInTheGame.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/pauseInTheGame.cpp.i: cmake_force
@@ -111,7 +124,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/graphics/pauseInTheGame.cpp.s: cmake_force
 
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/scoreTable.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/scoreTable.cpp.o: src/graphics/scoreTable.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/graphics/scoreTable.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/graphics/scoreTable.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/graphics/scoreTable.cpp.o -c /home/margot/NFS-Next-Gen/src/graphics/scoreTable.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/scoreTable.cpp.i: cmake_force
@@ -124,7 +137,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/graphics/scoreTable.cpp.s: cmake_force
 
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/wrapFunc.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/wrapFunc.cpp.o: src/graphics/wrapFunc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/graphics/wrapFunc.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/graphics/wrapFunc.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/graphics/wrapFunc.cpp.o -c /home/margot/NFS-Next-Gen/src/graphics/wrapFunc.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/graphics/wrapFunc.cpp.i: cmake_force
@@ -137,7 +150,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/graphics/wrapFunc.cpp.s: cmake_force
 
 CMakeFiles/NFS_Next_Gen.dir/src/logic/ClientState.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/logic/ClientState.cpp.o: src/logic/ClientState.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/logic/ClientState.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/logic/ClientState.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/logic/ClientState.cpp.o -c /home/margot/NFS-Next-Gen/src/logic/ClientState.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/logic/ClientState.cpp.i: cmake_force
@@ -150,7 +163,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/logic/ClientState.cpp.s: cmake_force
 
 CMakeFiles/NFS_Next_Gen.dir/src/logic/Game.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/logic/Game.cpp.o: src/logic/Game.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/logic/Game.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/logic/Game.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/logic/Game.cpp.o -c /home/margot/NFS-Next-Gen/src/logic/Game.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/logic/Game.cpp.i: cmake_force
@@ -163,7 +176,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/logic/Game.cpp.s: cmake_force
 
 CMakeFiles/NFS_Next_Gen.dir/src/logic/GameState.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/logic/GameState.cpp.o: src/logic/GameState.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/logic/GameState.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/logic/GameState.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/logic/GameState.cpp.o -c /home/margot/NFS-Next-Gen/src/logic/GameState.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/logic/GameState.cpp.i: cmake_force
@@ -176,7 +189,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/logic/GameState.cpp.s: cmake_force
 
 CMakeFiles/NFS_Next_Gen.dir/src/logic/MapGenerator.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/logic/MapGenerator.cpp.o: src/logic/MapGenerator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/logic/MapGenerator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/logic/MapGenerator.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/logic/MapGenerator.cpp.o -c /home/margot/NFS-Next-Gen/src/logic/MapGenerator.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/logic/MapGenerator.cpp.i: cmake_force
@@ -189,7 +202,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/logic/MapGenerator.cpp.s: cmake_force
 
 CMakeFiles/NFS_Next_Gen.dir/src/logic/ServerState.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/logic/ServerState.cpp.o: src/logic/ServerState.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/logic/ServerState.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/logic/ServerState.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/logic/ServerState.cpp.o -c /home/margot/NFS-Next-Gen/src/logic/ServerState.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/logic/ServerState.cpp.i: cmake_force
@@ -202,7 +215,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/logic/ServerState.cpp.s: cmake_force
 
 CMakeFiles/NFS_Next_Gen.dir/src/physics/SQLite.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/physics/SQLite.cpp.o: src/physics/SQLite.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/physics/SQLite.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/physics/SQLite.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/physics/SQLite.cpp.o -c /home/margot/NFS-Next-Gen/src/physics/SQLite.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/physics/SQLite.cpp.i: cmake_force
@@ -215,7 +228,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/physics/SQLite.cpp.s: cmake_force
 
 CMakeFiles/NFS_Next_Gen.dir/src/physics/physicsFunc.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/physics/physicsFunc.cpp.o: src/physics/physicsFunc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/physics/physicsFunc.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/physics/physicsFunc.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/physics/physicsFunc.cpp.o -c /home/margot/NFS-Next-Gen/src/physics/physicsFunc.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/physics/physicsFunc.cpp.i: cmake_force
@@ -228,7 +241,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/physics/physicsFunc.cpp.s: cmake_force
 
 CMakeFiles/NFS_Next_Gen.dir/src/main.cpp.o: CMakeFiles/NFS_Next_Gen.dir/flags.make
 CMakeFiles/NFS_Next_Gen.dir/src/main.cpp.o: src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/NFS_Next_Gen.dir/src/main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/NFS_Next_Gen.dir/src/main.cpp.o -c /home/margot/NFS-Next-Gen/src/main.cpp
 
 CMakeFiles/NFS_Next_Gen.dir/src/main.cpp.i: cmake_force
@@ -241,6 +254,7 @@ CMakeFiles/NFS_Next_Gen.dir/src/main.cpp.s: cmake_force
 
 # Object files for target NFS_Next_Gen
 NFS_Next_Gen_OBJECTS = \
+"CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.o" \
 "CMakeFiles/NFS_Next_Gen.dir/src/graphics/graphicFunc.cpp.o" \
 "CMakeFiles/NFS_Next_Gen.dir/src/graphics/login.cpp.o" \
 "CMakeFiles/NFS_Next_Gen.dir/src/graphics/menu.cpp.o" \
@@ -259,6 +273,7 @@ NFS_Next_Gen_OBJECTS = \
 # External object files for target NFS_Next_Gen
 NFS_Next_Gen_EXTERNAL_OBJECTS =
 
+NFS_Next_Gen: CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.o
 NFS_Next_Gen: CMakeFiles/NFS_Next_Gen.dir/src/graphics/graphicFunc.cpp.o
 NFS_Next_Gen: CMakeFiles/NFS_Next_Gen.dir/src/graphics/login.cpp.o
 NFS_Next_Gen: CMakeFiles/NFS_Next_Gen.dir/src/graphics/menu.cpp.o
@@ -287,7 +302,7 @@ NFS_Next_Gen: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so
 NFS_Next_Gen: /usr/lib/x86_64-linux-gnu/libsfml-network.so
 NFS_Next_Gen: /usr/lib/x86_64-linux-gnu/libsfml-audio.so
 NFS_Next_Gen: CMakeFiles/NFS_Next_Gen.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable NFS_Next_Gen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/margot/NFS-Next-Gen/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable NFS_Next_Gen"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/NFS_Next_Gen.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

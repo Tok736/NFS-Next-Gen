@@ -86,6 +86,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/margot/NFS-Next-Gen/src/graphics/gameOver.cpp">
+			<Option target="NFS_Next_Gen"/>
+		</Unit>
 		<Unit filename="/home/margot/NFS-Next-Gen/src/graphics/graphicFunc.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>

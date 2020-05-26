@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/margot/NFS-Next-Gen/src/graphics/gameOver.cpp" "/home/margot/NFS-Next-Gen/CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.o"
   "/home/margot/NFS-Next-Gen/src/graphics/graphicFunc.cpp" "/home/margot/NFS-Next-Gen/CMakeFiles/NFS_Next_Gen.dir/src/graphics/graphicFunc.cpp.o"
   "/home/margot/NFS-Next-Gen/src/graphics/login.cpp" "/home/margot/NFS-Next-Gen/CMakeFiles/NFS_Next_Gen.dir/src/graphics/login.cpp.o"
   "/home/margot/NFS-Next-Gen/src/graphics/menu.cpp" "/home/margot/NFS-Next-Gen/CMakeFiles/NFS_Next_Gen.dir/src/graphics/menu.cpp.o"

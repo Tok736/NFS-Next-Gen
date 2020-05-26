@@ -22,7 +22,7 @@ GameState::GameState(sp_t<Window> wndPtr) : myWindow(wndPtr) {
 
 GameState::~GameState() {}
 
-size_t GameState::gameLoop() {
+size_t GameState::gameLoop(SQLiteDataBase &myDB) {
 
     Clock clock;
     vector<int> actions;
@@ -58,13 +58,17 @@ size_t GameState::gameLoop() {
             actions.pop_back();
             switch (pauseWindow(myWindow->getRenderWindow(), freq)) {  // тут возвращается: 1 - продолжить, 2 - заново, 0 - выход в меню (надо переделать цифры для красоты)
                 case 1:
-                    break;
-                case 2:
                     countDown(myWindow->getRenderWindow());
                     return 1;
                     break;
-                case 0:
+                case 2:
                     return 2;
+                    break;
+                case 3:
+                    break;
+                case 0:
+                    return 0;
+                    break;
                 default:
                     break;
             }
@@ -88,12 +92,20 @@ size_t GameState::gameLoop() {
 
         composeActualElements(actualElements);
 
-        if ((*(actualElements.end() - 1))->getHealthCount() <= 0) return 2;
+
 
 
         int ffreq = (int) freq;
         myWindow->render(actualElements, action, ffreq);
         myWindow->display();
+
+        if ((*(actualElements.end() - 1))->getHealthCount() <= 0) {
+            myDB.setUserLocalScore(freq);
+            displayGameOver(myWindow->getRenderWindow(), freq);
+            return 2;
+        }
+
+
 //        timeAfter = std::clock();
         usleep(16000); // 50 fps, если считать, что все исполняется в пределах 40 мс
 //        sleep(timeForFrame - ((float)(timeAfter - timeBefore) / CLOCKS_PER_SEC));  //for 30fps

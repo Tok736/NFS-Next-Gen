@@ -123,6 +123,33 @@ NFS_Next_Gen/fast:
 	$(MAKE) -f CMakeFiles/NFS_Next_Gen.dir/build.make CMakeFiles/NFS_Next_Gen.dir/build
 .PHONY : NFS_Next_Gen/fast
 
+src/graphics/gameOver.o: src/graphics/gameOver.cpp.o
+
+.PHONY : src/graphics/gameOver.o
+
+# target to build an object file
+src/graphics/gameOver.cpp.o:
+	$(MAKE) -f CMakeFiles/NFS_Next_Gen.dir/build.make CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.o
+.PHONY : src/graphics/gameOver.cpp.o
+
+src/graphics/gameOver.i: src/graphics/gameOver.cpp.i
+
+.PHONY : src/graphics/gameOver.i
+
+# target to preprocess a source file
+src/graphics/gameOver.cpp.i:
+	$(MAKE) -f CMakeFiles/NFS_Next_Gen.dir/build.make CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.i
+.PHONY : src/graphics/gameOver.cpp.i
+
+src/graphics/gameOver.s: src/graphics/gameOver.cpp.s
+
+.PHONY : src/graphics/gameOver.s
+
+# target to generate assembly for a file
+src/graphics/gameOver.cpp.s:
+	$(MAKE) -f CMakeFiles/NFS_Next_Gen.dir/build.make CMakeFiles/NFS_Next_Gen.dir/src/graphics/gameOver.cpp.s
+.PHONY : src/graphics/gameOver.cpp.s
+
 src/graphics/graphicFunc.o: src/graphics/graphicFunc.cpp.o
 
 .PHONY : src/graphics/graphicFunc.o
@@ -510,6 +537,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... NFS_Next_Gen"
 	@echo "... edit_cache"
+	@echo "... src/graphics/gameOver.o"
+	@echo "... src/graphics/gameOver.i"
+	@echo "... src/graphics/gameOver.s"
 	@echo "... src/graphics/graphicFunc.o"
 	@echo "... src/graphics/graphicFunc.i"
 	@echo "... src/graphics/graphicFunc.s"

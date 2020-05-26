@@ -6,11 +6,22 @@
 #include "physics/physics.h"
 
 enum buttons{
-    continueB = 1,
-    restartB = 2,
-    exitB = 0,
+    continueB = 3,
+    restartB = 1,
+    exitB = 2,
     nothingPressed = 10,
 };
+
+void setSizeForButtonPause(int menuNum, sf::Text &singleGame,
+                      sf::Text &scoreInGame, sf::Text &exitFromGame, int size)
+{
+    if (menuNum == continueB)
+        singleGame.setCharacterSize(size);
+    else if (menuNum == restartB)
+        scoreInGame.setCharacterSize(size);
+    else if (menuNum == exitB)
+        exitFromGame.setCharacterSize(size);
+}
 
 void updatePauseView(const shared_ptr<sf::RenderWindow>& window, sf::Text &continueGame,
                 sf::Text &startAgain, sf::Text &exitFromGame, int &menuNum)
@@ -52,24 +63,23 @@ short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNu
     renderPause(window, menuBg, continueGame, startAgain, exitFromGame);
     usleep(200000);
     window->clear();
-    setSizeForButton(menuNum, continueGame, startAgain, exitFromGame, 40);
+    setSizeForButtonPause(menuNum, continueGame, startAgain, exitFromGame, 40);
     renderPause(window, menuBg,continueGame, startAgain, exitFromGame);
     usleep(100000);
-    setSizeForButton(menuNum, continueGame, startAgain, exitFromGame, 60);
+    setSizeForButtonPause(menuNum, continueGame, startAgain, exitFromGame, 60);
     renderPause(window, menuBg,continueGame, startAgain, exitFromGame);
     window->clear();
     if (menuNum == continueB)
     {
-        return 1;
+        return continueB;
     }
     else if (menuNum == restartB)
     {
-
-        return 2;
+        return restartB;
     }
     else if (menuNum == exitB)
     {
-        return 0;
+        return exitB;
     }
     else
         return nothingPressed;

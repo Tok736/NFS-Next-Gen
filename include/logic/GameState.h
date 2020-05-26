@@ -40,7 +40,7 @@ public:
     GameState();
     GameState(sp_t<Window> wndPtr);
     ~GameState();
-    size_t gameLoop();  //0 - выход в главное меню, 2 - играть заново
+    size_t gameLoop(SQLiteDataBase &myDB);  //0 - выход в главное меню, 2 - играть заново
     void composeActualElements(vsp_t<IGameElement> &actualElements);
     void gamePreparation();
     void serverLoop();

@@ -56,7 +56,6 @@ void  Game::start() {
     SQLiteDataBase myDB;
 
     size_t nextStep = loginMenu(window, myDB);
-
     auto score5 = myDB.getStandings(5);
 
     //1 - начало гонки, 2 - главное меню, 0 - выход из игры
@@ -66,7 +65,7 @@ void  Game::start() {
             case 1:
                 std::cout << "Запуск игры\n";
                 myGameState = std::make_shared<GameState>(window);
-                nextStep = myGameState->gameLoop();
+                nextStep = myGameState->gameLoop(myDB);
                 break;
             case 2:
                 nextStep = displayMenu(window->getRenderWindow(), myDB.getUserNickname(), score5);
