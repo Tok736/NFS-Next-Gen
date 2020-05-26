@@ -6,5 +6,5 @@ CXX_FLAGS = -lm -Wno-unknown-pragmas  -fprofile-arcs -ftest-coverage -lgcov -g  
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/purplelime/tp_project_1sem/NFS-Next-Gen/include 
+CXX_INCLUDES = -I/home/margot/NFS-Next-Gen/include 
 

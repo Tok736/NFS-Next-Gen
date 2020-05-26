@@ -60,6 +60,7 @@ size_t GameState::gameLoop() {
                 case 1:
                     break;
                 case 2:
+                    countDown(myWindow->getRenderWindow());
                     return 1;
                     break;
                 case 0:

@@ -68,6 +68,7 @@ short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &time
 pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWindow>& window, string &type, const string &errorMassage);
 short int displayScoreTable(const shared_ptr<sf::RenderWindow>& window, const std::tuple<vector<string>, vector<int>, vector<int>> &highTable);
 
+bool countDown(const shared_ptr<sf::RenderWindow>& window);
 
 
 void setSizeForButton(int menuNum, sf::Text &first,

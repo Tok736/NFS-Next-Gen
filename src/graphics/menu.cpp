@@ -159,9 +159,11 @@ short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& n
                 if (buttonPressed == singlPlayB || buttonPressed == exitB)
                     return buttonPressed;
                 else if (buttonPressed == scoreTableB)
-				{}
-                    //if (!displayScoreTable(window, highTable))
-                     //   return 0;
+				{
+                    if (!displayScoreTable(window, highTable))
+                        return 0;
+				}
+
             }
         }
         render(window, menuBg,playerName, singleGame, scoreInGame, exitFromGame);

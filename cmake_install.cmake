@@ -1,4 +1,4 @@
-# Install script for directory: /home/purplelime/tp_project_1sem/NFS-Next-Gen
+# Install script for directory: /home/margot/NFS-Next-Gen
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/purplelime/tp_project_1sem/NFS-Next-Gen/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/margot/NFS-Next-Gen/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
