@@ -1,0 +1,3 @@
+/home/purplelime/tp_project_1sem/NFS-Next-Gen/CMakeFiles/rebuild_cache.dir
+/home/purplelime/tp_project_1sem/NFS-Next-Gen/CMakeFiles/NFS_Next_Gen.dir
+/home/purplelime/tp_project_1sem/NFS-Next-Gen/CMakeFiles/edit_cache.dir

@@ -1,8 +1,7 @@
 #ifndef NFS_NEXT_GEN_GAME_H
 #define NFS_NEXT_GEN_GAME_H
 
-#include "logic/ClientState.h"
-#include "logic/ServerState.h"
+#include "logic/GameState.h"
 
 //#include "physics/IElements.h"
 //#include "GameData.h"
@@ -24,14 +23,14 @@ template<typename T> using vsp_t = std::vector<sp_t<T>>;
 
 
 class Game {
-    sp_t<ClientState> myClientState;
-    sp_t <ServerState> myServerState;
+    sp_t<GameState> myGameState;
 
 //    void exitGame();
 public:
     Game();
     ~Game();
-    void playGame();
+    size_t loginMenu(sp_t<Window>, SQLiteDataBase&);  //тут логин/регистрация
+    void play();
 };
 
 #endif //NFS_NEXT_GEN_GAME_H

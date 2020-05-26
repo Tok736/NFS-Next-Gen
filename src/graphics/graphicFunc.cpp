@@ -45,7 +45,7 @@ float Clock::getClockSec() {
 /////////////////////                    WINDOW            //////////////////////////////////////////
 
 void Window::createRenderWindow(shared_ptr<Window> miniEngine, unsigned int width, unsigned int height, const std::string &title) {
-    auto newWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), title, sf::Style::Fullscreen);
+    auto newWindow = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), title, sf::Style::Default);
     miniEngine->renderWindow_= newWindow;
     miniEngine->setHeight(height);
     miniEngine->setWidth(width);

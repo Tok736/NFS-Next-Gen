@@ -2,6 +2,7 @@
 cmake_minimum_required(VERSION 3.9)
 set(PROJECT_NAME NFS_Next_Gen)
 project(${PROJECT_NAME} CXX)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 # ==== Standard and flags ==== #
 set(GCC_COVERAGE_COMPILE_FLAGS "-lboost_system -lboost_thread")
@@ -44,6 +45,8 @@ target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
 
 # ==== Linking with SQLite DataBase ==== #
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
+
 find_package(SQLite3)
 if (SQLite3_FOUND)
     include_directories(${SQLite3_INCLUDE_DIRS})

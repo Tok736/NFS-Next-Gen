@@ -29,6 +29,6 @@ int main()
 {
 
     Game myGame;
-    myGame.playGame();
+    myGame.play();
     return 0;
 }
