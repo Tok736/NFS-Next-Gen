@@ -1,3 +1,3 @@
-/home/margot/NFS-Next-Gen/CMakeFiles/rebuild_cache.dir
-/home/margot/NFS-Next-Gen/CMakeFiles/NFS_Next_Gen.dir
-/home/margot/NFS-Next-Gen/CMakeFiles/edit_cache.dir
+/home/vlad/PrezC/CMakeFiles/rebuild_cache.dir
+/home/vlad/PrezC/CMakeFiles/edit_cache.dir
+/home/vlad/PrezC/CMakeFiles/NFS_Next_Gen.dir

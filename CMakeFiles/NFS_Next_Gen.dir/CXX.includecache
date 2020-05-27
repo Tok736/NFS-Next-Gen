@@ -6,11 +6,19 @@
 
 #IncludeRegexTransform: 
 
+<<<<<<< HEAD
 /home/margot/NFS-Next-Gen/src/graphics/scoreTable.cpp
 graphics/graphic.h
 /home/margot/NFS-Next-Gen/src/graphics/graphics/graphic.h
 physics/physics.h
 /home/margot/NFS-Next-Gen/src/graphics/physics/physics.h
+=======
+/home/vlad/PrezC/src/graphics/graphicFunc.cpp
+graphics/graphic.h
+/home/vlad/PrezC/src/graphics/graphics/graphic.h
+physics/physics.h
+/home/vlad/PrezC/src/graphics/physics/physics.h
+>>>>>>> 877a438623e41a231b460e2698942b9c0cb497c7
 
 include/graphics/graphic.h
 SFML/Graphics.hpp
