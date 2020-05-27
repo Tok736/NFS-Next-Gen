@@ -14,6 +14,17 @@ enum buttons{
     nothingPressed = 10,
 };
 
+enum buttonSizes{
+    beforePress = 60,
+    afterPress = 40,
+    exitButtonSize = 83,
+    scoreSize = 75,
+};
+
+constexpr pair<float, float> scorePos {screenWidth/3.55, screenHeight/24.66};
+constexpr pair<float, float> exitFromGamePos {screenWidth/3.3, screenHeight/1.2};
+
+
 void renderPause(const shared_ptr<sf::RenderWindow> &window, const sf::Sprite &menuBg, const sf::Text &exitFromGame)
 {
     window->draw(menuBg);
@@ -44,12 +55,13 @@ void updatePauseView(const shared_ptr<sf::RenderWindow>& window, sf::Text &exitF
 
 short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNum, const sf::Sprite &menuBg, sf::Text &exitFromGame)
 {
-    visiblePress(window, menuBg, exitFromGame, 40, 200000);
-    visiblePress(window, menuBg, exitFromGame, 60, 100000);
+
     window->clear();
 
     if (menuNum == exitB)
     {
+        visiblePress(window, menuBg, exitFromGame, afterPress, 200000);
+        visiblePress(window, menuBg, exitFromGame, beforePress, 100000);
         return exitB;
     }
     else
@@ -65,19 +77,19 @@ short int displayGameOver(const shared_ptr<sf::RenderWindow>& window,const int &
     sf::Sprite menuBg(menuBackground);
     int menuNum = nothingPressed;
     int start = 0;
-    menuBg.setPosition(0,0);
+    menuBg.setPosition(leftAngle,leftAngle);
 
 
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
     std::string scoreString("Your score: " + toString(timeInGame) + "!");
-    sf::Text exitFromGame("Back to menu", font, 83), score(scoreString, font, 75);
+    sf::Text exitFromGame("Back to menu", font, exitButtonSize), score(scoreString, font, scoreSize);
     score.setFillColor(sf::Color(234,119,120));
 
     exitFromGame.setFillColor(sf::Color(255,175,103));
-    score.setPosition(screenWidth/3.55, screenHeight/24.66);
+    score.setPosition(scorePos.first, scorePos.second);
 
-    exitFromGame.setPosition(screenWidth/3.3, screenHeight/1.2);
+    exitFromGame.setPosition(exitFromGamePos.first, exitFromGamePos.second);
     window->draw(score);
 
     window->draw(exitFromGame);
@@ -85,7 +97,7 @@ short int displayGameOver(const shared_ptr<sf::RenderWindow>& window,const int &
     sf::Event event;
     while (!start)
     {
-        menuNum = 0;
+        menuNum = nothingPressed;
         window->clear();
         if (window->pollEvent(event))
         {

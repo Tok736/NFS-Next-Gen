@@ -91,5 +91,10 @@ std::string toString(T val)
 }
 
 
+enum leftTop
+{
+        leftAngle = 0,
+};
+
 
 #endif //NFS_NEXT_GEN_UTILS_H
