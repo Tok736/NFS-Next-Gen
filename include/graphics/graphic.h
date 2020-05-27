@@ -67,7 +67,9 @@ short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& n
 short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &timeInGame);
 pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWindow>& window, string &type, const string &errorMassage);
 short int displayScoreTable(const shared_ptr<sf::RenderWindow>& window, const std::tuple<vector<string>, vector<int>, vector<int>> &highTable);
+short int displayGameOver(const shared_ptr<sf::RenderWindow>& window,const int &timeInGame);
 
+bool countDown(const shared_ptr<sf::RenderWindow>& window);
 
 
 void setSizeForButton(int menuNum, sf::Text &first,
@@ -88,6 +90,11 @@ std::string toString(T val)
     return oss.str();
 }
 
+
+enum leftTop
+{
+        leftAngle = 0,
+};
 
 
 #endif //NFS_NEXT_GEN_UTILS_H
