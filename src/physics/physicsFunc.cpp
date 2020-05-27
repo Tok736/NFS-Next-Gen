@@ -103,7 +103,7 @@ void absolutelyBounce(std::shared_ptr<Car> &car, float &dSbyTic, float &alpha, f
 }
 
 void bounceNo(std::shared_ptr<Car> &car, int &collisionDuration) {
-	car->setV(0);
+	car->setV(0.5f*minSpeed);
 	collisionDuration = 0;
 };
 
@@ -297,7 +297,7 @@ void Collision::handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std:
 				makeBounce(car, carArea, obstructionArea, carModelAreaS);
 				collisionType = obstrId >= groupNoBounceStart && obstrId <= groupNoBounceEnd ? collisionType = noBounce : absBounce;
 				collisionDuration = (int) (dSbyTic / aFriction);
-				//elements[i]->setId(transparency); //исчезновение препятствия после коллизии
+				elements.erase(elements.cbegin() + i);
 			}
 			wasChecked = i;
 			break;

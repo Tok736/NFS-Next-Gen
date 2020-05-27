@@ -1,21 +1,24 @@
 Performing C++ SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
-Change Dir: /home/margot/NFS-Next-Gen/CMakeFiles/CMakeTmp
+Change Dir: /home/vlad/PrezC/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_0f615/fast && /usr/bin/make -f CMakeFiles/cmTC_0f615.dir/build.make CMakeFiles/cmTC_0f615.dir/build
-make[1]: Entering directory '/home/margot/NFS-Next-Gen/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_0f615.dir/src.cxx.o
-/usr/bin/c++    -lm -Wno-unknown-pragmas  -fprofile-arcs -ftest-coverage -lgcov -DCMAKE_HAVE_LIBC_PTHREAD   -std=gnu++14 -o CMakeFiles/cmTC_0f615.dir/src.cxx.o -c /home/margot/NFS-Next-Gen/CMakeFiles/CMakeTmp/src.cxx
-Linking CXX executable cmTC_0f615
-/home/margot/Downloads/clion-2019.3.4/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0f615.dir/link.txt --verbose=1
-/usr/bin/c++  -lm -Wno-unknown-pragmas  -fprofile-arcs -ftest-coverage -lgcov -DCMAKE_HAVE_LIBC_PTHREAD  -lgcov --coverage  CMakeFiles/cmTC_0f615.dir/src.cxx.o  -o cmTC_0f615 
-/usr/bin/ld: CMakeFiles/cmTC_0f615.dir/src.cxx.o: in function `main':
-src.cxx:(.text+0x6a): undefined reference to `pthread_create'
-/usr/bin/ld: src.cxx:(.text+0x88): undefined reference to `pthread_detach'
-/usr/bin/ld: src.cxx:(.text+0xab): undefined reference to `pthread_join'
+Run Build Command(s):/usr/bin/make cmTC_f7e2a/fast && /usr/bin/make -f CMakeFiles/cmTC_f7e2a.dir/build.make CMakeFiles/cmTC_f7e2a.dir/build
+make[1]: вход в каталог «/home/vlad/PrezC/CMakeFiles/CMakeTmp»
+Building CXX object CMakeFiles/cmTC_f7e2a.dir/src.cxx.o
+/usr/bin/c++    -lm -Wno-unknown-pragmas  -fprofile-arcs -ftest-coverage -lgcov -DCMAKE_HAVE_LIBC_PTHREAD   -std=gnu++14 -o CMakeFiles/cmTC_f7e2a.dir/src.cxx.o -c /home/vlad/PrezC/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_f7e2a
+/snap/clion/112/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f7e2a.dir/link.txt --verbose=1
+/usr/bin/c++  -lm -Wno-unknown-pragmas  -fprofile-arcs -ftest-coverage -lgcov -DCMAKE_HAVE_LIBC_PTHREAD  -lgcov --coverage  CMakeFiles/cmTC_f7e2a.dir/src.cxx.o  -o cmTC_f7e2a 
+CMakeFiles/cmTC_f7e2a.dir/src.cxx.o: In function `main':
+src.cxx:(.text+0x62): undefined reference to `pthread_create'
+src.cxx:(.text+0x80): undefined reference to `pthread_detach'
+src.cxx:(.text+0xa3): undefined reference to `pthread_join'
+src.cxx:(.text+0xc9): undefined reference to `pthread_atfork'
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_0f615.dir/build.make:87: cmTC_0f615] Error 1
-make[1]: Leaving directory '/home/margot/NFS-Next-Gen/CMakeFiles/CMakeTmp'
-make: *** [Makefile:121: cmTC_0f615/fast] Error 2
+CMakeFiles/cmTC_f7e2a.dir/build.make:86: recipe for target 'cmTC_f7e2a' failed
+make[1]: *** [cmTC_f7e2a] Error 1
+make[1]: выход из каталога «/home/vlad/PrezC/CMakeFiles/CMakeTmp»
+Makefile:121: recipe for target 'cmTC_f7e2a/fast' failed
+make: *** [cmTC_f7e2a/fast] Error 2
 
 
 Source file was:
@@ -39,20 +42,22 @@ int main(void)
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/margot/NFS-Next-Gen/CMakeFiles/CMakeTmp
+Change Dir: /home/vlad/PrezC/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_e7b38/fast && /usr/bin/make -f CMakeFiles/cmTC_e7b38.dir/build.make CMakeFiles/cmTC_e7b38.dir/build
-make[1]: Entering directory '/home/margot/NFS-Next-Gen/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_e7b38.dir/CheckFunctionExists.cxx.o
-/usr/bin/c++    -lm -Wno-unknown-pragmas  -fprofile-arcs -ftest-coverage -lgcov -DCHECK_FUNCTION_EXISTS=pthread_create   -std=gnu++14 -o CMakeFiles/cmTC_e7b38.dir/CheckFunctionExists.cxx.o -c /home/margot/NFS-Next-Gen/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx
-Linking CXX executable cmTC_e7b38
-/home/margot/Downloads/clion-2019.3.4/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e7b38.dir/link.txt --verbose=1
-/usr/bin/c++  -lm -Wno-unknown-pragmas  -fprofile-arcs -ftest-coverage -lgcov -DCHECK_FUNCTION_EXISTS=pthread_create  -lgcov --coverage  CMakeFiles/cmTC_e7b38.dir/CheckFunctionExists.cxx.o  -o cmTC_e7b38 -lpthreads 
+Run Build Command(s):/usr/bin/make cmTC_20e5f/fast && /usr/bin/make -f CMakeFiles/cmTC_20e5f.dir/build.make CMakeFiles/cmTC_20e5f.dir/build
+make[1]: вход в каталог «/home/vlad/PrezC/CMakeFiles/CMakeTmp»
+Building CXX object CMakeFiles/cmTC_20e5f.dir/CheckFunctionExists.cxx.o
+/usr/bin/c++    -lm -Wno-unknown-pragmas  -fprofile-arcs -ftest-coverage -lgcov -DCHECK_FUNCTION_EXISTS=pthread_create   -std=gnu++14 -o CMakeFiles/cmTC_20e5f.dir/CheckFunctionExists.cxx.o -c /home/vlad/PrezC/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx
+Linking CXX executable cmTC_20e5f
+/snap/clion/112/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_20e5f.dir/link.txt --verbose=1
+/usr/bin/c++  -lm -Wno-unknown-pragmas  -fprofile-arcs -ftest-coverage -lgcov -DCHECK_FUNCTION_EXISTS=pthread_create  -lgcov --coverage  CMakeFiles/cmTC_20e5f.dir/CheckFunctionExists.cxx.o  -o cmTC_20e5f  -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_e7b38.dir/build.make:87: cmTC_e7b38] Error 1
-make[1]: Leaving directory '/home/margot/NFS-Next-Gen/CMakeFiles/CMakeTmp'
-make: *** [Makefile:121: cmTC_e7b38/fast] Error 2
+CMakeFiles/cmTC_20e5f.dir/build.make:86: recipe for target 'cmTC_20e5f' failed
+make[1]: *** [cmTC_20e5f] Error 1
+make[1]: выход из каталога «/home/vlad/PrezC/CMakeFiles/CMakeTmp»
+Makefile:121: recipe for target 'cmTC_20e5f/fast' failed
+make: *** [cmTC_20e5f/fast] Error 2
 
 
 

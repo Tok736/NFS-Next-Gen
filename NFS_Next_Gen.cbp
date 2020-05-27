@@ -8,136 +8,136 @@
 		<Option virtualFolders="CMake Files\;CMake Files\cmake_modules\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/margot/NFS-Next-Gen"/>
+				<Option working_dir="/home/vlad/PrezC"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/margot/NFS-Next-Gen"/>
+				<Option working_dir="/home/vlad/PrezC"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="NFS_Next_Gen">
-				<Option output="/home/margot/NFS-Next-Gen/NFS_Next_Gen" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/margot/NFS-Next-Gen"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/home/margot/NFS-Next-Gen/include"/>
-					<Add directory="/usr/include"/>
-					<Add directory="/usr/include/c++/9"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
-					<Add directory="/usr/include/c++/9/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 NFS_Next_Gen"/>
-					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="NFS_Next_Gen/fast">
-				<Option output="/home/margot/NFS-Next-Gen/NFS_Next_Gen" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/margot/NFS-Next-Gen"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/home/margot/NFS-Next-Gen/include"/>
-					<Add directory="/usr/include"/>
-					<Add directory="/usr/include/c++/9"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
-					<Add directory="/usr/include/c++/9/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 NFS_Next_Gen/fast"/>
-					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/margot/NFS-Next-Gen"/>
+				<Option working_dir="/home/vlad/PrezC"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j3 -f &quot;/home/margot/NFS-Next-Gen/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="NFS_Next_Gen">
+				<Option output="/home/vlad/PrezC/NFS_Next_Gen" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vlad/PrezC"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/vlad/PrezC/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 NFS_Next_Gen"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="NFS_Next_Gen/fast">
+				<Option output="/home/vlad/PrezC/NFS_Next_Gen" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/vlad/PrezC"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/vlad/PrezC/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 NFS_Next_Gen/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/vlad/PrezC/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/graphics/gameOver.cpp">
+		<Unit filename="/home/vlad/PrezC/src/graphics/gameOver.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/graphics/graphicFunc.cpp">
+		<Unit filename="/home/vlad/PrezC/src/graphics/graphicFunc.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/graphics/login.cpp">
+		<Unit filename="/home/vlad/PrezC/src/graphics/login.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/graphics/menu.cpp">
+		<Unit filename="/home/vlad/PrezC/src/graphics/menu.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/graphics/pauseInTheGame.cpp">
+		<Unit filename="/home/vlad/PrezC/src/graphics/pauseInTheGame.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/graphics/scoreTable.cpp">
+		<Unit filename="/home/vlad/PrezC/src/graphics/scoreTable.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/graphics/wrapFunc.cpp">
+		<Unit filename="/home/vlad/PrezC/src/graphics/wrapFunc.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/logic/ClientState.cpp">
+		<Unit filename="/home/vlad/PrezC/src/logic/ClientState.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/logic/Game.cpp">
+		<Unit filename="/home/vlad/PrezC/src/logic/Game.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/logic/GameState.cpp">
+		<Unit filename="/home/vlad/PrezC/src/logic/GameState.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/logic/MapGenerator.cpp">
+		<Unit filename="/home/vlad/PrezC/src/logic/MapGenerator.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/logic/ServerState.cpp">
+		<Unit filename="/home/vlad/PrezC/src/logic/ServerState.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/main.cpp">
+		<Unit filename="/home/vlad/PrezC/src/main.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/physics/SQLite.cpp">
+		<Unit filename="/home/vlad/PrezC/src/physics/SQLite.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/src/physics/physicsFunc.cpp">
+		<Unit filename="/home/vlad/PrezC/src/physics/physicsFunc.cpp">
 			<Option target="NFS_Next_Gen"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/CMakeLists.txt">
+		<Unit filename="/home/vlad/PrezC/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/cmake_modules/FindSFML.cmake">
+		<Unit filename="/home/vlad/PrezC/cmake_modules/FindSFML.cmake">
 			<Option virtualFolder="CMake Files\cmake_modules\"/>
 		</Unit>
-		<Unit filename="/home/margot/NFS-Next-Gen/cmake_modules/FindSQLite3.cmake">
+		<Unit filename="/home/vlad/PrezC/cmake_modules/FindSQLite3.cmake">
 			<Option virtualFolder="CMake Files\cmake_modules\"/>
 		</Unit>
 	</Project>

@@ -108,6 +108,7 @@ void updateView(const shared_ptr<sf::RenderWindow>& window, sf::Sound sound, sf:
 
 short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name,const std::tuple<vector<string>, vector<int>, vector<int>> &highTable)
 {
+	window->clear();
     sf::SoundBuffer buffer;
     buffer.loadFromFile("src/sounds/button.ogg");
     sf::Sound sound;
