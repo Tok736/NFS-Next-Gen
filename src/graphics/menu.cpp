@@ -119,15 +119,7 @@ void updateView(const shared_ptr<sf::RenderWindow>& window, sf::Text &singleGame
 
 short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name,const std::tuple<vector<string>, vector<int>, vector<int>> &highTable)
 {
-<<<<<<< HEAD
-=======
-	window->clear();
-    sf::SoundBuffer buffer;
-    buffer.loadFromFile("src/sounds/button.ogg");
-    sf::Sound sound;
-    sound.setBuffer(buffer);
 
->>>>>>> 877a438623e41a231b460e2698942b9c0cb497c7
     sf::Texture menuBackground;
     menuBackground.loadFromFile("src/textures/bg.png");
     sf::Sprite menuBg(menuBackground);

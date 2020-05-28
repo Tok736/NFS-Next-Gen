@@ -2523,12 +2523,12 @@ static void AnyOfMatches(int num, const Matcher<int>& m) {
 
 static void AnyOfStringMatches(int num, const Matcher<std::string>& m) {
   SCOPED_TRACE(Describe(m));
-  EXPECT_FALSE(m.Matches(std::to_string(0)));
+  EXPECT_FALSE(m.Matches(std::toString(0)));
 
   for (int i = 1; i <= num; ++i) {
-    EXPECT_TRUE(m.Matches(std::to_string(i)));
+    EXPECT_TRUE(m.Matches(std::toString(i)));
   }
-  EXPECT_FALSE(m.Matches(std::to_string(num + 1)));
+  EXPECT_FALSE(m.Matches(std::toString(num + 1)));
 }
 
 // Tests that AnyOf(m1, ..., mn) matches any value that matches at

@@ -8,8 +8,8 @@ constexpr int networkScore = 200;
 void createUsersList(vector<string> &users, vector<string> &passwd) {
 	string buf = "player";
 	for (int i = 0; i < usersCount; ++i) { //формируем список из потенциальных игроков
-		users.push_back(buf + std::to_string(i));
-		passwd.push_back(std::to_string(i));
+		users.push_back(buf + std::toString(i));
+		passwd.push_back(std::toString(i));
 	}
 }
 

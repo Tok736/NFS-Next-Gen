@@ -1,3 +1,0 @@
-/home/vlad/PrezC/CMakeFiles/rebuild_cache.dir
-/home/vlad/PrezC/CMakeFiles/edit_cache.dir
-/home/vlad/PrezC/CMakeFiles/NFS_Next_Gen.dir
