@@ -204,7 +204,7 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
 
     sf::Text score("", font, hpAndScoreSize);
     score.setFillColor(sf::Color::White);
-    score.setString("Score: " + to_string<int>(timeInGame));
+    score.setString("Score: " + to_string((int)timeInGame));
     score.setPosition(scorePos.first, scorePos.second);
 
 

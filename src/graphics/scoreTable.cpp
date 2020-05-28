@@ -56,7 +56,7 @@ short int displayScoreTable(const shared_ptr<sf::RenderWindow>& window, const st
     for (int i = 0; i < std::get<0>(highTable).size(); i++)
     {
         sf::Text tempScore(to_string(i+1)+"'th"+"       " + to_string(std::get<1>(highTable)[i]), font, stringInScore) ;
-        sf::Text nickname (to_string(std::get<0>(highTable)[i]) , font, stringInScore);
+        sf::Text nickname (toString(std::get<0>(highTable)[i]) , font, stringInScore);
         tempScore.setPosition(point.first, point.second);
         nickname.setPosition(point.first + nicknameOffset, point.second);
         tempScore.setFillColor(sf::Color::White);
