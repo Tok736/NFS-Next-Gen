@@ -110,7 +110,7 @@ short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &time
 
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
-    std::string scoreString("Your score: " + toString(timeInGame) + "!");
+    std::string scoreString("Your score: " + to_string(timeInGame) + "!");
     sf::Text continueGame("Continue", font, beforePress), startAgain("Start again", font, beforePress);
     sf::Text exitFromGame("Back to menu", font, beforePress), score(scoreString, font, scoreButtonSize);
     score.setFillColor(sf::Color(33,255,130));

@@ -82,7 +82,7 @@ short int displayGameOver(const shared_ptr<sf::RenderWindow>& window,const int &
 
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
-    std::string scoreString("Your score: " + toString(timeInGame) + "!");
+    std::string scoreString("Your score: " + to_string(timeInGame) + "!");
     sf::Text exitFromGame("Back to menu", font, exitButtonSize), score(scoreString, font, scoreSize);
     score.setFillColor(sf::Color(234,119,120));
 

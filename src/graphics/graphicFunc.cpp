@@ -122,10 +122,10 @@ void Window::createTextures(std::vector<shared_ptr<IGameElement>> &roadAndObstcl
         else if (id >=firstCarId && id <= lastCarId)
         {
             for (int i=0; i<4; i++) //numbers of cars conditions (left,up,right,down)
-                typeOfObstacle.emplace_back("CarAction_" + toString(id)+toString(i));
+                typeOfObstacle.emplace_back("CarAction_" + to_string(id)+to_string(i));
         }
         else{
-            typeOfObstacle.emplace_back("obstruction" + toString(roadElem->getId()));
+            typeOfObstacle.emplace_back("obstruction" + to_string(roadElem->getId()));
         }
 
         for (auto & iter : typeOfObstacle)
@@ -177,7 +177,7 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
             else
                 carSprite.setTexture(mapOfRextures.find(roadElement->getId())->second[0]);
 
-            hp.setString("Health: " + toString(roadElement->getHealthCount()) + "%");
+            hp.setString("Health: " + to_string(roadElement->getHealthCount()) + "%");
             carSprite.setOrigin(carX, carY);
             carSprite.setRotation((float) roadElement->getAngle());
             carSprite.setPosition(roadElement->getX(), roadElement->getY());
@@ -204,7 +204,7 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
 
     sf::Text score("", font, hpAndScoreSize);
     score.setFillColor(sf::Color::White);
-    score.setString("Score: " + toString<int>(timeInGame));
+    score.setString("Score: " + to_string<int>(timeInGame));
     score.setPosition(scorePos.first, scorePos.second);
 
 

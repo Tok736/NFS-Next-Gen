@@ -205,7 +205,7 @@ bool countDown(const shared_ptr<sf::RenderWindow>& window)
     for (int i = three; i>=one; i--)
     {
         timeDown.setCharacterSize(30);
-        timeDown.setString(toString(i));
+        timeDown.setString(to_string(i));
         timeDown.setPosition(timeDownPos.first, timeDownPos.second);
         renderCountDown(window, countDownBg, timeDown);
         timeDown.setCharacterSize(55);

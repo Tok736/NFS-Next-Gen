@@ -15,6 +15,7 @@
 
 using std::pair;
 using std::string;
+using std::to_string;
 
 class Clock{
 
@@ -82,13 +83,13 @@ void renderPause(const shared_ptr<sf::RenderWindow> &window, const sf::Sprite &m
 
 
 
-template <typename T>
-std::string toString(T val)
-{
-    std::ostringstream oss;
-    oss<<val;
-    return oss.str();
-}
+//template <typename T>
+//std::string toString(T val)
+//{
+//    std::ostringstream oss;
+//    oss<<val;
+//    return oss.str();
+//}
 
 
 enum leftTop
