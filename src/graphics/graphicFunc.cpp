@@ -218,7 +218,10 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
     scoreShape.move(scoreShapePos.first, scoreShapePos.second);
     hpShape.move(hpShapePos.first, hpShapePos.second);
     scoreShape.setFillColor(sf::Color(0,0,0,50));
-    hpShape.setFillColor(sf::Color(0,0,0,50));
+    if (isStrike)
+        hpShape.setFillColor(sf::Color(255,0,0,95));
+    else
+        hpShape.setFillColor(sf::Color(0,0,0,50));
     renderWindow_->draw(scoreShape);
     renderWindow_->draw(hpShape);
     renderWindow_->draw(hp);
