@@ -8,13 +8,19 @@
 
 enum obstrectsCoord
 {
+    burstWidth = 124,
+    burstHeight = 111,
     obstractX = 56,
     obstractY = 56,
+    burstX = burstWidth/2,
+    burstY = burstHeight/2,
 };
 
 enum carCoord{
     carX = carWidth/2,
     carY = 0,
+
+
 };
 
 enum id{
@@ -22,6 +28,7 @@ enum id{
     firstCarId = 1,
     lastCarId = 9,
     noId = -1,
+    strike = 19,
 };
 
 enum index
@@ -36,6 +43,10 @@ enum index
 enum textSizes
 {
     hpAndScoreSize = 30,
+};
+
+enum ids{
+    countOfElements = 19,
 };
 
 constexpr pair<float, float> hpSize{screenWidth/28.24,screenHeight/21.95};
@@ -109,13 +120,12 @@ void Window::handleEvents(std::vector<int> &actions) {
 }
 
 
-void Window::createTextures(std::vector<shared_ptr<IGameElement>> &roadAndObstcl)
+void Window::createTextures()
 {
-    for (auto & roadElem : roadAndObstcl)
+    for (int id = 0; id <= countOfElements; id++)
     {
         sf::Texture tempTexture;
         std::vector<sf::Texture> tempVectorOfTextures;
-        int id = roadElem->getId();
         vector<std:: string> typeOfObstacle;
         if (id == roadId)
             typeOfObstacle.emplace_back("littleRoad");
@@ -125,7 +135,7 @@ void Window::createTextures(std::vector<shared_ptr<IGameElement>> &roadAndObstcl
                 typeOfObstacle.emplace_back("CarAction_" + toString(id)+toString(i));
         }
         else{
-            typeOfObstacle.emplace_back("obstruction" + toString(roadElem->getId()));
+            typeOfObstacle.emplace_back("obstruction" + toString(id));
         }
 
         for (auto & iter : typeOfObstacle)
@@ -137,13 +147,16 @@ void Window::createTextures(std::vector<shared_ptr<IGameElement>> &roadAndObstcl
     }
 }
 
-void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &actions, int &timeInGame) {
+void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &actions, int &timeInGame, bool &isStrike) {
     renderWindow_->clear();
 
     sf::Font font;
     font.loadFromFile("src/fonts/fontForScore.ttf");
     sf::Text hp("Health: ", font, hpAndScoreSize);
     hp.setPosition(hpSize.first, hpSize.second);
+
+    sf::Sprite carSprite;
+
 
     for (auto & roadElement : roadElements)
     {
@@ -158,7 +171,6 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
         }
         else if (roadElement->getId() >= firstCarId && roadElement->getId() <= lastCarId)
         {
-            sf::Sprite carSprite;
             short int index = notFound;
             if (actions != myNoAction)
             {
@@ -183,6 +195,7 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
             carSprite.setPosition(roadElement->getX(), roadElement->getY());
             renderWindow_->draw(carSprite);
 
+
         }
         else if (roadElement->getId() != noId) {
             sf::Sprite roadObstract(mapOfRextures.find(roadElement->getId())->second[0]);
@@ -191,6 +204,14 @@ void Window::render(std::vector<shared_ptr<IGameElement>> &roadElements, int &ac
         }
     }
 
+
+    if (isStrike)
+    {
+        sf::Sprite burst(mapOfRextures.find(strike)->second[0]);
+        burst.setOrigin(burstX, burstY);
+        burst.setPosition(carSprite.getPosition().x - carSprite.getScale().x, carSprite.getPosition().y - carSprite.getScale().y);
+        renderWindow_->draw(burst);
+    }
 
     sf::RectangleShape scoreShape(sf::Vector2f(scoreShapeSize.first, scoreShapeSize.second));
     sf::RectangleShape hpShape(sf::Vector2f(hpShapeSize.first, hpShapeSize.second));

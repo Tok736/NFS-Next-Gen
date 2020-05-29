@@ -159,7 +159,7 @@ void Collision::recalculateForSingleCar(std::shared_ptr<Car> &car, int &singleAc
 		}
 }
 
-void Collision::setAction(vector<std::shared_ptr<Obstruction>> &elements, vector<std::shared_ptr<Car>> &Cars, vector<int> &actions) {
+void Collision::setAction(vector<std::shared_ptr<Obstruction>> &elements, vector<std::shared_ptr<Car>> &Cars, vector<int> &actions, bool &isStrike) {
 	int singleAction = myNoAction;
 	
 	int i = 0;
@@ -167,7 +167,7 @@ void Collision::setAction(vector<std::shared_ptr<Obstruction>> &elements, vector
 		singleAction = actions[i++];
 		actions.pop_back();
 	}
-	handleChunk(elements, Cars[0]);
+	handleChunk(elements, Cars[0], isStrike);
 	recalculateForSingleCar(Cars[0], singleAction);
 	float dSbyTic = Cars[0]->getV();
 	if (dSbyTic > 0)
@@ -246,7 +246,7 @@ void makeBounce(std::shared_ptr<Car> &car, modelArea &carArea, modelArea &obstru
 	car->setV(-dSbyTic);
 }
 
-void Collision::handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std::shared_ptr<Car> &car) {
+void Collision::handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std::shared_ptr<Car> &car, bool &isStrike) {
 	static vector<point_xy> points(pointsCount);
 	static modelArea carArea;
 	static modelArea obstructionArea;
@@ -270,6 +270,7 @@ void Collision::handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std:
 		makeGlancingBlow(car, obstrX, collisionEndAngle);
 		collisionDuration = std::abs(2 * car->getAngle() / dSbyTic);
 		collisionType = glancingBlow;
+        isStrike = true;
 	}
 	while (i < elements.size()) {
 		obstrY = elements[i]->getY();
@@ -293,11 +294,13 @@ void Collision::handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std:
 				makeGlancingBlow(car, obstrX, collisionEndAngle);
 				collisionDuration = std::abs(2 * car->getAngle() / dSbyTic);
 				collisionType = glancingBlow;
+                isStrike = true;
 			} else {
 				makeBounce(car, carArea, obstructionArea, carModelAreaS);
 				collisionType = obstrId >= groupNoBounceStart && obstrId <= groupNoBounceEnd ? collisionType = noBounce : absBounce;
 				collisionDuration = (int) (dSbyTic / aFriction);
 				elements.erase(elements.cbegin() + i);
+                isStrike = true;
 			}
 			wasChecked = i;
 			break;

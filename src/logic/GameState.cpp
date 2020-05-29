@@ -29,20 +29,15 @@ size_t GameState::gameLoop(SQLiteDataBase &myDB) {
     int action;
     gamePreparation();
 
-    actualElements.push_back(std::make_shared<Obstruction>(0, 0, 0));
-    actualElements.push_back(std::make_shared<Car>(1, 0, 0, 0));
-    actualElements.push_back(std::make_shared<Car>(2, 0, 0, 0));
-    for (int i = 10; i <= 18; ++i) {
-        actualElements.push_back(std::make_shared<Obstruction>(i, 0, 0));
-    }
 
-    myWindow->createTextures(actualElements);
+    myWindow->createTextures();
 
     float freq;
     int time;
 
 //    int timeBefore;
 //    int timeAfter;
+    bool isStrike = false;
 
     while (myWindow->isOpen()) {
 
@@ -79,7 +74,7 @@ size_t GameState::gameLoop(SQLiteDataBase &myDB) {
                 action = myNoAction;
 
             myCollision->setTime(time);
-            myCollision->setAction(myMap, players, actions);
+            myCollision->setAction(myMap, players, actions, isStrike);
         }
 
         //Проверка здоровья:
@@ -96,8 +91,9 @@ size_t GameState::gameLoop(SQLiteDataBase &myDB) {
 
 
         int ffreq = (int) freq;
-        myWindow->render(actualElements, action, ffreq);
+        myWindow->render(actualElements, action, ffreq, isStrike);
         myWindow->display();
+        isStrike = false;
 
         if ((*(actualElements.end() - 1))->getHealthCount() <= 0) {
             myDB.setUserLocalScore(freq);

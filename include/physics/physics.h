@@ -176,7 +176,7 @@ class Collision {
 public:
 	Collision():m_time(0),  collisionDuration(0), collisionType(none){ createObjectModels(); }
 	void setTime(int time){ m_time = time; }
-	void setAction(std::vector<std::shared_ptr<Obstruction>> &elements, std::vector<std::shared_ptr<Car>> &Cars, std::vector<int> &actions);
+	void setAction(std::vector<std::shared_ptr<Obstruction>> &elements, std::vector<std::shared_ptr<Car>> &Cars, std::vector<int> &actions, bool &isStrike);
 private:
 	std::unordered_map<int, std::pair<int, int>> objectsSizes; // хранилище размеров всех препятствий, доступ по Id объекта.
 	int m_time;
@@ -186,7 +186,7 @@ private:
 private:
 	void createObjectModels();
 	void recalculateForSingleCar(std::shared_ptr<Car> &car, int &comboAction);
-	void handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std::shared_ptr<Car> &car);
+	void handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std::shared_ptr<Car> &car, bool &isStrike);
 };
 
 #endif //NFS_NEXT_GEN_PHYSICS_H
