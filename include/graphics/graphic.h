@@ -58,10 +58,12 @@ private:
     shared_ptr<sf::RenderWindow> renderWindow_;
     unsigned int height_;
     unsigned int width_;
+    shared_ptr<sf::Music> music;
 
     std::map<int, std::vector<sf::Texture>> mapOfRextures;
 
 };
+
 
 
 short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name, const std::tuple<vector<string>, vector<int>, vector<int>> &scoreTable);

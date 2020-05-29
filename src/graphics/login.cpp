@@ -154,6 +154,12 @@ pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWi
         sf::Event event{};
         while (window->pollEvent(event))
         {
+            if (event.type == sf::Event::Closed)
+            {
+                window->close();
+                data.second = "exit";
+                pressButton = true;
+            }
             updateLoginView(window, goToForm, actionWithForm, exitFromGame);
             if ( sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {

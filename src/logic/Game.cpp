@@ -53,6 +53,7 @@ void  Game::start() {
 
     window->createRenderWindow(window, screenWidth, screenHeight, "Menu");
 
+
     SQLiteDataBase myDB;
 
     size_t nextStep = loginMenu(window, myDB);

@@ -82,6 +82,13 @@ void Window::createRenderWindow(shared_ptr<Window> miniEngine, unsigned int widt
     miniEngine->setHeight(height);
     miniEngine->setWidth(width);
 
+    auto newMusic = std::make_shared<sf::Music>();
+    miniEngine->music = newMusic;
+
+    miniEngine->music->openFromFile("src/sounds/RetroWave.ogg");
+    miniEngine->music->setLoop(true);
+    miniEngine->music->setVolume(50);
+    miniEngine->music->play();
 }
 
 void Window::setWidth(unsigned int width) {
@@ -262,3 +269,4 @@ bool isContain(const shared_ptr<sf::RenderWindow>& window, const sf::Text& temp)
 {
     return (temp.getGlobalBounds()).contains(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
 }
+
