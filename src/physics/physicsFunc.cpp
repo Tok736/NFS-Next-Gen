@@ -297,6 +297,7 @@ void Collision::handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std:
 				makeBounce(car, carArea, obstructionArea, carModelAreaS);
 				collisionType = obstrId >= groupNoBounceStart && obstrId <= groupNoBounceEnd ? collisionType = noBounce : absBounce;
 				collisionDuration = (int) (dSbyTic / aFriction);
+				elements.erase(elements.cbegin() + i);
 				//elements[i]->setId(transparency); //исчезновение препятствия после коллизии
 			}
 			wasChecked = i;
