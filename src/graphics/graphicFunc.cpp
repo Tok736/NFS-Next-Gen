@@ -26,8 +26,9 @@ enum carCoord{
 enum id{
     roadId = 0,
     firstCarId = 1,
-    lastCarId = 9,
+    lastCarId = 2,
     noId = -1,
+    obstructionsId = 10,
     strike = 19,
 };
 
@@ -59,18 +60,9 @@ constexpr pair<float, float> scorePos {screenWidth/1.28, screenHeight/21.95};
 
 /////////////////////                    CLOCK            //////////////////////////////////////////
 
-void Clock::restart() {
-    clock_.restart();
-}
 
-
-float Clock::getClockMicro() {
-    return clock_.getElapsedTime().asMicroseconds();
-}
-
-
-float Clock::getClockSec() {
-    return clock_.getElapsedTime().asSeconds();
+int Clock::getClockSec() {
+    return (int)clock_.getElapsedTime().asSeconds();
 }
 
 
@@ -141,7 +133,7 @@ void Window::createTextures()
             for (int i=0; i<4; i++) //numbers of cars conditions (left,up,right,down)
                 typeOfObstacle.emplace_back("CarAction_" + toString(id)+toString(i));
         }
-        else{
+        else if (id >= obstructionsId){
             typeOfObstacle.emplace_back("obstruction" + toString(id));
         }
 
