@@ -103,7 +103,7 @@ void absolutelyBounce(std::shared_ptr<Car> &car, float &dSbyTic, float &alpha, f
 }
 
 void bounceNo(std::shared_ptr<Car> &car, int &collisionDuration) {
-	car->setV(0);
+	car->setV(0.5f*minSpeed);
 	collisionDuration = 0;
 };
 
@@ -159,7 +159,7 @@ void Collision::recalculateForSingleCar(std::shared_ptr<Car> &car, int &singleAc
 		}
 }
 
-void Collision::setAction(vector<std::shared_ptr<Obstruction>> &elements, vector<std::shared_ptr<Car>> &Cars, vector<int> &actions) {
+void Collision::setAction(vector<std::shared_ptr<Obstruction>> &elements, vector<std::shared_ptr<Car>> &Cars, vector<int> &actions, bool &isStrike) {
 	int singleAction = myNoAction;
 	
 	int i = 0;
@@ -167,11 +167,14 @@ void Collision::setAction(vector<std::shared_ptr<Obstruction>> &elements, vector
 		singleAction = actions[i++];
 		actions.pop_back();
 	}
-	handleChunk(elements, Cars[0]);
+	handleChunk(elements, Cars[0], isStrike);
 	recalculateForSingleCar(Cars[0], singleAction);
 	float dSbyTic = Cars[0]->getV();
-	if (dSbyTic > 0)
+	if (dSbyTic > 0) {
+		Cars[0]->updateScore(dSbyTic);
+		cout<<Cars[0]->getScore() << '\n';
 		moveRoad(elements, dSbyTic);
+	}
 }
 
 void updateArea(modelArea &area, vector<point_xy> &points) {
@@ -180,39 +183,26 @@ void updateArea(modelArea &area, vector<point_xy> &points) {
 	points.clear();
 }
 
-/*
-void rotate(vector<point_xy> &points)
-{
-	point_xy temp(1.0,1.0);
-	point_xy temp2;
-	auto it = points.begin();
-	trans::rotate_transformer<bg::degree, float, 2, 2> rotate(alphaMin.0);
-	for(; it != points.end(); ++it) {
-		temp = *it;
-		bg::transform(temp, temp2, rotate);
-	}
-}*/
-
 void changeLife(std::shared_ptr<Car> &car, float severity, int collisionType) {
 	int health = car->getHealthCount();
-	switch (collisionType) {
-		case (absBounce || noBounce): {
-			if (severity >= absoluteDamage) // конец игры
-				car->setLife(health - all);
-			else if (severity > highDamage)
-				car->setLife(health - high);
-			else if (severity > mediumDamage)
-				car->setLife(health - medium);
-			else if (severity > lowDamage)
-				car->setLife(health - low);
-			break;
-		}
-		case glancingBlow:
-			car->setLife(health - low);
-			break;
-		default:
-			break;
-	}
+//	switch (collisionType) {
+//		case (absBounce || noBounce): {
+//			if (severity >= absoluteDamage) // конец игры
+//				car->setLife(health - all);
+//			else if (severity > highDamage)
+//				car->setLife(health - high);
+//			else if (severity > mediumDamage)
+//				car->setLife(health - medium);
+//			else if (severity > lowDamage)
+//				car->setLife(health - low);
+//			break;
+//		}
+//		case glancingBlow:
+//			car->setLife(health - low);
+//			break;
+//		default:
+//			break;
+//	}
 }
 
 void makeGlancingBlow(std::shared_ptr<Car> &car, float &obstrX, float &collisionEndAngle) {
@@ -246,12 +236,39 @@ void makeBounce(std::shared_ptr<Car> &car, modelArea &carArea, modelArea &obstru
 	car->setV(-dSbyTic);
 }
 
-void Collision::handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std::shared_ptr<Car> &car) {
+
+void rotate(vector<point_xy> &points, float angle) {
+	static vector<point_xy> carBoarders {{-0.5 * carWidth, -0.5 * carHeight},
+										 {-0.5 * carWidth, 0.5 * carHeight},
+										 {0.5 * carWidth, 0.5 * carHeight},
+										 {0.5 * carWidth, -0.5 * carHeight}};
+	point_xy oldPoint;
+	point_xy newPoint;
+	trans::rotate_transformer<bg::degree, float, 2, 2> rotate(angle);
+	for (int i = 0; i < pointsCount; ++i) {
+		oldPoint = carBoarders[i];
+		bg::transform(oldPoint, newPoint, rotate);
+		newPoint.set<0>(newPoint.x() - carBoarders[i].x() + points[i].x());
+		newPoint.set<1>(newPoint.y() - carBoarders[i].y() + points[i].y());
+		points[i] = newPoint;
+	}
+}
+
+bool checkOutRoadBoarders(vector<point_xy> &points) {
+	for (int i = 0; i < pointsCount; ++i) {
+		if (points[i].x() <= leftRoadBorder || points[i].x() >= rightRoadBorder)
+			return true;
+	}
+	return false;
+}
+
+void Collision::handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std::shared_ptr<Car> &car, bool &isStrike) {
 	static vector<point_xy> points(pointsCount);
 	static modelArea carArea;
 	static modelArea obstructionArea;
 	static int i = 2;
 	static int wasChecked = 0;
+	float angle = car->getAngle();
 	float dSbyTic = car->getV();
 	float obstrY;
 	float obstrX;
@@ -263,14 +280,19 @@ void Collision::handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std:
 				   {sX + 0.5f * carWidth, sY + carHeight},
 				   {sX + 0.5f * carWidth, sY},
 				   {sX - 0.5f * carWidth, sY}});
+	if (angle >= 15 || angle <= -15)
+		rotate(points, angle);
+	if (sX - leftRoadBorder <= carWidth|| rightRoadBorder - sX <= carWidth) { //проверка пересечения границ дороги
+		obstrX = sX > roadCenter ? rightRoadBorder : leftRoadBorder;
+		if (checkOutRoadBoarders(points)) {
+			makeGlancingBlow(car, obstrX, collisionEndAngle);
+			collisionDuration = std::abs(2 * angle / dSbyTic);
+			collisionType = glancingBlow;
+			isStrike = true;
+		}
+	}
 	updateArea(carArea, points);
 	static float carModelAreaS = bg::area(carArea);
-	if (sX - 0.5f * carWidth <= leftRoadBorder || sX + 0.5f * carWidth >= rightRoadBorder) { //проверка пересечения границ дороги
-		obstrX = sX > roadCenter ? rightRoadBorder : leftRoadBorder;
-		makeGlancingBlow(car, obstrX, collisionEndAngle);
-		collisionDuration = std::abs(2 * car->getAngle() / dSbyTic);
-		collisionType = glancingBlow;
-	}
 	while (i < elements.size()) {
 		obstrY = elements[i]->getY();
 		if (obstrY < sY) // оптимизация: все препятствия, которые выше машинке не учитываются
@@ -278,11 +300,11 @@ void Collision::handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std:
 		obstrX = elements[i]->getX();
 		float obstrWidth = objectsSizes.find(elements[i]->getId())->second.second;
 		float obstrHeight = objectsSizes.find(elements[i]->getId())->second.first;
-		points.assign({{obstrX - 0.5f * obstrWidth, obstrY - 0.5f * obstrHeight}, //инициализация точек для области препятствия
+		points.assign({{obstrX - 0.5f * obstrWidth, obstrY - obstrHeight}, //инициализация точек для области препятствия
 					   {obstrX - 0.5f * obstrWidth, obstrY},
 					   {obstrX + 0.5f * obstrWidth, obstrY},
-					   {obstrX + 0.5f * obstrWidth, obstrY - 0.5f * obstrHeight},
-					   {obstrX - 0.5f * obstrWidth, obstrY - 0.5f * obstrHeight}});
+					   {obstrX + 0.5f * obstrWidth, obstrY - obstrHeight},
+					   {obstrX - 0.5f * obstrWidth, obstrY -  obstrHeight}});
 		updateArea(obstructionArea, points); // построение по точкам объектного четырехугольника
 		if (wasChecked != i && bg::intersects(carArea, obstructionArea)) { // проверка пересечения областей машинки и препятствия
 			int obstrId = elements[i]->getId();
@@ -291,14 +313,15 @@ void Collision::handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std:
 				collisionType = skid;
 			} else if (std::abs(obstrX - sX) >= 0.9 * carWidth) {// условие скользящего удара
 				makeGlancingBlow(car, obstrX, collisionEndAngle);
-				collisionDuration = std::abs(2 * car->getAngle() / dSbyTic);
+				collisionDuration = std::abs(2 * angle / dSbyTic);
 				collisionType = glancingBlow;
+                isStrike = true;
 			} else {
 				makeBounce(car, carArea, obstructionArea, carModelAreaS);
 				collisionType = obstrId >= groupNoBounceStart && obstrId <= groupNoBounceEnd ? collisionType = noBounce : absBounce;
 				collisionDuration = (int) (dSbyTic / aFriction);
 				elements.erase(elements.cbegin() + i);
-				//elements[i]->setId(transparency); //исчезновение препятствия после коллизии
+                isStrike = true;
 			}
 			wasChecked = i;
 			break;

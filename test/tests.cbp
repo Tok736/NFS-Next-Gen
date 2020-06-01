@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="tests"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake_modules\;CMake Files\libs\;CMake Files\libs\googletest\;CMake Files\libs\googletest\googlemock\;CMake Files\libs\googletest\googlemock\cmake\;CMake Files\libs\googletest\googletest\;CMake Files\libs\googletest\googletest\cmake\;CMake Files\test\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="runTest">
+				<Option output="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/runTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/include"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googletest/include"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googletest"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googlemock/include"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googlemock"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 runTest"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="runTest/fast">
+				<Option output="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/runTest" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/include"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googletest/include"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googletest"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googlemock/include"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googlemock"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 runTest/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SQLite">
+				<Option output="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/libSQLite.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/include"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googletest/include"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googletest"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googlemock/include"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googlemock"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 SQLite"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SQLite/fast">
+				<Option output="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/libSQLite.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/include"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googletest/include"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googletest"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googlemock/include"/>
+					<Add directory="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googlemock"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 SQLite/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/src/physics/SQLite.cpp">
+			<Option target="SQLite"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/collision/collisionNaive.cpp">
+			<Option target="runTest"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/collision/collisionTest.cpp">
+			<Option target="runTest"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/dataBase/dataBaseTest.cpp">
+			<Option target="runTest"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/gameElements/gameElements.cpp">
+			<Option target="runTest"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/graphic/graphicTest.cpp">
+			<Option target="runTest"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/test.cpp">
+			<Option target="runTest"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/wrap/wrapTest.cpp">
+			<Option target="runTest"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/cmake_modules/FindSFML.cmake">
+			<Option virtualFolder="CMake Files\cmake_modules\"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/cmake_modules/FindSQLite3.cmake">
+			<Option virtualFolder="CMake Files\cmake_modules\"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libs\googletest\"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googlemock/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libs\googletest\googlemock\"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googlemock/cmake/gmock.pc.in">
+			<Option virtualFolder="CMake Files\libs\googletest\googlemock\cmake\"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googlemock/cmake/gmock_main.pc.in">
+			<Option virtualFolder="CMake Files\libs\googletest\googlemock\cmake\"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googletest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\libs\googletest\googletest\"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googletest/cmake/Config.cmake.in">
+			<Option virtualFolder="CMake Files\libs\googletest\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googletest/cmake/gtest.pc.in">
+			<Option virtualFolder="CMake Files\libs\googletest\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googletest/cmake/gtest_main.pc.in">
+			<Option virtualFolder="CMake Files\libs\googletest\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/libs/googletest/googletest/cmake/internal_utils.cmake">
+			<Option virtualFolder="CMake Files\libs\googletest\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/purplelime/tp_project_1sem/NFS-Next-Gen/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\test\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

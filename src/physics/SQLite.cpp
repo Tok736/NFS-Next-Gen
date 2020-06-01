@@ -26,11 +26,9 @@ int SQLiteDataBase::getAuthorizeUser(const string &nickName, const string &passw
 const std::tuple<vector<string>, vector<int>, vector<int>> &SQLiteDataBase::getStandings(int topCount) {
 	sqlite3_stmt *stmt = nullptr;
 	
-	if (status == SUCCESS) {
-		std::get<0>(topTable).clear();
-		std::get<1>(topTable).clear();
-		std::get<2>(topTable).clear();
-	}
+	std::get<0>(topTable).clear();
+	std::get<1>(topTable).clear();
+	std::get<2>(topTable).clear();
 	string sqlQuery = "SELECT Name, LocalScore1, LocalScore2 FROM USERS ORDER BY (LocalScore1 + LocalScore2) DESC LIMIT " +
 					  std::to_string(topCount);
 	int rez = sqlite3_prepare_v2(db, sqlQuery.c_str(), -1, &stmt, nullptr);

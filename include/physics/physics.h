@@ -111,7 +111,7 @@ enum Severity{
 constexpr float aFriction = 0.1f;
 constexpr float minSpeed = 1;
 constexpr float step = 0.75f;
-constexpr int pointsCount = 4;
+constexpr int pointsCount = 5;
 constexpr int updateTime = 3;
 constexpr int transparency = -1;
 constexpr int alphaMin = -90;
@@ -127,13 +127,14 @@ public:
 	virtual float getX() const = 0;
 	virtual float getY() const = 0;
 	virtual float getAngle() const = 0;
+	virtual int getScore() const = 0;
 	virtual int getHealthCount() const = 0;
 };
 
 class Car : public IGameElement{
 public:
-	Car(): m_life(all), m_id(0), m_v(0), m_angle(0) {};
-	Car(int id, float angle, float x, float y) : m_life(all), m_id(id),  m_v(0), m_angle(angle) { m_carCentre.first = x; m_carCentre.second = y; }
+	Car(): m_life(all), m_id(0), m_v(0), m_angle(0), m_score(0) {};
+	Car(int id, float angle, float x, float y) : m_life(all), m_id(id),  m_v(0), m_angle(angle), m_score(0) { m_carCentre.first = x; m_carCentre.second = y; }
 	float getX() const override { return m_carCentre.first; }
 	float getY() const override { return m_carCentre.second; }
 	int getId() const override { return m_id; }
@@ -144,8 +145,11 @@ public:
 	void setY(float y) { m_carCentre.second = y; };
 	void setV(float v) { m_v = v; }
 	void setAngle(float alpha) { m_angle = alpha; }
+	int getScore() const override {return m_score;}
+	void updateScore(int score) {m_score += score;}
 	void setLife(int life) { m_life = life; }
 private:
+	int m_score;
 	int m_life;
 	int m_id;
 	float m_v;
@@ -163,6 +167,7 @@ public:
 	float getX() const override { return m_obstructionCentre.first; }
 	float getY() const override { return m_obstructionCentre.second; }
 	float getAngle() const override { return 0; }
+	int getScore() const override {return 0;}
 	void setId(int id) { m_id = id; }
 	void setX(float x) { m_obstructionCentre.first = x; }
 	void setY(float y) { m_obstructionCentre.second = y; };
@@ -176,7 +181,7 @@ class Collision {
 public:
 	Collision():m_time(0),  collisionDuration(0), collisionType(none){ createObjectModels(); }
 	void setTime(int time){ m_time = time; }
-	void setAction(std::vector<std::shared_ptr<Obstruction>> &elements, std::vector<std::shared_ptr<Car>> &Cars, std::vector<int> &actions);
+	void setAction(std::vector<std::shared_ptr<Obstruction>> &elements, std::vector<std::shared_ptr<Car>> &Cars, std::vector<int> &actions, bool &isStrike);
 private:
 	std::unordered_map<int, std::pair<int, int>> objectsSizes; // хранилище размеров всех препятствий, доступ по Id объекта.
 	int m_time;
@@ -186,7 +191,7 @@ private:
 private:
 	void createObjectModels();
 	void recalculateForSingleCar(std::shared_ptr<Car> &car, int &comboAction);
-	void handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std::shared_ptr<Car> &car);
+	void handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std::shared_ptr<Car> &car, bool &isStrike);
 };
 
 #endif //NFS_NEXT_GEN_PHYSICS_H

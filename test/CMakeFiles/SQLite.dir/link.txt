@@ -1,0 +1,2 @@
+/usr/bin/ar qc libSQLite.a  CMakeFiles/SQLite.dir/__/src/physics/SQLite.cpp.o
+/usr/bin/ranlib libSQLite.a

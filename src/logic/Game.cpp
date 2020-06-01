@@ -1,10 +1,4 @@
-#include <physics/SQLite.h>
 #include "logic/Game.h"
-
-enum typeForm{
-    login = 1,
-    registration = 2,
-};
 
 Game::Game() {}
 
@@ -12,65 +6,104 @@ Game::~Game() {}
 
 //void Game::exitGame() {}
 
+size_t Game::loginMenu(sp_t<Window> window, SQLiteDataBase& myDB) {
 
-void  Game::playGame() {
+    static string type = "login";  //зачем static??????????????????????????????
+
+    pair<pair<string, string>, string> user;  //<<nickname, password>, login/registration>
+
+    user.second = type;
+
+    string errorAuth;  //ошибка логина/регистрации
+
+    bool success = false;
+
+    while (!success) {  // add try-catch??
+
+        user = displayLoginMenu(window->getRenderWindow(), type, errorAuth);  //внутри крутится цикл с отрисовкой меню
+
+        //проверка логина/регистрации, либо выход из игры
+        if (user.second == "login") {
+            if (myDB.getAuthorizeUser(user.first.first, user.first.second) != USER_NOT_FOUND) {
+                success = true;
+            } else {
+                errorAuth = "user not found";
+            }
+        } else if (user.second == "registration") {
+            if (myDB.setUser(user.first.first, user.first.second) == SUCCESS) {
+                type = "login";
+                errorAuth = "";
+            } else {
+                errorAuth = "user already exist";
+            }
+
+        } else if (user.second == "exit") {
+//                type = "exit";  //тут можно просто закрыть окно и завершить программу??????????????????????
+//                success = true;
+//            window->close();
+            return 0;
+        }
+    }
+    return 2;
+}
+
+void  Game::start() {
 
     sp_t<Window> window(new Window);
+
     window->createRenderWindow(window, screenWidth, screenHeight, "Menu");
 
 
-    SQLiteDataBase db;
-    static string type = "login";
-    pair<pair<string, string>, string> user;
-    user.second = type;
+    SQLiteDataBase myDB;
 
-    string errorAuth;
+    size_t nextStep = loginMenu(window, myDB);
+   
 
-    bool success = false;
-    while (!success)
-    {
-        user = displayLoginMenu(window->getRenderWindow(),type, errorAuth);
-        if (user.second == "login" && db.getAuthorizeUser(user.first.first, user.first.second) != USER_NOT_FOUND)
-            success = true;
-        else if (user.second == "login")
-            errorAuth = "user not found";
-        else if (user.second == "registration" && db.setUser(user.first.first, user.first.second) == SUCCESS) {
-            type = "login";
-            errorAuth = "";
-        }
-        else if (user.second == "registration")
-            errorAuth = "user already exist";
-        else if (user.second == "exit") {
-            type = "exit";
-            success = true;
-        }
-    }
+    //1 - начало гонки, 2 - главное меню, 0 - выход из игры
+    while (true) {
 
-    auto score5 = db.getStandings(5);
-
-    if (type != "exit")
-        switch (displayMenu(window->getRenderWindow(), db.getUserNickname(), score5)) {
+        switch (nextStep) {
             case 1:
-                std::cout << "Запуск клиента\n";
-
-                myClientState = std::make_shared<ClientState>(window, std::make_shared<ServerState>());
-                myClientState->clientLoop();
+                std::cout << "Запуск игры\n";
+                myGameState = std::make_shared<GameState>(window);
+                nextStep = myGameState->gameLoop(myDB);
                 break;
             case 2:
-                std::cout << "Запуск сервера\n";
-                window->close();
+                nextStep = displayMenu(window->getRenderWindow(), myDB.getUserNickname(), myDB.getStandings(5));
                 break;
             case 0:
                 std::cout << "Выход\n";
                 window->close();
+                return;
                 break;
             default:
-                std::cout << "Нажато что-то не то\n";
+                std::cout << "В nextStep что-то не то\n";
                 window->close();
+                return;
                 break;
         }
-    else{
-        window->close();
-
     }
 }
+
+//
+//        switch (displayMenu(window->getRenderWindow(), myDB.getUserNickname(), score5)) {
+//            case 1:
+//                std::cout << "Запуск игры\n";
+//
+//                myGameState = std::make_shared<GameState>(window);
+//                nextStep = myGameState->gameLoop();
+//                break;
+//            case 0:
+//                std::cout << "Выход\n";
+//                window->close();
+//                break;
+//            default:
+//                std::cout << "Нажато что-то не то\n";
+//                window->close();
+//                break;
+//        }
+//
+//
+//        window->close();
+//
+

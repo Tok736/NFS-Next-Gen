@@ -16,6 +16,7 @@
 using std::pair;
 using std::string;
 
+
 class Clock{
 
 public:
@@ -41,14 +42,14 @@ public:
     void setWidth(unsigned int width);
     void setHeight(unsigned int height);
     bool isOpen();
-    void render(std::vector<shared_ptr<IGameElement>> &roadAndObstcl, int &actions,  int &timeInGame);
+    void render(std::vector<shared_ptr<IGameElement>> &roadAndObstcl, int &actions,  int &timeInGame, bool &isStrike);
     void display();
     void close();
     void handleEvents(std::vector<int> &actions);
     void clear();
     bool pollEvent(sf::Event &event);
 
-    void createTextures(std::vector<shared_ptr<IGameElement>> &roadAndObstcl);
+    void createTextures();
 
     shared_ptr<sf::RenderWindow>  getRenderWindow();
 
@@ -57,17 +58,21 @@ private:
     shared_ptr<sf::RenderWindow> renderWindow_;
     unsigned int height_;
     unsigned int width_;
+    shared_ptr<sf::Music> music;
 
     std::map<int, std::vector<sf::Texture>> mapOfRextures;
 
 };
 
 
+
 short int displayMenu(const shared_ptr<sf::RenderWindow>& window,const string& name, const std::tuple<vector<string>, vector<int>, vector<int>> &scoreTable);
 short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &timeInGame);
 pair<pair<string,string>,string>  displayLoginMenu(const shared_ptr<sf::RenderWindow>& window, string &type, const string &errorMassage);
 short int displayScoreTable(const shared_ptr<sf::RenderWindow>& window, const std::tuple<vector<string>, vector<int>, vector<int>> &highTable);
+short int displayGameOver(const shared_ptr<sf::RenderWindow>& window,const int &timeInGame);
 
+bool countDown(const shared_ptr<sf::RenderWindow>& window);
 
 
 void setSizeForButton(int menuNum, sf::Text &first,
@@ -88,6 +93,11 @@ std::string toString(T val)
     return oss.str();
 }
 
+
+enum leftTop
+{
+        leftAngle = 0,
+};
 
 
 #endif //NFS_NEXT_GEN_UTILS_H
