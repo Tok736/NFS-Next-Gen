@@ -22,9 +22,7 @@ class Clock{
 public:
     Clock() = default;
     ~Clock() = default;
-    void restart();
-    float getClockMicro();
-    float getClockSec();
+    int getClockSec();
 
 private:
     sf:: Clock clock_;

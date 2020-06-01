@@ -35,6 +35,8 @@ void setSizeForButtonPause(int menuNum, sf::Text &singleGame,
         scoreInGame.setCharacterSize(size);
     else if (menuNum == exitB)
         exitFromGame.setCharacterSize(size);
+    else
+        return;
 }
 
 void prevButtonDetect(const shared_ptr<sf::RenderWindow>& window, sf::Text &tempText, int &menuNum, const int &type,const sf::Color &color)
@@ -71,29 +73,18 @@ void renderPause(const shared_ptr<sf::RenderWindow> &window, const sf::Sprite &m
 short int buttonIsPressed(const shared_ptr<sf::RenderWindow> &window, int menuNum, const sf::Sprite &menuBg,
                           sf::Text &continueGame, sf::Text &startAgain, sf::Text &exitFromGame)
 {
-    renderPause(window, menuBg, continueGame, startAgain, exitFromGame);
-    usleep(200000);
-    window->clear();
-    setSizeForButtonPause(menuNum, continueGame, startAgain, exitFromGame, afterPress);
-    renderPause(window, menuBg,continueGame, startAgain, exitFromGame);
-    usleep(100000);
-    setSizeForButtonPause(menuNum, continueGame, startAgain, exitFromGame, beforePress);
-    renderPause(window, menuBg,continueGame, startAgain, exitFromGame);
-    window->clear();
-    if (menuNum == continueB)
-    {
-        return continueB;
+    if (menuNum != nothingPressed) {
+        renderPause(window, menuBg, continueGame, startAgain, exitFromGame);
+        usleep(200000);
+        window->clear();
+        setSizeForButtonPause(menuNum, continueGame, startAgain, exitFromGame, afterPress);
+        renderPause(window, menuBg, continueGame, startAgain, exitFromGame);
+        usleep(100000);
+        setSizeForButtonPause(menuNum, continueGame, startAgain, exitFromGame, beforePress);
+        renderPause(window, menuBg, continueGame, startAgain, exitFromGame);
+        window->clear();
     }
-    else if (menuNum == restartB)
-    {
-        return restartB;
-    }
-    else if (menuNum == exitB)
-    {
-        return exitB;
-    }
-    else
-        return nothingPressed;
+    return (short int)menuNum;
 }
 
 
@@ -130,7 +121,7 @@ short int pauseWindow(const shared_ptr<sf::RenderWindow>& window,const int &time
     while (!start)
     {
         score.setFillColor(sf::Color(33,255,130));
-        menuNum = exitFromGameB;
+        menuNum = nothingPressed;;
         window->clear();
         if (window->pollEvent(event))
         {
