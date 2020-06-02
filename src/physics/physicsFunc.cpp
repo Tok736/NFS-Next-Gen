@@ -37,7 +37,8 @@ void CheckUpdateSpeed(int &time, int updateFreq, float &dSbyTic) { // прове
 	static int bufTime = time;								    // UpdateFreq устанавливает периодичность изменения
 	if (time - bufTime >= updateFreq) {
 		bufTime = time;
-		dSbyTic += step;
+		if (dSbyTic < maxSpeed)
+			dSbyTic += step;
 	}
 	if (time)
 		return;
