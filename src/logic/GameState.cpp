@@ -49,7 +49,7 @@ size_t GameState::gameLoop(SQLiteDataBase &myDB) {
             return 0;
         else if (!actions.empty() && actions[0] == pauseOfTheGame) {
             actions.pop_back();
-            switch (pauseWindow(myWindow->getRenderWindow(), time)) {  // тут возвращается: 1 - продолжить, 2 - заново, 0 - выход в меню (надо переделать цифры для красоты)
+            switch (pauseWindow(myWindow->getRenderWindow(), players[0]->getScore())) {  // тут возвращается: 1 - продолжить, 2 - заново, 0 - выход в меню (надо переделать цифры для красоты)
                 case 1:
                     countDown(myWindow->getRenderWindow());
                     return 1;
@@ -85,14 +85,14 @@ size_t GameState::gameLoop(SQLiteDataBase &myDB) {
 
         composeActualElements(actualElements);
 
-
+		time = players[0]->getScore();
         myWindow->render(actualElements, action, time, isStrike);
         myWindow->display();
         isStrike = false;
 
         if ((*(actualElements.end() - 1))->getHealthCount() <= 0) {
-            myDB.setUserLocalScore(time);
-            displayGameOver(myWindow->getRenderWindow(), time);
+            myDB.setUserLocalScore(players[0]->getScore());
+            displayGameOver(myWindow->getRenderWindow(),time);
             return 2;
         }
 

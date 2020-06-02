@@ -172,7 +172,6 @@ void Collision::setAction(vector<std::shared_ptr<Obstruction>> &elements, vector
 	float dSbyTic = Cars[0]->getV();
 	if (dSbyTic > 0) {
 		Cars[0]->updateScore(dSbyTic);
-		cout<<Cars[0]->getScore() << '\n';
 		moveRoad(elements, dSbyTic);
 	}
 }
@@ -185,24 +184,24 @@ void updateArea(modelArea &area, vector<point_xy> &points) {
 
 void changeLife(std::shared_ptr<Car> &car, float severity, int collisionType) {
 	int health = car->getHealthCount();
-//	switch (collisionType) {
-//		case (absBounce || noBounce): {
-//			if (severity >= absoluteDamage) // конец игры
-//				car->setLife(health - all);
-//			else if (severity > highDamage)
-//				car->setLife(health - high);
-//			else if (severity > mediumDamage)
-//				car->setLife(health - medium);
-//			else if (severity > lowDamage)
-//				car->setLife(health - low);
-//			break;
-//		}
-//		case glancingBlow:
-//			car->setLife(health - low);
-//			break;
-//		default:
-//			break;
-//	}
+	switch (collisionType) {
+		case (absBounce || noBounce): {
+			if (severity >= absoluteDamage) // конец игры
+				car->setLife(health - all);
+			else if (severity > highDamage)
+				car->setLife(health - high);
+			else if (severity > mediumDamage)
+				car->setLife(health - medium);
+			else
+				car->setLife(health - low);
+			break;
+		}
+		case glancingBlow:
+			car->setLife(health - low);
+			break;
+		default:
+			break;
+	}
 }
 
 void makeGlancingBlow(std::shared_ptr<Car> &car, float &obstrX, float &collisionEndAngle) {
@@ -238,10 +237,11 @@ void makeBounce(std::shared_ptr<Car> &car, modelArea &carArea, modelArea &obstru
 
 
 void rotate(vector<point_xy> &points, float angle) {
-	static vector<point_xy> carBoarders {{-0.5 * carWidth, -0.5 * carHeight},
-										 {-0.5 * carWidth, 0.5 * carHeight},
-										 {0.5 * carWidth, 0.5 * carHeight},
-										 {0.5 * carWidth, -0.5 * carHeight}};
+	static vector<point_xy> carBoarders {{-0.5 * carWidth, -0.5 *carHeight},
+										 {-0.5 * carWidth, 0.5 *carHeight},
+										 {0.5 * carWidth, 0.5 *carHeight},
+										 {0.5 * carWidth, -0.5 *carHeight},
+										 {-0.5 * carWidth, -0.5 *carHeight}};
 	point_xy oldPoint;
 	point_xy newPoint;
 	trans::rotate_transformer<bg::degree, float, 2, 2> rotate(angle);
@@ -256,7 +256,7 @@ void rotate(vector<point_xy> &points, float angle) {
 
 bool checkOutRoadBoarders(vector<point_xy> &points) {
 	for (int i = 0; i < pointsCount; ++i) {
-		if (points[i].x() <= leftRoadBorder || points[i].x() >= rightRoadBorder)
+		if (points[i].x()<= leftRoadBorder || points[i].x() >= rightRoadBorder)
 			return true;
 	}
 	return false;
@@ -280,7 +280,8 @@ void Collision::handleChunk(vector<std::shared_ptr<Obstruction>> &elements, std:
 				   {sX + 0.5f * carWidth, sY + carHeight},
 				   {sX + 0.5f * carWidth, sY},
 				   {sX - 0.5f * carWidth, sY}});
-	if (angle >= 15 || angle <= -15)
+
+	if (angle >= 20 || angle <= -20)
 		rotate(points, angle);
 	if (sX - leftRoadBorder <= carWidth|| rightRoadBorder - sX <= carWidth) { //проверка пересечения границ дороги
 		obstrX = sX > roadCenter ? rightRoadBorder : leftRoadBorder;

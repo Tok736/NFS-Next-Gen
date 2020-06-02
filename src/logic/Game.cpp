@@ -36,7 +36,6 @@ size_t Game::loginMenu(sp_t<Window> window, SQLiteDataBase& myDB) {
             } else {
                 errorAuth = "user already exist";
             }
-
         } else if (user.second == "exit") {
 //                type = "exit";  //тут можно просто закрыть окно и завершить программу??????????????????????
 //                success = true;

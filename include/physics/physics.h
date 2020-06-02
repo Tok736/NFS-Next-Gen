@@ -145,7 +145,7 @@ public:
 	void setY(float y) { m_carCentre.second = y; };
 	void setV(float v) { m_v = v; }
 	void setAngle(float alpha) { m_angle = alpha; }
-	int getScore() const override {return m_score;}
+	int getScore() const override {return m_score/10;}
 	void updateScore(int score) {m_score += score;}
 	void setLife(int life) { m_life = life; }
 private:
