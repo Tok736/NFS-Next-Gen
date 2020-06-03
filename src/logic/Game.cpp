@@ -63,15 +63,15 @@ void  Game::start() {
     while (true) {
 
         switch (nextStep) {
-            case 1:
+            case beginGame:
                 std::cout << "Запуск игры\n";
                 myGameState = std::make_shared<GameState>(window);
                 nextStep = myGameState->gameLoop(myDB);
                 break;
-            case 2:
+            case mainMenu:
                 nextStep = displayMenu(window->getRenderWindow(), myDB.getUserNickname(), myDB.getStandings(5));
                 break;
-            case 0:
+            case exitGame:
                 std::cout << "Выход\n";
                 window->close();
                 return;

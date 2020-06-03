@@ -44,17 +44,19 @@ void CheckUpdateSpeed(int &time, int updateFreq, float &dSbyTic) { // прове
 	dSbyTic = minSpeed;
 }
 
-void moveRoad(vector<std::shared_ptr<Obstruction>> &elements, float &dSbyTic) {
-	if (elements[0]->getY() >= screenHeight)
+void moveRoad(vector<std::shared_ptr<Obstruction>> &elements, unsigned int dSbyTic) {
+	if (elements[0]->getY() >= screenHeight - dSbyTic)
 		elements[0]->setY(elements[1]->getY() - roadHeight + dSbyTic);
 	else
 		elements[0]->setY(elements[0]->getY() + dSbyTic);
-	if (elements[1]->getY() >= screenHeight)
-		elements[1]->setY(elements[0]->getY() - roadHeight + dSbyTic);
+
+	if (elements[1]->getY() >= screenHeight - dSbyTic)
+		elements[1]->setY(elements[0]->getY() - roadHeight);
 	else
 		elements[1]->setY(elements[1]->getY() + dSbyTic);
-	for (int i = 2; i < elements.size(); ++i)
-		elements[i]->setY(elements[i]->getY() + dSbyTic);
+
+//	for (int i = 2; i < elements.size(); ++i)
+//		elements[i]->setY(elements[i]->getY() + dSbyTic);
 }
 
 void moveCar(std::shared_ptr<Car> &car, int &singleAction) {
@@ -159,7 +161,7 @@ void Collision::recalculateForSingleCar(std::shared_ptr<Car> &car, int &singleAc
 		}
 }
 
-void Collision::setAction(vector<std::shared_ptr<Obstruction>> &elements, vector<std::shared_ptr<Car>> &Cars, vector<int> &actions, bool &isStrike) {
+void Collision::setAction(vector<std::shared_ptr<Obstruction>> &elements, vector<std::shared_ptr<Car>> &Cars, vector<int> &actions, bool &isStrike, unsigned int distancePerFrame) {
 	int singleAction = myNoAction;
 	
 	int i = 0;
@@ -169,7 +171,7 @@ void Collision::setAction(vector<std::shared_ptr<Obstruction>> &elements, vector
 	}
 	handleChunk(elements, Cars[0], isStrike);
 	recalculateForSingleCar(Cars[0], singleAction);
-	float dSbyTic = Cars[0]->getV();
+	float dSbyTic = (float)distancePerFrame;
 	if (dSbyTic > 0)
 		moveRoad(elements, dSbyTic);
 }

@@ -13,11 +13,15 @@
 template<typename T> using sp_t = std::shared_ptr<T>;
 template<typename T> using vsp_t = std::vector<sp_t<T>>;
 
+const int koef = 5000;
+const int columnAmount = 6;
+const int columnWidth = width / columnAmount;
+
 class MapGenerator {
     short difficulty;
     vsp_t<Obstruction> mapVector;
 public:
-    MapGenerator(short difficulty = 5);
+    MapGenerator(short difficulty = 1);
     ~MapGenerator();
     void generate();
     vsp_t<Obstruction> getVector();

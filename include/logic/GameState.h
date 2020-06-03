@@ -22,27 +22,35 @@
 template<typename T> using sp_t = std::shared_ptr<T>;
 template<typename T> using vsp_t = std::vector<sp_t<T>>;
 
+enum scenes {
+    beginGame = 1,
+    mainMenu = 2,
+    continueGame = 3,
+    exitGame = 0,
+};
 
 class GameState {
     int actElTracker = 2;  //для composeActualElements (2 т.к. первые два элемента это дорога)
+    int bossTracker = INT32_MAX;  //начало объектов босса (сам босс и снаряды)
+    unsigned int distanceAtAll = 0;  //пройденный путь всего
+    unsigned int distancePerFrame = 0;  //пройденный путь за кадр
+
 public:
     vsp_t<IGameElement> actualElements;
     sp_t<Window> myWindow;
     vsp_t<Obstruction> myMap;
     vsp_t<Car> players;
-//    std::vector<Event*> input;
     sp_t<Collision> myCollision;
-//    SQLiteDataBase myDB;
+    sp_t<Obstruction> boss;
 
-//    Event* myEvent;
-//    Client* myClient;
 
     GameState();
     GameState(sp_t<Window> wndPtr);
     ~GameState();
     size_t gameLoop(SQLiteDataBase &myDB);  //0 - выход в главное меню, 2 - играть заново
-    void composeActualElements(vsp_t<IGameElement> &actualElements);
+    void updateAndComposeActualElements(vsp_t<IGameElement>& actualElements, std::vector<int>& actions, bool& isStrike);
     void gamePreparation();
+    void makeNewMap();
     void serverLoop();
     void exit();
 };

@@ -110,7 +110,7 @@ enum Severity{
 };
 constexpr float aFriction = 0.1f;
 constexpr float minSpeed = 1;
-constexpr float step = 0.75f;
+constexpr float step = 0.2f;
 constexpr int pointsCount = 4;
 constexpr int updateTime = 3;
 constexpr int transparency = -1;
@@ -128,6 +128,8 @@ public:
 	virtual float getY() const = 0;
 	virtual float getAngle() const = 0;
 	virtual int getHealthCount() const = 0;
+    virtual void setX(float x) = 0;
+    virtual void setY(float y) = 0;
 };
 
 class Car : public IGameElement{
@@ -140,8 +142,8 @@ public:
 	float getAngle() const override { return m_angle; }
 	int getHealthCount() const override { return m_life; }
 	float getV() const { return m_v; }
-	void setX(float x) { m_carCentre.first = x; }
-	void setY(float y) { m_carCentre.second = y; };
+	void setX(float x) override { m_carCentre.first = x; }
+	void setY(float y) override { m_carCentre.second = y; };
 	void setV(float v) { m_v = v; }
 	void setAngle(float alpha) { m_angle = alpha; }
 	void setLife(int life) { m_life = life; }
@@ -164,8 +166,8 @@ public:
 	float getY() const override { return m_obstructionCentre.second; }
 	float getAngle() const override { return 0; }
 	void setId(int id) { m_id = id; }
-	void setX(float x) { m_obstructionCentre.first = x; }
-	void setY(float y) { m_obstructionCentre.second = y; };
+	void setX(float x) override { m_obstructionCentre.first = x; }
+	void setY(float y) override{ m_obstructionCentre.second = y; };
 private:
 	int m_life;
 	int m_id;
@@ -176,7 +178,7 @@ class Collision {
 public:
 	Collision():m_time(0),  collisionDuration(0), collisionType(none){ createObjectModels(); }
 	void setTime(int time){ m_time = time; }
-	void setAction(std::vector<std::shared_ptr<Obstruction>> &elements, std::vector<std::shared_ptr<Car>> &Cars, std::vector<int> &actions, bool &isStrike);
+	void setAction(std::vector<std::shared_ptr<Obstruction>> &elements, std::vector<std::shared_ptr<Car>> &Cars, std::vector<int> &actions, bool &isStrike, unsigned int distancePerFrame);
 private:
 	std::unordered_map<int, std::pair<int, int>> objectsSizes; // хранилище размеров всех препятствий, доступ по Id объекта.
 	int m_time;
